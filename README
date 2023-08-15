@@ -14,3 +14,13 @@ tgetnum, tgetstr, tgoto, tputs
 
 ##useful web links##
 https://www.codequoi.com/en/why-i-no-longer-write-articles-about-42-school-projects/
+
+##assignments - 15 08 23
+- Alex
+	- einlesen
+	- fix input parsing
+	- readline()
+- Matteo
+	- launch shell with a prompt
+	- end shell strg D, exit; endless whileloop
+	
