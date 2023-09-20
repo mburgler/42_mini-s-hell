@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   struct_funcs1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 15:50:04 by abektimi         ###   ########.fr       */
+/*   Created: 2023/08/27 18:30:15 by abektimi          #+#    #+#             */
+/*   Updated: 2023/08/27 18:37:30 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	main(int argc, char **argv)
+t_msc   *msc_init(void)
 {
-	
+    t_msc   *ret;
+    
+    
+    return (ret);
 }
