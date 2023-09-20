@@ -10,7 +10,7 @@
 NAME        := minishell
 CC        := cc
 FLAGS    := -Wall -Wextra -Werror -g
-SUPP_FlAGS := -lreadline -lncurses
+SUPP_FLAGS := -lreadline -lncurses
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
