@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 20:50:08 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/20 21:07:33 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ void	init_msc(t_msc *msc, char **env)
 {
 	msc->loop = true;
 	msc->input = NULL;
+	msc->env_cpy = ft_dup_arr(env);
+	if(!msc->env_cpy)
+	{
+		write(2, "Error: malloc failed\n", 22);
+		free_all(msc);
+		exit(1);
+	}
 	msc->env_path = getenv("PATH");
 	msc->env_user = getenv("USER");
 	set_prompt_and_cwd(msc);
