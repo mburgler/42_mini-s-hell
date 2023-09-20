@@ -57,8 +57,7 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
                           MY_LIB/get_next_line/get_next_line_utils_bonus.c \
                           src/parsing.c \
                           src/free_stuff.c \
-                          src/list_utils.c \
-						  src/debug.c \
+						  src/dup_utils.c \
                           src/main.c \
                           
 OBJS        := $(SRCS:.c=.o)

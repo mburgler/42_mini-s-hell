@@ -1,49 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_stuff.c                                       :+:      :+:    :+:   */
+/*   dup_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/08 14:54:00 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 17:36:52 by mburgler         ###   ########.fr       */
+/*   Created: 2023/09/20 17:15:44 by mburgler          #+#    #+#             */
+/*   Updated: 2023/09/20 17:37:43 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	free_null(void **ptr)
-{
-	if (ptr != NULL && *ptr != NULL)
-	{
-		free(*ptr);
-		*ptr = NULL;
-	}
-}
-
-void	ft_free_arr(char **strs)
+int	ft_arrlen(char **str)
 {
 	int	i;
 
 	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
+	while (str[i])
 		i++;
-	}
-	free_null((void **)&strs);
+	return (i);
 }
 
-void	free_all(t_msc *msc)
+char	**ft_dup_arr(char **strs)
 {
-	t_list *tmp;
+	int	i;
+	char	**new;
 
-	while (msc->list)
+	i = 0;
+	if(!strs || strs[0] == NULL)
+		return (NULL);
+	new = ft_calloc(ft_arrlen(strs) + 1, sizeof(char *));
+	if(!new)
+		return (NULL);
+	while (strs[i])
 	{
-		tmp = msc->list;
-		msc->list = msc->list->next;
-		free_null((void **)&tmp->str);
-		free_null((void **)&tmp);
+		new[i] = ft_strdup(strs[i]);
+		if(!new[i])
+		{
+			ft_free_arr(new);
+			return (NULL);
+		}
+		i++;
 	}
-	free_null((void **)&msc);
+	new[i] = NULL;
+	return (new);
 }
