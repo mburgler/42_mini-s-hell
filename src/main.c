@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 16:19:42 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:29:28 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@ int	main(int argc, char **argv, char **env)
 	{
 		input = readline("MyShell> "); // Display a prompt and read user input
 
-        if (!input) {
+        if (!input) 
+		{
             // If input is NULL (e.g., user pressed Ctrl+D), exit the loop
             printf("\n");
             break;
         }
 
-        if (ft_strncmp(input, "exit", 4) == 0) {
+        if (ft_strncmp(input, "exit\0", 5) == 0) 
+		{
             // If user enters "exit", exit the shell
             free(input);
             break;
