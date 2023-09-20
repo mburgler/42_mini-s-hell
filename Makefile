@@ -9,7 +9,8 @@
 
 NAME        := minishell
 CC        := cc
-FLAGS    := -Wall -Wextra -Werror 
+FLAGS    := -Wall -Wextra -Werror -g
+SUPP_FlAGS := -lreadline -lncurses
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
@@ -80,7 +81,7 @@ RM		    := rm -f
 
 ${NAME}:	${OBJS}
 			@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
-			${CC} ${FLAGS} -o ${NAME} ${OBJS}
+			${CC} ${FLAGS} -o ${NAME} ${OBJS} ${SUPP_FLAGS}
 			@echo "$(GREEN)$(NAME) created[0m ✔️"
 
 all:		${NAME}
