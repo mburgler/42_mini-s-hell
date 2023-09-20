@@ -6,22 +6,29 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 16:32:33 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:37:16 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+int	init_msc(t_msc *msc, char **env)
+{
+	msc = ft_calloc(1, sizeof(t_msc));
+	if (!msc)
+		return (-1);
+	msc->loop == true;
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_msc *msc;
 	char	*input;
+
 	if (argc != 1 || !argv[0] || !env)
 		return (-1);
-	msc = ft_calloc(1, sizeof(t_msc));
-	if (!msc)
-		return (-1);
-	msc->loop = true;
+	if(init_msc(msc, env) == -1)
+		return(-1);
 	while(msc->loop == true)
 	{
 		input = readline("MyShell> "); // Display a prompt and read user input
