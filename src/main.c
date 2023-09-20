@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 19:37:19 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/20 19:51:26 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 void	set_prompt(t_msc *msc)
 {
+	//static int	i; //TEST
 	char	*user;
 
 	user = msc->env_user;
 	if(!user)
 		user = "guest";
-	msc->prompt = ft_strjoin(user, "@minishell $ ");
+	msc->prompt = ft_strjoin(user, getcwd(NULL, 0));
+	// msc->prompt = ft_strjoin(user, "@minishell$ ");
+	//i++;
 }
 
 void	init_msc(t_msc *msc, char **env)
@@ -71,6 +74,7 @@ int	main(int argc, char **argv, char **env)
 
 		add_history(msc->input);
 		free(msc->input);
+		set_prompt(msc);
 	}
 	
 
