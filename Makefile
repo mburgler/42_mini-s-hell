@@ -55,7 +55,8 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
                           MY_LIB/ft_printf/ft_printf.c \
                           MY_LIB/get_next_line/get_next_line_bonus.c \
                           MY_LIB/get_next_line/get_next_line_utils_bonus.c \
-                          src/parsing.c \
+                          src/prompt.c \
+						  src/parsing.c \
                           src/free_stuff.c \
 						  src/dup_utils.c \
                           src/main.c \

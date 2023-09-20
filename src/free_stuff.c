@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:54:00 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 17:50:34 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/20 20:36:45 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,8 @@ void	free_all(t_msc *msc)
 		free_null((void **)&tmp);
 	}
 	ft_free_arr(msc->env_cpy);
+	free_null((void **)&msc->env_cwd);
+	free_null((void **)&msc->env_custom_cwd);
+	free_null((void **)&msc->prompt);
 	free_null((void **)&msc);
 }

@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 19:31:57 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/20 20:25:46 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct msc
 	char	*input;
 	char	*env_user;
 	char	*env_path;
+	char	*env_cwd;
+	char	*env_custom_cwd;
 	char	*prompt;
 	char	**env_cpy;
 }				t_msc;
@@ -66,4 +68,8 @@ void	init_msc(t_msc *msc, char **env);
 //dup_utils.c
 int	ft_arrlen(char **str);
 char	**ft_dup_arr(char **strs);
+
+//prompt.c
+void	set_prompt_and_cwd(t_msc *msc);
+
 #endif
