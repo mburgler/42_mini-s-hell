@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:54:00 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 17:36:52 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/20 17:50:34 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	ft_free_arr(char **strs)
 {
 	int	i;
 
+	if(!strs)
+		return ;
 	i = 0;
 	while (strs[i])
 	{
@@ -45,5 +47,6 @@ void	free_all(t_msc *msc)
 		free_null((void **)&tmp->str);
 		free_null((void **)&tmp);
 	}
+	ft_free_arr(msc->env_cpy);
 	free_null((void **)&msc);
 }

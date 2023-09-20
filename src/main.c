@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 17:21:01 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/20 17:48:50 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@ void	init_msc(t_msc *msc, char **env)
 	msc->input = NULL;
 	msc->env_path = getenv("PATH");
 	msc->env_cpy = ft_dup_arr(env);
-	(void)env;
+	if(msc->env_cpy == NULL)
+	{
+		write(2, "Error: malloc failed\n", 22);
+		free_all(msc);
+		exit(1);
+	}
 }
 
 int	main(int argc, char **argv, char **env)
@@ -61,5 +66,6 @@ int	main(int argc, char **argv, char **env)
 	// if (parsing(argc, argv, msc) == -1)
 	// 	return (free_all(msc), -1);
 	// debug_print_list(msc->list);
+	free_all(msc);
 	return (0);
 }
