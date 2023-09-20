@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 16:16:33 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:19:42 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	main(int argc, char **argv, char **env)
 	msc = ft_calloc(1, sizeof(t_msc));
 	if (!msc)
 		return (-1);
-	while(loop == true)
+	msc->loop = true;
+	while(msc->loop == true)
 	{
 		input = readline("MyShell> "); // Display a prompt and read user input
 
@@ -31,7 +32,7 @@ int	main(int argc, char **argv, char **env)
             break;
         }
 
-        if (strcmp(input, "exit") == 0) {
+        if (ft_strncmp(input, "exit", 4) == 0) {
             // If user enters "exit", exit the shell
             free(input);
             break;

@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/08/08 16:05:55 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:18:06 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <stdbool.h>
 # include "../MY_LIB/ft_printf/ft_printf.h"
 # include "../MY_LIB/ft_printf2/ft_printf2.h"
 # include "../MY_LIB/get_next_line/get_next_line_bonus.h"
@@ -43,6 +44,7 @@ typedef struct s_list
 typedef struct msc
 {
 	t_list	*list;
+	bool	loop;
 }				t_msc;
 
 //parsing.c
