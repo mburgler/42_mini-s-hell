@@ -6,17 +6,29 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 17:48:50 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/20 19:37:19 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	set_prompt(t_msc *msc)
+{
+	char	*user;
+
+	user = msc->env_user;
+	if(!user)
+		user = "guest";
+	msc->prompt = ft_strjoin(user, "@minishell $ ");
+}
 
 void	init_msc(t_msc *msc, char **env)
 {
 	msc->loop = true;
 	msc->input = NULL;
 	msc->env_path = getenv("PATH");
+	msc->env_user = getenv("USER");
+	set_prompt(msc);
 	msc->env_cpy = ft_dup_arr(env);
 	if(msc->env_cpy == NULL)
 	{
@@ -38,7 +50,7 @@ int	main(int argc, char **argv, char **env)
 	init_msc(msc, env);
 	while(msc->loop == true)
 	{
-		msc->input = readline(PROMPT); // Display a prompt and read user input
+		msc->input = readline(msc->prompt); // Display a prompt and read user input
 
         if (!msc->input) 
 		{

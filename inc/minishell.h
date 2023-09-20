@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 17:37:29 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/20 19:31:57 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ typedef struct msc
 	t_list	*list;
 	bool	loop;
 	char	*input;
+	char	*env_user;
 	char	*env_path;
+	char	*prompt;
 	char	**env_cpy;
 }				t_msc;
 
@@ -58,6 +60,7 @@ void	ft_free_arr(char **strs);
 void	free_all(t_msc *msc);
 
 //main.c
+void	set_prompt(t_msc *msc);
 void	init_msc(t_msc *msc, char **env);
 
 //dup_utils.c
