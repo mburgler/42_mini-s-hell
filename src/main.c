@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/21 14:08:24 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:16:52 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,14 @@ int	main(int argc, char **argv, char **env)
         }
 
         // Process the user command here
-		if(g_sig_status != 42)
-		{
+		if(g_sig_status != 130)
         	printf("You entered: %s\n", msc->input);
+		else 
 			g_sig_status = 0;
-		}
 		add_history(msc->input);
 		free(msc->input);
 		set_prompt_and_cwd(msc);
 	}
-	
-
 	
 	// if (parsing(argc, argv, msc) == -1)
 	// 	return (free_all(msc), -1);
