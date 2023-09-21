@@ -6,13 +6,13 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 21:07:33 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:26:46 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//free getcwd
+int	g_sig_status = 0;
 
 void	init_msc(t_msc *msc, char **env)
 {
@@ -49,8 +49,14 @@ int	main(int argc, char **argv, char **env)
 	init_msc(msc, env);
 	while(msc->loop == true)
 	{
+		signal(SIGINT, handle_sigint);
+		signal(SIGQUIT, SIG_IGN);
+		if(g_sig_status == 42)
+		{
+			g_sig_status = 0;
+			continue;
+		}
 		msc->input = readline(msc->prompt); // Display a prompt and read user input
-
         if (!msc->input) 
 		{
             // If input is NULL (e.g., user pressed Ctrl+D), exit the loop
@@ -67,7 +73,6 @@ int	main(int argc, char **argv, char **env)
 
         // Process the user command here
         printf("You entered: %s\n", msc->input);
-
 		add_history(msc->input);
 		free(msc->input);
 		set_prompt_and_cwd(msc);

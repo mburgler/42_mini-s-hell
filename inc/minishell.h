@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 20:25:46 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:47:07 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 
 # define PROMPT "minishell$ "
 
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <stdbool.h>
+# include <signal.h>
 # include "../MY_LIB/ft_printf/ft_printf.h"
 # include "../MY_LIB/ft_printf2/ft_printf2.h"
 # include "../MY_LIB/get_next_line/get_next_line_bonus.h"
@@ -51,10 +52,14 @@ typedef struct msc
 	char	*env_user;
 	char	*env_path;
 	char	*env_cwd;
-	char	*env_custom_cwd;
+	char	*env_home_dir;
+	char	*env_tilde_cwd;
 	char	*prompt;
 	char	**env_cpy;
 }				t_msc;
+
+//global variable
+extern int	g_sig_status;
 
 //free_stuff.c
 void	free_null(void **ptr);
@@ -71,5 +76,8 @@ char	**ft_dup_arr(char **strs);
 
 //prompt.c
 void	set_prompt_and_cwd(t_msc *msc);
+
+//signals.c
+void	handle_sigint(int sig);
 
 #endif
