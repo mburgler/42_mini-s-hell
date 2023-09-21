@@ -6,10 +6,11 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:02:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/21 14:16:06 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:30:35 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <readline/readline.h>
 #include "../inc/minishell.h"
 
 void handle_sigint(int sig) 
