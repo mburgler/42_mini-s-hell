@@ -1,0 +1,22 @@
+dont handle open quotes
+    - not %2 since '"' is acceptable. only the outer ones have to match
+    - ''' qould not be aceptable
+
+ctrl + d should exit if nothing in buffer
+    - schon automatisch aber clean exit!
+    
+lexer
+    - expand variables first
+    - check quote space - $ is only expanded in double quotes and no quotes, but not in single quotes
+    - tilde
+    - operators never work in quotes - have to be ooutside of quotes (same with heredoc)
+    - struct mit string and interer called quote
+
+    - heredoc
+        - ganzen string durchgehen ob heredoc vorhanden und nicht in quotes steht und dann prompt zurückgeben
+        - cat << test ist das gleiche wie test << cat
+        - pipe funktioniert genau gleich (wenn pipe am ende und nicht in quotes) - muss am ende sein, dann wird auch wieder prompt zurückgehalten
+    - exit status ($?) muss man auch expanden
+
+SINGLE RESPONISIBILTY FUNCTION, MODULAR, 
+    
