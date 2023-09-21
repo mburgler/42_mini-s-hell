@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/21 14:02:41 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/21 21:45:30 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ typedef struct s_list
 {
 	char *str;
 	struct s_list	*next;
+	struct s_list	*prev;
+	struct s_msc	*msc;
 }			t_list;
 
-typedef struct msc
+typedef struct s_msc
 {
 	t_list	*list;
 	bool	loop;
@@ -80,5 +82,12 @@ void	set_prompt_and_cwd(t_msc *msc);
 
 //signals.c
 void	handle_sigint(int sig);
+
+//list_utils1.c
+t_list	*ft_lstnew(t_msc *ms);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+t_list	*ft_lstlast(t_list *lst);
+void	ft_lstclear(t_list **lst);
+t_list  *init_lst(t_msc *msc);
 
 #endif

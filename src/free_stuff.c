@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_stuff.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:54:00 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/20 22:33:23 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/21 21:21:50 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,18 @@ void	ft_free_arr(char **strs)
 	free_null((void **)&strs);
 }
 
+//the while-loop in comments below has been adapted in list_utils1.c
 void	free_all(t_msc *msc)
 {
-	t_list *tmp;
+	//t_list *tmp;
 
-	while (msc->list)
+	/*while (msc->list)
 	{
 		tmp = msc->list;
 		msc->list = msc->list->next;
 		free_null((void **)&tmp->str);
 		free_null((void **)&tmp);
-	}
+	}*/
 	ft_free_arr(msc->env_cpy);
 	free_null((void **)&msc->env_cwd);
 	free_null((void **)&msc->env_tilde_cwd);
