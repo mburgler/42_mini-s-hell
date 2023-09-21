@@ -1,3 +1,5 @@
+IMMANUEL 210923
+
 dont handle open quotes
     - not %2 since '"' is acceptable. only the outer ones have to match
     - ''' qould not be aceptable
@@ -28,3 +30,26 @@ SINGLE RESPONISIBILTY FUNCTION, MODULAR,
         IF (q == s[i] % 2 + 1)
             q = 0;
     -> we dont handle open quotes
+
+
+    1) hey wie "geht es" dir 
+    -QUOTES
+    -> is there an unmatched quote? then rejecten
+    -> is there a pipe at the end or a >> heredoc -> give back prompt
+    1) hey wie 
+    2) "geht es"
+    3) dir
+    - Whitespace
+    1) hey
+    2) wie
+    3)"geht es"
+    4) dir
+
+    struct_node
+    str
+    next
+    previous
+    quote status
+
+
+

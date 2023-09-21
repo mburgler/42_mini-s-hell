@@ -63,7 +63,7 @@ Note: if a variable is not found, the $var part of the string will be replaced b
 Lastly, we have another split function called ``cmdsubsplit`` which separates with ``<``, ``|``, or ``>``, but only if those chars are outside of quotes:
 
 ```
-output: {echo, "hello      there", how, are, 'you 'doing?, pixel, |, wc, -l, >, outfile, NULL}
+output: {echo, "hello      there", how, are, 'you 'doing?, pixel, |, wc,hey wie "geht es" dir  -l, >, outfile, NULL}
 ```
 
 ### Parser
