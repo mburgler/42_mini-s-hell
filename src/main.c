@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/21 17:16:52 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:42:08 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	main(int argc, char **argv, char **env)
 	
 	// if (parsing(argc, argv, msc) == -1)
 	// 	return (free_all(msc), -1);
-	// debug_print_list(msc->list);
 	free_all(msc);
 	return (0);
 }
