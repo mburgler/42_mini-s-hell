@@ -4,7 +4,7 @@ dont handle open quotes
 
 ctrl + d should exit if nothing in buffer
     - schon automatisch aber clean exit!
-    
+
 lexer
     - expand variables first
     - check quote space - $ is only expanded in double quotes and no quotes, but not in single quotes
@@ -20,3 +20,11 @@ lexer
 
 SINGLE RESPONISIBILTY FUNCTION, MODULAR, 
     
+
+    int q = 0;
+    if q== 0 && (s[i] == 34 ||  s[i] == 39)
+        q = s[i] % 2 + 1;
+    if q != 0 && (s[i] == 34 ||  s[i] == 39)
+        IF (q == s[i] % 2 + 1)
+            q = 0;
+    -> we dont handle open quotes
