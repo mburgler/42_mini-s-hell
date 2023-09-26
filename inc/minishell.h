@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/26 20:40:04 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:42:18 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,6 @@ int	isws(const char c);
 void	*del_split(char **words, int i);
 int	get_wc(const char *s);
 char	*get_wd(char *s);
-char	**lex_split(const char *s);
+char	**lex_split(char *s);
 
 #endif

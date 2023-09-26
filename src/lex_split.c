@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 14:49:43 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/26 18:50:10 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:41:56 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char    *get_wd(char *s)
     return (NULL);
 }
 
-char    **lex_split(const char *s)
+char    **lex_split(char *s)
 {
     int     i;
     char    **ret;
