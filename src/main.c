@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/26 20:35:16 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:43:38 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char **argv, char **env)
         }
 		if(g_sig_status != 131)
 		{
-        	printf("You entered: %s\n\n", msc->input);
+        	//printf("You entered: %s\n\n", msc->input);
 			input_lexer(msc);
 			g_sig_status = 0;
 		}
