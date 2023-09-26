@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:28:49 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/26 20:54:12 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/26 21:25:24 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,24 @@ char    *get_qt(char *s, char q)
         return (ret);
     }
     return (NULL);
+}
+
+//sets the "int quote_status" flag of each t_list node
+//0 -> no quotes
+//1 -> single-quotes
+//2 -> double-quotes
+int s_or_d(const char *s)
+{
+    int i;
+
+    i = 0;
+    while (s[i] != '\0')
+    {
+        if (s[i] == 34)
+            return (2);
+        else if (s[i] == 39)
+            return (1);
+        i++;
+    }
+    return (0);
 }

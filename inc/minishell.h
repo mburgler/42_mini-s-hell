@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/26 20:42:18 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/26 21:25:49 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_list
 	struct s_list	*next;
 	struct s_list	*prev;
 	struct s_msc	*msc;
+	int				quote_status;
 }			t_list;
 
 typedef struct s_msc
@@ -99,6 +100,7 @@ void    ft_printlist(t_list *lst);
 int quote_checker(const char *s);
 void	skip_quotes(const char *s, int *i, int *wc);
 char    *get_qt(char *s, char q);
+int s_or_d(const char *s);
 
 
 //lex_split.c

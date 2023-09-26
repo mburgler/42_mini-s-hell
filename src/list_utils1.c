@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:21:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/26 20:27:44 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/26 21:21:41 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_list  *ft_lstnew(t_msc *ms, const char *s)
     ret->next = NULL;
     ret->prev = NULL;
     ret->msc = ms;
+    ret->quote_status = s_or_d(s);
     return (ret);
 }
 
