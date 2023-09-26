@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/21 21:45:30 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:34:54 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 
 typedef struct s_list
 {
-	char *str;
+	char 			*str;
 	struct s_list	*next;
 	struct s_list	*prev;
 	struct s_msc	*msc;
@@ -49,7 +49,7 @@ typedef struct s_list
 
 typedef struct s_msc
 {
-	t_list	*list;
+	t_list	*lex;
 	bool	loop;
 	char	*input;
 	char	*env_user;
@@ -88,6 +88,24 @@ t_list	*ft_lstnew(t_msc *ms);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstclear(t_list **lst);
-t_list  *init_lst(t_msc *msc);
+t_list  *init_lst(t_msc *msc, char **input);
+
+//lex_funcs.c
+void    del_tmp(char **tmp);
+void	input_lexer(t_msc *msc);
+void    ft_printlist(t_list *lst);
+
+//lex_utils.c
+int quote_checker(const char *s);
+void	skip_quotes(const char *s, int *i, int *wc);
+char    *get_qt(char *s, char q);
+
+
+//lex_split.c
+int	isws(const char c);
+void	*del_split(char **words, int i);
+int	get_wc(const char *s);
+char	*get_wd(char *s);
+char	**lex_split(const char *s);
 
 #endif

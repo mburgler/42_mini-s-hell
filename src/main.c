@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/21 17:42:08 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:35:16 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ void	init_msc(t_msc *msc, char **env)
 	msc->loop = true;
 	msc->input = NULL;
 	msc->env_cpy = ft_dup_arr(env);
+	msc->lex = NULL;
+	msc->env_cwd = NULL;
+	msc->env_home_dir = NULL;
+	msc ->env_tilde_cwd = NULL;
+	msc->prompt = NULL;
 	if(!msc->env_cpy)
 	{
 		write(2, "Error: malloc failed\n", 22);
@@ -51,33 +56,33 @@ int	main(int argc, char **argv, char **env)
 	{
 		signal(SIGINT, handle_sigint);
 		signal(SIGQUIT, SIG_IGN);
-		msc->input = readline(msc->prompt); // Display a prompt and read user input
+		msc->input = readline(msc->prompt);
         if (!msc->input) 
 		{
-            // If input is NULL (e.g., user pressed Ctrl+D), exit the loop
             printf("\n");
             break;
         }
-
         if (ft_strncmp(msc->input, "exit\0", 5) == 0) 
 		{
-            // If user enters "exit", exit the shell
             free(msc->input);
             break;
         }
-
-        // Process the user command here
-		if(g_sig_status != 130)
-        	printf("You entered: %s\n", msc->input);
-		else 
+		if(g_sig_status != 131)
+		{
+        	printf("You entered: %s\n\n", msc->input);
+			input_lexer(msc);
 			g_sig_status = 0;
+		}
 		add_history(msc->input);
 		free(msc->input);
 		set_prompt_and_cwd(msc);
 	}
 	
+
+	
 	// if (parsing(argc, argv, msc) == -1)
 	// 	return (free_all(msc), -1);
+	// debug_print_list(msc->list);
 	free_all(msc);
 	return (0);
 }

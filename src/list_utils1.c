@@ -6,21 +6,21 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:21:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/21 21:15:57 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:27:44 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //creates and returns a blank node of type t_list
-t_list  *ft_lstnew(t_msc *ms)
+t_list  *ft_lstnew(t_msc *ms, const char *s)
 {
     t_list  *ret;
 
     ret = malloc(sizeof(t_list));
     if (!ret)
         return (NULL);
-    ret->str = NULL;
+    ret->str = ft_strdup(s);
     ret->next = NULL;
     ret->prev = NULL;
     ret->msc = ms;
@@ -69,6 +69,7 @@ void    ft_lstclear(t_list **lst)
     while (lst && *lst)
     {
         tmp = (*lst)->next;
+        free((*lst)->str);
         free(*lst);
         *lst = tmp;
     }
@@ -76,20 +77,19 @@ void    ft_lstclear(t_list **lst)
 
 //creates and initializes a list with the required number of nodes
 //returns a pointer to the first node in the list
-t_list  *init_lst(t_msc *msc)
+t_list  *init_lst(t_msc *msc, char **input)
 {
     t_list  *ret;
     t_list  *tmp;
-    int     wordcount;
     int     i;
 
     i = 1;
-    ret = ft_lstnew(msc);
+    ret = ft_lstnew(msc, input[0]);
     if(!ret)
         return (NULL);
-    while (i < wordcount)
+    while (input[i])
     {
-        tmp = ft_lstnew(msc);
+        tmp = ft_lstnew(msc, input[i]);
         ft_lstadd_back(&ret, tmp);
         if (!tmp)
         {
