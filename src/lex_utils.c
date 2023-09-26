@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:28:49 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/26 18:26:09 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:54:12 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int quote_checker(const char *s)
     q = 0;
     while (s[i] != '\0')
     {
-        if (q != 0 && (s[i] == 34 || s[i] == 39))
+        if (q == 0 && (s[i] == 34 || s[i] == 39))
+            q = s[i] % 2 + 1;
+        else if (q != 0 && (s[i] == 34 || s[i] == 39))
         {
             if (q == s[i] % 2 + 1)
                 q = 0;
         }
-        if (q == 0 && (s[i] == 34 || s[i] == 39))
-            q = s[i] % 2 + 1;
         i++;
     }
     return (q);

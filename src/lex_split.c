@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 14:49:43 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/26 20:41:56 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/26 21:03:24 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ char    **lex_split(char *s)
                 return (del_split(ret, i));
             i++;
         }
-        /*while (*s != '\0' && !isws(*s))
-            s++;*/
+        while (*s != '\0' && !isws(*s))
+            s++;
     }
     ret[i] = NULL;
     return (ret);

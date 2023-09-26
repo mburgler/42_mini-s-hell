@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/26 20:45:56 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/26 21:03:44 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void    input_lexer(t_msc *msc)
 {
     char    **tmp;
 
-    printf("\nDOES THIS WORK\n");
     if (quote_checker(msc->input) > 0)
         return ;
     tmp = lex_split(msc->input);
@@ -60,6 +59,7 @@ void    ft_printlist(t_list *lst)
         {
             printf("Node %d contains: %s\n", i, tmp->str);
             tmp = tmp->next;
+            i++;
         }
     }
 }
