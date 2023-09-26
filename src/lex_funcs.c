@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/26 20:34:13 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:40:49 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void    input_lexer(t_msc *msc)
     tmp = lex_split(msc->input);
     msc->lex = init_lst(msc, tmp);
     printf("\n\nTESTING THE LINKED LIST LEXER THING:\n\n");
-    print_list(msc->lex);
+    ft_printlist(msc->lex);
     del_tmp(tmp);
 }
 
