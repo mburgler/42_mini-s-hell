@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/27 22:11:36 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/27 22:51:01 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,19 @@
 //TO DO
 // - handle $?
 
-void	exp_func(t_msc *msc)
+void	exp_head(t_msc *msc)
 {
 	t_list	*tmp;
 	char	*to_free;
 	char	*placeholder;
 
+	placeholder = NULL;
 	tmp = msc->lex;
 	while (tmp && tmp->str)
 	{
 		if (tmp->quote_status == 0 && tmp->str[0] == '~')
-			tmp->str = ft_strjoin_and_free(msc->env_home, tmp->str + 1, tmp->str, NULL);
-		else if (tmp->quote_status == 0 && tmp->str[0] == '$' && tmp->str[1])
+			expand_tilde(msc, tmp);
+		if (tmp->quote_status == 0 && tmp->str[0] == '$' && tmp->str[1])
 		{
 			to_free = tmp->str;
 			tmp->str = exp_sub(msc, tmp->str + 1, NULL);
@@ -84,4 +85,14 @@ void	exp_double_quotes(t_msc *msc, t_list *tmp, char *s1)
 	tmp->str = ft_strjoin_and_free(s1, s2, s1, s2);
 	if(!tmp->str)
 		malloc_error_free_exit(msc, s1, s2);
+}
+
+void	expand_tilde(t_msc *msc, t_list *tmp)
+{
+	if (tmp->str[1] == '\0')
+		tmp->str = ft_strjoin_and_free(msc->env_home, "", tmp->str, NULL);
+	else
+		tmp->str = ft_strjoin_and_free(msc->env_home, tmp->str + 1, tmp->str, NULL);
+	if(!tmp->str)
+		malloc_error_free_exit(msc, tmp->str, NULL);
 }

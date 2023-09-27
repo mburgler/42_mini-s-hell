@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_funcs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/27 15:29:42 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/27 22:39:39 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void    input_lexer(t_msc *msc)
     tmp = lex_split(msc->input);
     msc->lex = init_lst(msc, tmp);
     printf("\n\nTESTING THE LINKED LIST LEXER THING:\n\n");
+	exp_head(msc); //MATTEO ADDED THIS
     ft_printlist(msc->lex);
     del_tmp(tmp);
 }
