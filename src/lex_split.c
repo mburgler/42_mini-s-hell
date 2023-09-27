@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 14:49:43 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/26 21:03:24 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/27 17:22:03 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,11 @@ int get_wc(const char *s)
     while (s[i] != '\0')
     {
         if (s[i] == 34 || s[i] == 39)
+        {
             skip_quotes(s, &i, &wc);
-        if (!isws(s[i]) && !(s[i] == 34 || s[i] == 39))
+            printf("\nPROBLEM CHAR: %c\n", s[i]);
+        }
+        if (!isws(s[i]) && !(s[i] == 34 || s[i] == 39) && s[i])
         {
             while (!isws(s[i]) && s[i] != '\0')
                 i++;
@@ -54,6 +57,7 @@ int get_wc(const char *s)
             wc++;*/
         i++;
     }
+    printf("\nWORD COUNT: %d\n", wc);
     return (wc);
 }
 

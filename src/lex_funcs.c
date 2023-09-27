@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/26 21:19:25 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:29:42 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void    ft_printlist(t_list *lst)
         while (tmp)
         {
             printf("Node %d contains: %s\n", i, tmp->str);
+            printf("Quotes: %d\n", tmp->quote_status);
             tmp = tmp->next;
             i++;
         }
