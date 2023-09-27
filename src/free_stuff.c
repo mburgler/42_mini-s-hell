@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_stuff.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:54:00 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/21 21:21:50 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/27 22:10:35 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	free_all(t_msc *msc)
 	}*/
 	ft_free_arr(msc->env_cpy);
 	free_null((void **)&msc->env_cwd);
-	free_null((void **)&msc->env_tilde_cwd);
+	//don't free msc->env_home, it's a pointer to an environment variable
+	free_null((void **)&msc->prompt_cwd);
 	free_null((void **)&msc->prompt);
 	free_null((void **)&msc);
 }

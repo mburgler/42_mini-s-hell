@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:20:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/27 17:42:31 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/27 22:10:30 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,28 @@ void set_custom_cwd(t_msc *msc)
     char *cwd;
 	char *pos;
 
-    msc->env_home_dir = getenv("HOME");
     cwd = getcwd(NULL, 0);
-    if (msc->env_home_dir && cwd)
+    if (msc->env_home && cwd)
     {
-        pos = ft_strnstr(cwd, msc->env_home_dir, \
-			ft_strlen(msc->env_home_dir));
+        pos = ft_strnstr(cwd, msc->env_home, \
+			ft_strlen(msc->env_home));
         if (pos)
         {
-            msc->env_tilde_cwd = ft_strjoin("~", \
-				pos + ft_strlen(msc->env_home_dir));
+			msc->prompt_cwd = ft_strjoin("~", pos + ft_strlen(msc->env_home));
             free(cwd);
-            return;
+            return ;
         }
     }
-    else if (!msc->env_home_dir && cwd)
+    else if (!msc->env_home && cwd)
     {
-        msc->env_tilde_cwd = cwd;
+        msc->prompt_cwd = cwd;
 		free(cwd);
-        return;
+        return ;
     }
     else
-	{
-        msc->env_tilde_cwd = "";
-		if(cwd)
-			free(cwd);
-	}
+        msc->prompt_cwd = "";
+	if(cwd)
+		free(cwd);
 }
 
 void	set_prompt_and_cwd(t_msc *msc)
@@ -61,7 +57,7 @@ void	set_prompt_and_cwd(t_msc *msc)
 		exit(1);
 	}
 	set_custom_cwd(msc);
-	tmp2 = ft_strjoin(tmp, msc->env_tilde_cwd);
+	tmp2 = ft_strjoin(tmp, msc->prompt_cwd);
 	free(tmp);
 	if(!tmp2)
 	{
