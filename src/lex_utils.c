@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:28:49 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/27 23:16:44 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:27:08 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ char    *get_qt(char *s, char q)
 		while (s[i] != '\0' && !isws(s[i]))
 			i++;
 	}
-	if (i == 1)
-		return (NULL);
 	if (i > 1)
 		ret = malloc(sizeof(char) * (i + 1));
+	else
+		return (NULL);
 	j = -1;
 	if (!ret)
 		return (NULL);
