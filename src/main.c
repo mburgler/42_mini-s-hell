@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/26 20:43:38 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/27 22:10:25 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	init_msc(t_msc *msc, char **env)
 	msc->env_cpy = ft_dup_arr(env);
 	msc->lex = NULL;
 	msc->env_cwd = NULL;
-	msc->env_home_dir = NULL;
-	msc ->env_tilde_cwd = NULL;
+	msc->env_home = getenv("HOME");
+	msc ->prompt_cwd = NULL;
 	msc->prompt = NULL;
 	if(!msc->env_cpy)
 	{

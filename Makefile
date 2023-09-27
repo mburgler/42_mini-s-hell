@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+         #
+#    By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/21 10:55:14 by mburgler          #+#    #+#              #
-#    Updated: 2023/09/26 20:39:03 by abektimi         ###   ########.fr        #
+#    Updated: 2023/09/27 21:05:57 by mburgler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,10 +74,13 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
                     src/prompt.c \
                     src/parsing.c \
                     src/free_stuff.c \
+					src/error_handling.c \
                     src/dup_utils.c \
                     src/signal.c \
                     src/main.c \
                     src/list_utils1.c \
+					src/exp_func.c \
+					src/exp_utils.c \
                     src/lex_funcs.c \
                     src/lex_split.c \
                     src/lex_utils.c

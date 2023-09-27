@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/27 18:02:54 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/27 22:57:55 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ typedef struct s_msc
 	char	*env_user;
 	char	*env_path;
 	char	*env_cwd;
-	char	*env_home_dir;
-	char	*env_tilde_cwd;
+	char	*env_home;
+	char	*prompt_cwd;
 	char	*prompt;
 	char	**env_cpy;
 }				t_msc;
@@ -69,6 +69,9 @@ extern int	g_sig_status;
 void	free_null(void **ptr);
 void	ft_free_arr(char **strs);
 void	free_all(t_msc *msc);
+
+//error_handling.c
+void	malloc_error_free_exit(t_msc *msc, char *to_free, char *to_free2);
 
 //main.c
 void	set_prompt(t_msc *msc);
@@ -83,6 +86,16 @@ void	set_prompt_and_cwd(t_msc *msc);
 
 //signals.c
 void	handle_sigint(int sig);
+
+//exp_func.c
+void	exp_head(t_msc *msc);
+char	*exp_sub(t_msc *msc, char *str, char *to_free_in_case_of_error);
+void	exp_double_quotes(t_msc *msc, t_list *tmp, char *s1);
+void	expand_tilde(t_msc *msc, t_list *tmp);
+
+//exp_utils.c
+char	*ft_strjoin_and_free(char *s1, char *s2, char *to_free, char *to_free2);
+char	*free_two(char *to_free, char *to_free2);
 
 //list_utils1.c
 t_list	*ft_lstnew(t_msc *ms, const char *s);
