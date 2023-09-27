@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:28:49 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/27 22:50:16 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:16:44 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char    *get_qt(char *s, char q)
 	if (!ret)
 		return (NULL);
 	while (++j < i)
-		ret[j] = s[j];
+		ret[j] = s[j]; //fix this later
 	ret[j] = '\0';
 	//s += j;
 	return (ret);
