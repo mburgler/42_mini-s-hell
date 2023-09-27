@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:20:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/27 22:10:30 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:24:29 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void set_custom_cwd(t_msc *msc)
             free(cwd);
             return ;
         }
+		free(cwd);
     }
     else if (!msc->env_home && cwd)
     {
@@ -37,8 +38,6 @@ void set_custom_cwd(t_msc *msc)
     }
     else
         msc->prompt_cwd = "";
-	if(cwd)
-		free(cwd);
 }
 
 void	set_prompt_and_cwd(t_msc *msc)
