@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:28:49 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/26 21:25:24 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/27 22:50:16 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,71 +19,73 @@
 //iii) a value of 2 shows that there are open single-quotes
 int quote_checker(const char *s)
 {
-    int i;
-    int q;
+	int i;
+	int q;
 
-    i = 0;
-    q = 0;
-    while (s[i] != '\0')
-    {
-        if (q == 0 && (s[i] == 34 || s[i] == 39))
-            q = s[i] % 2 + 1;
-        else if (q != 0 && (s[i] == 34 || s[i] == 39))
-        {
-            if (q == s[i] % 2 + 1)
-                q = 0;
-        }
-        i++;
-    }
-    return (q);
+	i = 0;
+	q = 0;
+	while (s[i] != '\0')
+	{
+		if (q == 0 && (s[i] == 34 || s[i] == 39))
+			q = s[i] % 2 + 1;
+		else if (q != 0 && (s[i] == 34 || s[i] == 39))
+		{
+			if (q == s[i] % 2 + 1)
+				q = 0;
+		}
+		i++;
+	}
+	return (q);
 }
 
 //ensures that sections in the user input which are put in quotes
 // are counted as one contiguous entry, including possible whitespace chars
-void    skip_quotes(const char *s, int *i, int *wc)
+void    skip_quotes(const char *s, int *i)
 {
-    char    tmp;
+	char    tmp;
 
-    tmp = s[(*i)++];
-    while (s[*i] != '\0' && s[*i] != tmp)
-        (*i)++;
-    (*i)++;
-    if (!isws(s[*i]))
-    {
-        while (s[*i] != '\0' && !isws(s[*i]))
-            (*i)++;
-    }
-    (*wc)++;
+	tmp = s[(*i)++];
+	while (s[*i] != '\0' && s[*i] != tmp)
+		(*i)++;
+	if (s[*i] == tmp)
+	{
+		(*i)++;
+		if (!isws(s[*i]) && s[*i] != '\0')
+		{
+			while (s[*i] != '\0' && !isws(s[*i]))
+				(*i)++;
+		}
+	}
 }
 
 //get_qt() returns the input section in quotation marks
 //to lex_split() as one cohesive entry 
 char    *get_qt(char *s, char q)
 {
-    int     i;
-    int     j;
-    char    *ret;
+	int     i;
+	int     j;
+	char    *ret;
 
-    i = 1;
-    while (s[i] != '\0' && s[i] != q)
-        i++;
-    if (s[i] != '\0' && !isws(s[i]))
-        while (s[i] != '\0' && isws(s[i]))
-            i++;
-    if (i > 1)
-        ret = malloc(sizeof(char) * (i + 1));
-    else
-        return (NULL);
-    j = -1;
-    if (ret != NULL)
-    {
-        while (++j < i)
-            ret[j] = s[j];
-        ret[j] = '\0';
-        s += j;
-        return (ret);
-    }
-    return (NULL);
+	i = 1;
+	while (s[i] != '\0' && s[i] != q)
+		i++;
+	if (s[i + 1] != '\0' && !isws(s[i + 1]))
+	{
+		while (s[i] != '\0' && !isws(s[i]))
+			i++;
+	}
+	if (i == 1)
+		return (NULL);
+	if (i > 1)
+		ret = malloc(sizeof(char) * (i + 1));
+	j = -1;
+	if (!ret)
+		return (NULL);
+	while (++j < i)
+		ret[j] = s[j];
+	ret[j] = '\0';
+	//s += j;
+	return (ret);
 }
 
 //sets the "int quote_status" flag of each t_list node
@@ -92,16 +94,16 @@ char    *get_qt(char *s, char q)
 //2 -> double-quotes
 int s_or_d(const char *s)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (s[i] != '\0')
-    {
-        if (s[i] == 34)
-            return (2);
-        else if (s[i] == 39)
-            return (1);
-        i++;
-    }
-    return (0);
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == 34)
+			return (2);
+		else if (s[i] == 39)
+			return (1);
+		i++;
+	}
+	return (0);
 }

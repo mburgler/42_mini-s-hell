@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/26 21:25:49 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/27 18:02:54 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void    ft_printlist(t_list *lst);
 
 //lex_utils.c
 int quote_checker(const char *s);
-void	skip_quotes(const char *s, int *i, int *wc);
+void	skip_quotes(const char *s, int *i);
 char    *get_qt(char *s, char q);
 int s_or_d(const char *s);
 
