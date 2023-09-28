@@ -6,7 +6,7 @@
 #    By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/21 10:55:14 by mburgler          #+#    #+#              #
-#    Updated: 2023/09/28 00:30:37 by mburgler         ###   ########.fr        #
+#    Updated: 2023/09/28 21:16:51 by mburgler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,7 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
 					src/exp_func.c \
 					src/exp_utils.c \
 					src/op_func.c \
+					src/pars_func.c \
                     src/lex_funcs.c \
                     src/lex_split.c \
                     src/lex_utils.c
