@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/27 22:57:55 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/28 01:58:40 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,16 @@ void	handle_sigint(int sig);
 void	exp_head(t_msc *msc);
 char	*exp_sub(t_msc *msc, char *str, char *to_free_in_case_of_error);
 void	exp_double_quotes(t_msc *msc, t_list *tmp, char *s1);
-void	expand_tilde(t_msc *msc, t_list *tmp);
+void	exp_tilde(t_msc *msc, t_list *tmp);
 
 //exp_utils.c
 char	*ft_strjoin_and_free(char *s1, char *s2, char *to_free, char *to_free2);
 char	*free_two(char *to_free, char *to_free2);
+
+//op_func.c
+void	tokenize_op(t_msc *msc);
+void	tokenize_individual_op(t_msc *msc, t_list *tmp, char op);
+void	ft_lst_insert(t_list *node, const char *s, t_msc *msc);
 
 //list_utils1.c
 t_list	*ft_lstnew(t_msc *ms, const char *s);

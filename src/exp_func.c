@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/27 22:51:01 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/28 00:36:14 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	exp_head(t_msc *msc)
 	while (tmp && tmp->str)
 	{
 		if (tmp->quote_status == 0 && tmp->str[0] == '~')
-			expand_tilde(msc, tmp);
+			exp_tilde(msc, tmp);
 		if (tmp->quote_status == 0 && tmp->str[0] == '$' && tmp->str[1])
 		{
 			to_free = tmp->str;
@@ -87,7 +87,7 @@ void	exp_double_quotes(t_msc *msc, t_list *tmp, char *s1)
 		malloc_error_free_exit(msc, s1, s2);
 }
 
-void	expand_tilde(t_msc *msc, t_list *tmp)
+void	exp_tilde(t_msc *msc, t_list *tmp)
 {
 	if (tmp->str[1] == '\0')
 		tmp->str = ft_strjoin_and_free(msc->env_home, "", tmp->str, NULL);

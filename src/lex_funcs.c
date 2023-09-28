@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_funcs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/27 22:57:08 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/28 02:12:59 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ void    input_lexer(t_msc *msc)
 		return ;
 	tmp = lex_split(msc->input);
 	msc->lex = init_lst(msc, tmp);
-	printf("\n\nTESTING THE LINKED LIST LEXER THING:\n\n");
+	printf("\n\n### TESTING THE LINKED LIST LEXER THING: ###\n\n");
+	printf("~~ !! _ symbol added for better readability, not part of the string !! ~~\n\n");
 	exp_head(msc); //MATTEO ADDED THIS
+	//tokenize_op(msc);
 	ft_printlist(msc->lex);
 	del_tmp(tmp);
 }
@@ -58,7 +60,7 @@ void    ft_printlist(t_list *lst)
 		tmp = lst;
 		while (tmp)
 		{
-			printf("Node %d contains: %s\n", i, tmp->str);
+			printf("Node %d contains: _%s_\n", i, tmp->str);
 			printf("Quotes: %d\n", tmp->quote_status);
 			tmp = tmp->next;
 			i++;
