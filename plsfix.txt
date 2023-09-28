@@ -1,0 +1,103 @@
+################################
+
+Strange results with the prompt:
+
+< Makefile cat | echo "$PWD 'hola'" ~/src | 'tr' -d / > outfile
+
+---------------------------------
+- seg fault
+inconsistent results(compare node 0) in both runs
+
+################################
+
+###########
+#  RUN 1  #
+###########
+
+mburgler@minishell ~/Coding/42_mini-s-hell $ < Makefile cat | echo "$PWD 'hola'" ~/src | 'tr' -d / > outfile
+
+WORD COUNT: 13
+
+
+### TESTING THE LINKED LIST LEXER THING: ###
+
+~~ !! _ symbol added for better readability, not part of the string !! ~~
+
+Node 0 contains: _<_
+Quotes: 0
+Node 1 contains: _Makefile_
+Quotes: 0
+Node 2 contains: _cat_
+Quotes: 0
+Node 3 contains: _|_
+Quotes: 0
+Node 4 contains: _echo_
+Quotes: 0
+Node 5 contains: __
+Quotes: 0
+Node 6 contains: _'hola'"_
+Quotes: 1
+Node 7 contains: _/Users/matteobuergler/src_
+Quotes: 0
+Node 8 contains: _|_
+Quotes: 0
+Node 9 contains: _'tr_
+Quotes: 1
+Node 10 contains: _-d_
+Quotes: 0
+Node 11 contains: _/_
+Quotes: 0
+Node 12 contains: _>_
+Quotes: 0
+Node 13 contains: _outfile_
+Quotes: 0
+minishell(9607,0x7ff85b095e80) malloc: *** error for object 0x4000000000000000: pointer being freed was not allocated
+minishell(9607,0x7ff85b095e80) malloc: *** set a breakpoint in malloc_error_break to debug
+[1]    9607 abort      ./minishell
+
+
+###########
+#  RUN 2  #
+###########
+
+
+mburgler@minishell ~/Coding/42_mini-s-hell $ < Makefile cat | echo "$PWD 'hola'" ~/src | 'tr' -d / > outfile
+
+WORD COUNT: 13
+
+
+### TESTING THE LINKED LIST LEXER THING: ###
+
+~~ !! _ symbol added for better readability, not part of the string !! ~~
+
+Node 0 contains: __
+Quotes: 0
+Node 1 contains: _Makefile_
+Quotes: 0
+Node 2 contains: _cat_
+Quotes: 0
+Node 3 contains: _|_
+Quotes: 0
+Node 4 contains: _echo_
+Quotes: 0
+Node 5 contains: _"/Users/matteobuergler/Coding/42_mini-s-hell 'hola'_
+Quotes: 2
+Node 6 contains: _'hola'"_
+Quotes: 1
+Node 7 contains: _/Users/matteobuergler/src_
+Quotes: 0
+Node 8 contains: _|_
+Quotes: 0
+Node 9 contains: _'tr_
+Quotes: 1
+Node 10 contains: _-d_
+Quotes: 0
+Node 11 contains: _/_
+Quotes: 0
+Node 12 contains: _>_
+Quotes: 0
+Node 13 contains: _outfile_
+Quotes: 0
+minishell(9968,0x7ff85b095e80) malloc: *** error for object 0xb000000000000000: pointer being freed was not allocated
+minishell(9968,0x7ff85b095e80) malloc: *** set a breakpoint in malloc_error_break to debug
+/Users/matteobuergler/Coding/faciliation/build_run.sh: line 21:  9968 Abort trap: 6           ./$MY_PROGRAM_NAME $MY_PROGRAM_ARGS

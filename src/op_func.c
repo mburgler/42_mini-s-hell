@@ -6,22 +6,11 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/28 20:41:48 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/28 20:43:06 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-/*THINGS TO CONSIDER
-- first list element
-- last list element
-- multiple ops in a row
-- ops with whitespace around them
-- op as first
-- op as last
-- op as only
-- op as first and last
-*/
 
 void tokenize_op(t_msc *msc)
 {
