@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/28 21:18:11 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/28 22:55:34 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ typedef struct s_list
 	struct s_msc	*msc;
 	int				quote_status;
 }			t_list;
+
+typedef struct s_cmd
+{
+	char	*cmd;
+	char	*option;
+	char	**full_cmd;
+	int		pid;
+	int		fd_in;
+	int		fd_out;
+}				t_cmd;
 
 typedef struct s_msc
 {
@@ -103,7 +113,7 @@ void	tokenize_individual_op(t_msc *msc, t_list *tmp, char op);
 int	ft_lst_insert(t_list *node, char *s, t_msc *msc);
 
 //pars_func.c
-
+void	pars_head(t_msc *msc);
 
 //list_utils1.c
 t_list	*ft_lstnew(t_msc *ms, const char *s);

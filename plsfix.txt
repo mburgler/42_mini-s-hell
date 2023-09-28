@@ -1,6 +1,6 @@
 ################################
 
-Strange results with the prompt:
+Sus results with the prompt:
 
 < Makefile cat | echo "$PWD 'hola'" ~/src | 'tr' -d / > outfile
 
