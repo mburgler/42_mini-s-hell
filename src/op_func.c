@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/28 14:24:04 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:02:11 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,51 @@ void tokenize_op(t_msc *msc)
     }
 }
 
-void tokenize_individual_op(t_msc *msc, t_list **tmp, char op)
+void	tokenize_individual_op(t_msc *msc, t_list *tmp, char op)
 {
-    char *to_free;
-    char *op_pos;
+	char	*to_free;
+	int		i;
 
-    while ((*tmp) && (op_pos = ft_strchr((*tmp)->str, op)))
-    {
-        int i = op_pos - (*tmp)->str;
-        to_free = (*tmp)->str;
-        if (i > 0)
-        {
-            (*tmp)->str = ft_substr((*tmp)->str, 0, i);
-            ft_lst_insert(*tmp, ft_substr(to_free, i + 1, ft_strlen(to_free) - i - 1), msc);
-            (*tmp)->next->quote_status = 0;
-        }
-        else
-        {
-            (*tmp)->str = ft_substr((*tmp)->str, 1, ft_strlen(to_free) - 1);
-        }
-        free(to_free);
-        ft_lst_insert(*tmp, ft_substr(&op, 0, 1), msc);
-        (*tmp)->next->quote_status = 0;
-        *tmp = (*tmp)->next->next;
-    }
+	i = 0;
+	while (tmp->str[i] && tmp->str[i] != op)
+		i++;
+	if(tmp->str[i] == op && i > 0)
+	{
+		to_free = tmp->str;
+		tmp->str = ft_substr(tmp->str, 0, i);
+		free(to_free);
+		to_free = ft_substr(tmp->str, i, ft_strlen(tmp->str) - i);
+		ft_lst_insert(tmp, to_free, msc);
+	}
 }
+
+//CO_PLT
+//
+// void tokenize_individual_op(t_msc *msc, t_list **tmp, char op)
+// {
+//     char *to_free;
+//     char *op_pos;
+
+//     while ((*tmp) && (op_pos = ft_strchr((*tmp)->str, op)))
+//     {
+//         int i = op_pos - (*tmp)->str;
+//         to_free = (*tmp)->str;
+//         if (i > 0)
+//         {
+//             (*tmp)->str = ft_substr((*tmp)->str, 0, i);
+//             ft_lst_insert(*tmp, ft_substr(to_free, i + 1, ft_strlen(to_free) - i - 1), msc);
+//             (*tmp)->next->quote_status = 0;
+//         }
+//         else
+//         {
+//             (*tmp)->str = ft_substr((*tmp)->str, 1, ft_strlen(to_free) - 1);
+//         }
+//         free(to_free);
+//         ft_lst_insert(*tmp, ft_substr(&op, 0, 1), msc);
+//         (*tmp)->next->quote_status = 0;
+//         *tmp = (*tmp)->next->next;
+//     }
+// }
 
 
 

@@ -11,6 +11,11 @@ Node 1 contains: _..._
 Quotes: 0
 Node 2 contains: _|hey_
 Quotes: 0
+
+
+->2) CHANGE STR |
+->3) ADDED NODE with str hey
+->4) = old (3)
 Node 3 contains: _..._
 Quotes: 0
 Node 4 contains: _abc_
