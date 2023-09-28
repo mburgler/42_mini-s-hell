@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/28 02:12:59 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/28 13:55:49 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void    input_lexer(t_msc *msc)
 	printf("\n\n### TESTING THE LINKED LIST LEXER THING: ###\n\n");
 	printf("~~ !! _ symbol added for better readability, not part of the string !! ~~\n\n");
 	exp_head(msc); //MATTEO ADDED THIS
-	//tokenize_op(msc);
+	tokenize_op(msc);
 	ft_printlist(msc->lex);
 	del_tmp(tmp);
 }
