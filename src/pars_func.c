@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 21:17:00 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/28 23:37:11 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/28 23:40:05 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,3 +28,6 @@ void	pars_head(t_msc *msc)
 }
 
 int	pars_list(t_msc *msc)
+{
+	//finsih tmrw
+}
