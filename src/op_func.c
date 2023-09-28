@@ -6,11 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/09/28 17:02:11 by mburgler         ###   ########.fr       */
-=======
-/*   Updated: 2023/09/28 16:56:21 by mburgler         ###   ########.fr       */
->>>>>>> refs/remotes/origin/main
+/*   Updated: 2023/09/28 20:05:51 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +32,9 @@ void tokenize_op(t_msc *msc)
     {
         if(tmp->quote_status == 0)
         {
-            if (tokenize_individual_op(msc, &tmp, '|')) continue;
-            if (tokenize_individual_op(msc, &tmp, '>')) continue;
-            if (tokenize_individual_op(msc, &tmp, '<')) continue;
+            tokenize_individual_op(msc, tmp, '|');
+            tokenize_individual_op(msc, tmp, '>');
+            tokenize_individual_op(msc, tmp, '<');
         }
         tmp = tmp->next;
     }
@@ -46,7 +42,7 @@ void tokenize_op(t_msc *msc)
 
 void	tokenize_individual_op(t_msc *msc, t_list *tmp, char op)
 {
-	char	*to_free;
+	char	*buff;
 	int		i;
 
 	i = 0;
@@ -54,126 +50,48 @@ void	tokenize_individual_op(t_msc *msc, t_list *tmp, char op)
 		i++;
 	if(tmp->str[i] == op && i > 0)
 	{
-		to_free = tmp->str;
-		tmp->str = ft_substr(tmp->str, 0, i);
-		free(to_free);
-		to_free = ft_substr(tmp->str, i, ft_strlen(tmp->str) - i);
-		ft_lst_insert(tmp, to_free, msc);
+		buff = tmp->str;
+		if(!ft_lst_insert(tmp, ft_substr(buff, i, ft_strlen(buff) - i), msc))
+			malloc_error_free_exit(msc, NULL, NULL);
+		tmp->str = ft_substr(buff, 0, i);
+		if(!tmp->str)
+			malloc_error_free_exit(msc, NULL, NULL);
+		free(buff);
+	}
+	else if(tmp->str[i] == op && tmp->str[i + 1] && i == 0)
+	{
+		buff = tmp->str;
+		if(!ft_lst_insert(tmp, ft_substr(buff, 1, ft_strlen(buff) - 1), msc))
+			malloc_error_free_exit(msc, NULL, NULL);
+		tmp->str = ft_substr(buff, 0, 1);
+		if(!tmp->str)
+			malloc_error_free_exit(msc, NULL, NULL);
+		free(buff);
 	}
 }
 
-//CO_PLT
-//
-// void tokenize_individual_op(t_msc *msc, t_list **tmp, char op)
-// {
-//     char *to_free;
-//     char *op_pos;
+int	ft_lst_insert(t_list *node, char *s, t_msc *msc)
+{
+	t_list	*new_node;
+	t_list	*next_node;
 
-//     while ((*tmp) && (op_pos = ft_strchr((*tmp)->str, op)))
-//     {
-//         int i = op_pos - (*tmp)->str;
-//         to_free = (*tmp)->str;
-//         if (i > 0)
-//         {
-//             (*tmp)->str = ft_substr((*tmp)->str, 0, i);
-//             ft_lst_insert(*tmp, ft_substr(to_free, i + 1, ft_strlen(to_free) - i - 1), msc);
-//             (*tmp)->next->quote_status = 0;
-//         }
-//         else
-//         {
-//             (*tmp)->str = ft_substr((*tmp)->str, 1, ft_strlen(to_free) - 1);
-//         }
-//         free(to_free);
-//         ft_lst_insert(*tmp, ft_substr(&op, 0, 1), msc);
-//         (*tmp)->next->quote_status = 0;
-//         *tmp = (*tmp)->next->next;
-//     }
-// }
-
-
-
-//CO_PLT
-
-// void    ft_lst_insert(t_list *node, const char *s, t_msc *msc)
-// {
-//     t_list    *new_node;
-//     t_list    *next_node;
-
-//     new_node = malloc(sizeof(t_list));
-//     if (!new_node)
-//         malloc_error_free_exit(msc, NULL, NULL);
-//     if (s)
-//         new_node->str = ft_strdup(s);
-//     new_node->next = NULL;
-//     new_node->prev = node;
-//     new_node->msc = msc;
-//     new_node->quote_status = node->quote_status;
-//     next_node = node->next;
-//     if (next_node)
-//     {
-//         new_node->next = next_node;
-//         next_node->prev = new_node;
-//     }
-//     node->next = new_node;
-// }
-
-//OLD
-//
-// void	tokenize_op(t_msc *msc)
-// {
-// 	t_list	*tmp;
-
-// 	tmp = msc->lex;
-// 	while (tmp && tmp->str)
-// 	{
-// 		if(tmp->quote_status == 0)
-// 		{
-// 			tokenize_individual_op(msc, tmp, '|');
-// 			tokenize_individual_op(msc, tmp, '>');
-// 			tokenize_individual_op(msc, tmp, '<');
-// 		}
-// 		tmp = tmp->next;
-// 	}
-// }
-//
-// void	tokenize_individual_op(t_msc *msc, t_list *tmp, char op)
-// {
-// 	char	*to_free;
-// 	int		i;
-
-// 	i = 0;
-// 	while (tmp->str[i] && tmp->str[i] != op)
-// 		i++;
-// 	if(tmp->str[i] == op && i > 0)
-// 	{
-// 		to_free = tmp->str;
-// 		tmp->str = ft_substr(tmp->str, 0, i);
-// 		free(to_free);
-// 		to_free = ft_substr(tmp->str, i, ft_strlen(tmp->str) - i);
-// 		ft_lst_insert(tmp, to_free, msc);
-// 	}
-// }
-
-// void	ft_lst_insert(t_list *node, const char *s, t_msc *msc)
-// {
-// 	t_list	*new_node;
-// 	t_list	*next_node;
-
-// 	new_node = malloc(sizeof(t_list));
-// 	if (!new_node)
-// 		malloc_error_free_exit(msc, NULL, NULL);
-// 	if(s)
-// 		new_node->str = ft_strdup(s);
-// 	new_node->next = NULL;
-// 	new_node->prev = node;
-// 	new_node->msc = msc;
-// 	new_node->quote_status = node->quote_status;
-// 	next_node = node->next;
-// 	if (next_node)
-// 	{
-// 		new_node->next = next_node;
-// 		next_node->prev = new_node;
-// 	}
-// 	node->next = new_node;
-// }
-
+	if(!s)
+		return (0);
+	new_node = malloc(sizeof(t_list));
+	if (!new_node)
+		malloc_error_free_exit(msc, NULL, NULL);
+	if(s)
+		new_node->str = s;
+	new_node->next = NULL;
+	new_node->prev = node;
+	new_node->msc = msc;
+	new_node->quote_status = node->quote_status;
+	next_node = node->next;
+	if (next_node)
+	{
+		new_node->next = next_node;
+		next_node->prev = new_node;
+	}
+	node->next = new_node;
+	return (1);
+}

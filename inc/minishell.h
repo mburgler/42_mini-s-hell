@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/28 14:23:08 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/28 19:50:24 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ char	*free_two(char *to_free, char *to_free2);
 
 //op_func.c
 void	tokenize_op(t_msc *msc);
-int tokenize_individual_op(t_msc *msc, t_list **tmp, char op);
-void	ft_lst_insert(t_list *node, const char *s, t_msc *msc);
+void	tokenize_individual_op(t_msc *msc, t_list *tmp, char op);
+int	ft_lst_insert(t_list *node, char *s, t_msc *msc);
 
 //list_utils1.c
 t_list	*ft_lstnew(t_msc *ms, const char *s);
