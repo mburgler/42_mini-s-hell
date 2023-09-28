@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/28 14:24:04 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/28 16:56:21 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,29 +68,30 @@ void tokenize_individual_op(t_msc *msc, t_list **tmp, char op)
 
 
 
+//CO_PLT
 
-void    ft_lst_insert(t_list *node, const char *s, t_msc *msc)
-{
-    t_list    *new_node;
-    t_list    *next_node;
+// void    ft_lst_insert(t_list *node, const char *s, t_msc *msc)
+// {
+//     t_list    *new_node;
+//     t_list    *next_node;
 
-    new_node = malloc(sizeof(t_list));
-    if (!new_node)
-        malloc_error_free_exit(msc, NULL, NULL);
-    if (s)
-        new_node->str = ft_strdup(s);
-    new_node->next = NULL;
-    new_node->prev = node;
-    new_node->msc = msc;
-    new_node->quote_status = node->quote_status;
-    next_node = node->next;
-    if (next_node)
-    {
-        new_node->next = next_node;
-        next_node->prev = new_node;
-    }
-    node->next = new_node;
-}
+//     new_node = malloc(sizeof(t_list));
+//     if (!new_node)
+//         malloc_error_free_exit(msc, NULL, NULL);
+//     if (s)
+//         new_node->str = ft_strdup(s);
+//     new_node->next = NULL;
+//     new_node->prev = node;
+//     new_node->msc = msc;
+//     new_node->quote_status = node->quote_status;
+//     next_node = node->next;
+//     if (next_node)
+//     {
+//         new_node->next = next_node;
+//         next_node->prev = new_node;
+//     }
+//     node->next = new_node;
+// }
 
 //OLD
 //
