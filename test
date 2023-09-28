@@ -1,0 +1,30 @@
+mburgler@minishell ~/Coding/42_mini-s-hell $ abc ... |hey ... abc|def ... abc| ... |abc|
+
+WORD COUNT: 9
+
+
+TESTING THE LINKED LIST LEXER THING:
+
+Node 0 contains: _abc_
+Quotes: 0
+Node 1 contains: _..._
+Quotes: 0
+Node 2 contains: _|hey_
+Quotes: 0
+Node 3 contains: _..._
+Quotes: 0
+Node 4 contains: _abc_
+Quotes: 0
+Node 5 contains: _TEST_
+Quotes: 0
+Node 6 contains: _..._
+Quotes: 0
+Node 7 contains: _abc_
+Quotes: 0
+Node 8 contains: _TEST_
+Quotes: 0
+Node 9 contains: _..._
+Quotes: 0
+Node 10 contains: _|abc|_
+Quotes: 0
+mburgler@minishell ~/Coding/42_mini-s-hell $ exit
