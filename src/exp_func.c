@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/29 18:19:45 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/29 21:19:54 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	exp_head(t_msc *msc)
 		else if (tmp->quote_status == 2 && ft_strchr(tmp->str, '$'))
 		{
 			to_free = tmp->str;
-			if(!ft_strchr(tmp->str, '$') + 1)
-			{
-				tmp = tmp->next;
-				continue ;
-			}
+			// if(!ft_strchr(tmp->str, '$') + 1)
+			// {
+			// 	tmp = tmp->next;
+			// 	continue ;
+			// }
 			exp_double_quotes(msc, tmp, placeholder);
 			free(to_free);
 		}
@@ -101,3 +101,5 @@ void	exp_tilde(t_msc *msc, t_list *tmp)
 	if(!tmp->str)
 		malloc_error_free_exit(msc, tmp->str, NULL);
 }
+
+//$"USER"
