@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/29 17:24:59 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:04:40 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	exp_tilde(t_msc *msc, t_list *tmp);
 //exp_utils.c
 char	*ft_strjoin_and_free(char *s1, char *s2, char *to_free, char *to_free2);
 char	*free_two(char *to_free, char *to_free2);
+int	ft_strchr_i(const char *s, int c);
 
 //op_func.c
 void	tokenize_op(t_msc *msc);

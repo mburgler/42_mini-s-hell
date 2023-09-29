@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/28 00:36:14 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:19:45 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ void	exp_head(t_msc *msc)
 		else if (tmp->quote_status == 2 && ft_strchr(tmp->str, '$'))
 		{
 			to_free = tmp->str;
+			if(!ft_strchr(tmp->str, '$') + 1)
+			{
+				tmp = tmp->next;
+				continue ;
+			}
 			exp_double_quotes(msc, tmp, placeholder);
 			free(to_free);
 		}

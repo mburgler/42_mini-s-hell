@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 21:04:43 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/27 22:52:01 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:04:29 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,22 @@ char	*free_two(char *to_free, char *to_free2)
 	if (to_free2)
 		free(to_free2);
 	return(NULL);
+}
+
+int	ft_strchr_i(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (-1);
+	while (s[i])
+	{
+		if (s[i] == (unsigned char)c)
+			return (i);
+		i++;
+	}
+	if (s[i] == (unsigned char)c)
+		return (i);
+	return (-1);
 }
