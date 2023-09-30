@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/30 22:48:53 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/30 22:59:08 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	exp_double_quotes(t_msc *msc, t_list *tmp, char *s1)
 	if (!tmp->str[++i])
 		return (free(s1));
 	j = i;
-	i = ft_strlen(tmp->str);
+	while(tmp->str[i] && ft_is_whitespace(tmp->str, i) != 1)
+		i++;
 	s2 = exp_sub(msc, ft_substr(tmp->str, j, i - j), s1);
 	s1 = ft_strjoin_and_free(s1, s2, s1, s2);
 	if(!s1)
