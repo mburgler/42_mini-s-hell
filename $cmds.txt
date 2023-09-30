@@ -6,7 +6,7 @@
 #    By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/30 00:26:36 by mburgler          #+#    #+#              #
-#    Updated: 2023/09/30 20:59:24 by mburgler         ###   ########.fr        #
+#    Updated: 2023/09/30 21:15:35 by mburgler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ What can current version handle
 
 ##########################
 Wrong with current version; what is to fix:
-- leading characters
-- trailing characters->FIXED
+- leading characters -> FIXED
+- trailing characters-> FIXED
 - single $sign -> FIXED
 - multiple occurences of $USER

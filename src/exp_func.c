@@ -6,14 +6,11 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/30 20:57:55 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/30 21:19:25 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-//TO DO
-// - handle $?
 
 void	exp_head(t_msc *msc)
 {
@@ -27,13 +24,7 @@ void	exp_head(t_msc *msc)
 	{
 		if (tmp->quote_status == 0 && tmp->str[0] == '~')
 			exp_tilde(msc, tmp);
-		if (tmp->quote_status == 0 && tmp->str[0] == '$' && tmp->str[1])
-		{
-			to_free = tmp->str;
-			tmp->str = exp_sub(msc, tmp->str + 1, NULL);
-			free(to_free);
-		}
-		else if (tmp->quote_status == 2 && ft_strchr(tmp->str, '$'))
+		if ((tmp->quote_status == 2 || tmp->quote_status == 0) && ft_strchr(tmp->str, '$'))
 		{
 			to_free = tmp->str;
 			if(abort_when_whitespace(msc, &tmp) == 1)
@@ -41,7 +32,8 @@ void	exp_head(t_msc *msc)
 			exp_double_quotes(msc, tmp, placeholder);
 			free(to_free);
 		}
-		tmp = tmp->next;
+		// if(ft_strchr(tmp->str, '$')
+			tmp = tmp->next;
 	}
 }
 
@@ -125,6 +117,3 @@ int	abort_when_whitespace(t_msc *msc, t_list **tmp)
 	(void)msc;
 	return(0);
 }
-
-
-//$"USER"
