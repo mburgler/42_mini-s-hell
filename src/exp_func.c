@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/30 18:43:47 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/30 20:57:55 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,28 @@ void	exp_head(t_msc *msc)
 char	*exp_sub(t_msc *msc, char *str, char *to_free_in_case_of_error)
 {
 	char	*tmp;
-	char	*res;
+	char	*end;
+	int		aA0_end;
+	char	*env;
 
-	tmp = getenv(str);
-	if (tmp)
-		res = ft_strdup(tmp);
-	else
-		res = ft_strdup("");
-	if(!res)
+	aA0_end = ft_trimascii(str);
+	env = ft_substr(str, 0, aA0_end);
+	if(!env)
 		malloc_error_free_exit(msc, to_free_in_case_of_error, NULL);
-	return (res);
+	end = ft_substr(str, aA0_end, ft_strlen(str) - aA0_end);
+	if(!end)
+		malloc_error_free_exit(msc, to_free_in_case_of_error, env);
+	tmp = getenv(env);
+	if (tmp)
+		tmp = ft_strjoin_and_free(tmp, end, env, end); //ft_strdup(tmp);
+	else
+	{
+		free_two(env, end);
+		tmp = ft_strdup("");
+	}
+	if(!tmp)
+		malloc_error_free_exit(msc, to_free_in_case_of_error, NULL);
+	return (tmp);
 }
 
 void	exp_double_quotes(t_msc *msc, t_list *tmp, char *s1)

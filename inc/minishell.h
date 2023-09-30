@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/30 18:39:23 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/30 20:26:17 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int	abort_when_whitespace(t_msc *msc, t_list **tmp);
 char	*ft_strjoin_and_free(char *s1, char *s2, char *to_free, char *to_free2);
 char	*free_two(char *to_free, char *to_free2);
 int	ft_strchr_i(const char *s, int c);
+int	ft_trimascii(char *str);
 
 //op_func.c
 void	tokenize_op(t_msc *msc);
