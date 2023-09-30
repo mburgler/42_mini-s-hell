@@ -1,0 +1,58 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    $cmds.txt                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/09/30 00:26:36 by mburgler          #+#    #+#              #
+#    Updated: 2023/09/30 17:46:36 by mburgler         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+###################################################
+Commands that should be supported by the expander $
+
+echo "$PWD"
+echo '$PWD'
+echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $  <<"
+echo '> >> < * ? [ ] | ; [ ] || && ( ) & # $  <<'
+echo "exit_code ->$? user ->$USER home -> $HOME"
+echo 'exit_code ->$? user ->$USER home -> $HOME'
+echo "$"
+echo '$'
+echo $
+echo $?
+echo $?HELLO
+cd $PWD
+cd $PWD hi
+cat minishell.h | grep ");"$ 
+$PWD
+$EMPTY
+$EMPTY echo hi
+$
+$?
+
+##########################
+What can current version handle
+- substitute invalid content with EMPTY
+- handle no quotes, single quotes and double quotes correctly
+- handle stand alone if not in string
+	* not working in double quotes string when 
+		*first -> then substituted by EMPTY
+		*middle -> then substituted by EMPTY
+		*end -> everything in double quotes deleted
+		*end with trailing space -> then substituted by EMPTY
+* leading characters
+	-> EXPECTED: hey$USER = heymburgler; out _hey$USER_
+	-> EXPECTED: hey$nonsense = hey; out _hey$nonsense_
+	-> hence not even recgnised
+* trailing ascii characters
+	-> EXPECTED: echo $USER/wie = mburgler/wie
+	-> use ft_isalpha
+* $?
+	
+
+##########################
+Wrong with current version
+- 
