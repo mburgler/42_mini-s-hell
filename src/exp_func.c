@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/30 21:19:25 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/30 22:48:53 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	exp_head(t_msc *msc)
 	{
 		if (tmp->quote_status == 0 && tmp->str[0] == '~')
 			exp_tilde(msc, tmp);
-		if ((tmp->quote_status == 2 || tmp->quote_status == 0) && ft_strchr(tmp->str, '$'))
+		if ((tmp->quote_status == 0 || tmp->quote_status == 2) && ft_strchr(tmp->str, '$'))
 		{
 			to_free = tmp->str;
 			if(abort_when_whitespace(msc, &tmp) == 1)
@@ -57,8 +57,10 @@ char	*exp_sub(t_msc *msc, char *str, char *to_free_in_case_of_error)
 	else
 	{
 		free_two(env, end);
+	//	printf("##str: _%s_\n", str);
 		tmp = ft_strdup("");
 	}
+	printf("##str: _%s_\n", str);
 	if(!tmp)
 		malloc_error_free_exit(msc, to_free_in_case_of_error, NULL);
 	return (tmp);
@@ -79,8 +81,7 @@ void	exp_double_quotes(t_msc *msc, t_list *tmp, char *s1)
 	if (!tmp->str[++i])
 		return (free(s1));
 	j = i;
-	while(tmp->str[i] && tmp->str[i] != ' ')
-		i++;
+	i = ft_strlen(tmp->str);
 	s2 = exp_sub(msc, ft_substr(tmp->str, j, i - j), s1);
 	s1 = ft_strjoin_and_free(s1, s2, s1, s2);
 	if(!s1)

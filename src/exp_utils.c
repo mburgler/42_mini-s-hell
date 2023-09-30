@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 21:04:43 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/30 20:26:08 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/30 22:41:46 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,12 @@ int	ft_trimascii(char *str)
 		 || (str[i] >= '0' && str[i] <= '9'))
 		i++;
 	return(i);
+}
+
+int	ft_is_whitespace(char *pos, int i)
+{
+	if(pos[i] == ' ' || pos[i] == 9 || pos[i] == 10 || 
+		pos[i] == 11 || pos[i] == 12 || pos[i] == 13)
+		return(1);
+	return(0);
 }
