@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 14:49:43 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/27 22:05:26 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/30 02:01:38 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,61 +57,61 @@ int get_wc(const char *s)
 			wc++;
 		}
 	}
-	printf("\nWORD COUNT: %d\n", wc);
 	return (wc);
 }
 
-char    *get_wd(char *s)
+char    *get_wd(char *s, int *id)
 {
 	int     i;
-	int     j;
+	char	q;
 	char    *ret;
 
-	if (*s == 34 || *s == 39)
-		return (get_qt(s, *s));
+	if (s[*id] == 34 || s[*id] == 39)
+		return (get_qt(s, id, s[*id]));
 	i = 0;
-	while (!isws(s[i]) && s[i] != '\0')
+	while (!isws(s[*id + i]) && s[*id + i] != '\0')
 		i++;
+	if (s[*id + i - 1] == 34 || s[*id + i - 1] == 39)
+	{
+		q = s[*id + i - 1];
+		while (s[*id + i] != '\0' && s[*id + i] != q)
+			i++;
+		i++;
+	}
 	if (i > 0)
-		ret = malloc(sizeof(char) * (i + 1));
+		ret = ft_calloc((i + 1), sizeof(char));
 	else
 		return (NULL);
-	j = -1;
-	if (ret != NULL)
-	{
-		while (++j < i)
-			ret[j] = s[j];
-		ret[j] = '\0';
-		s += j;
-		return (ret);
-	}
-	return (NULL);
+	if (!ret)
+		return (NULL);
+	set_str(s, ret, id, i);
+	return (ret);
 }
 
 char    **lex_split(char *s)
 {
 	int     i;
+	int		j;
 	char    **ret;
 
-	if (s == NULL)
-		return (NULL);
-	ret = malloc(sizeof(char *) * ((get_wc(s) + 1)));
+	ret = set_array(s);
 	if (!ret)
 		return (NULL);
 	i = 0;
-	while (*s != '\0')
+	j = 0;
+	while (s[j] != '\0')
 	{
-		while (*s != '\0' && isws(*s))
-			s++;
-		if (*s != '\0')
+		while (s[j] != '\0' && isws(s[j]))
+			j++;
+		if (s[j] != '\0')
 		{
-			ret[i] = get_wd(s);
+			ret[i] = get_wd(s, &j);
 			if (!ret[i])
 				return (del_split(ret, i));
 			i++;
 		}
-		while (*s != '\0' && !isws(*s))
-			s++;
+		/*while (s[j] != '\0' && !isws(s[j]))
+			j++;*/
 	}
 	ret[i] = NULL;
 	return (ret);

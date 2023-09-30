@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:21:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/28 01:35:06 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/29 21:35:54 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ t_list  *ft_lstnew(t_msc *ms, const char *s)
     ret = malloc(sizeof(t_list));
     if (!ret)
         return (NULL);
-    ret->str = ft_strdup(s);
+    if (s_or_d(s) > 0)
+        ret->str = trim_quotes(s);
+    else   
+        ret->str = ft_strdup(s);
     ret->next = NULL;
     ret->prev = NULL;
     ret->msc = ms;
