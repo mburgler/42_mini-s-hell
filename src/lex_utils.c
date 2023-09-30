@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:28:49 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/27 23:27:08 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/30 01:51:40 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,31 +60,26 @@ void    skip_quotes(const char *s, int *i)
 
 //get_qt() returns the input section in quotation marks
 //to lex_split() as one cohesive entry 
-char    *get_qt(char *s, char q)
+char    *get_qt(char *s, int *id, char q)
 {
 	int     i;
-	int     j;
 	char    *ret;
 
 	i = 1;
-	while (s[i] != '\0' && s[i] != q)
+	while (s[*id + i] != '\0' && s[*id + i] != q)
 		i++;
-	if (s[i + 1] != '\0' && !isws(s[i + 1]))
-	{
-		while (s[i] != '\0' && !isws(s[i]))
+	if (s[*id + i + 1] != '\0' && !isws(s[*id + i + 1]))
+		while (s[*id + i] != '\0' && !isws(s[*id + i]))
 			i++;
-	}
+	else
+		i++;
 	if (i > 1)
-		ret = malloc(sizeof(char) * (i + 1));
+		ret = ft_calloc((i + 1), sizeof(char));
 	else
 		return (NULL);
-	j = -1;
 	if (!ret)
 		return (NULL);
-	while (++j < i)
-		ret[j] = s[j]; //fix this later
-	ret[j] = '\0';
-	//s += j;
+	set_str(s, ret, id, i);
 	return (ret);
 }
 

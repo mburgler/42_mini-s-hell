@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/29 18:04:40 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/30 02:24:22 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,12 +127,15 @@ t_list  *init_lst(t_msc *msc, char **input);
 //lex_funcs.c
 void    del_tmp(char **tmp);
 void	input_lexer(t_msc *msc);
-void    ft_printlist(t_list *lst);
+void    ft_printlist(t_list *lst); //ONLY FOR TESTING; DELETE FROM FINAL VERSION
+char	**set_array(const char *s);
+char	*trim_quotes(const char *s);
+void	set_str(const char *s, char *ret, int *id, int len);
 
 //lex_utils.c
 int quote_checker(const char *s);
 void	skip_quotes(const char *s, int *i);
-char    *get_qt(char *s, char q);
+char    *get_qt(char *s, int *id, char q);
 int s_or_d(const char *s);
 
 
@@ -140,7 +143,7 @@ int s_or_d(const char *s);
 int	isws(const char c);
 void	*del_split(char **words, int i);
 int	get_wc(const char *s);
-char	*get_wd(char *s);
+char	*get_wd(char *s, int *id);
 char	**lex_split(char *s);
 
 #endif

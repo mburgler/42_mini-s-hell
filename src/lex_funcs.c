@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_funcs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/28 13:55:49 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/30 01:56:40 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,63 @@ void    ft_printlist(t_list *lst)
 			i++;
 		}
 	}
+}
+
+char	**set_array(const char *s)
+{
+	char	**ret;
+	int		i;
+	int		wc;
+
+	if (s == NULL)
+		return (NULL);
+	wc = get_wc(s);
+	ret = malloc(sizeof(char *) * (wc + 1));
+	if (!ret)
+		return (NULL);
+	i = 0;
+	while (i < wc)
+	{
+		ret[i] = NULL;
+		i++;
+	}
+	return (ret);
+}
+
+//called in ft_lstnew(); trims the outer quotes of input sections
+char	*trim_quotes(const char *s)
+{
+	int		i;
+	int		j;
+	char	*ret;
+	char	q;
+
+	i = 0;
+	while (s[i] != '\0' && s[i] != 34 && s[i] != 39)
+		i++;
+	q = s[i];
+	ret = malloc(sizeof(char) * (ft_strlen(s) - 1));
+	if (!ret)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] != q)
+			ret[j++] = s[i];
+		i++;
+	}
+	ret[j] = '\0';
+	return (ret);
+}
+
+void	set_str(const char *s, char *ret, int *id, int len)
+{
+	int	i;
+
+	i = -1;
+	while (++i < len)
+		ret[i] = s[*id + i];
+	ret[i] = '\0';
+	*id += i;
 }
