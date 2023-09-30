@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/30 02:24:22 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:39:23 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	exp_head(t_msc *msc);
 char	*exp_sub(t_msc *msc, char *str, char *to_free_in_case_of_error);
 void	exp_double_quotes(t_msc *msc, t_list *tmp, char *s1);
 void	exp_tilde(t_msc *msc, t_list *tmp);
+int	abort_when_whitespace(t_msc *msc, t_list **tmp);
 
 //exp_utils.c
 char	*ft_strjoin_and_free(char *s1, char *s2, char *to_free, char *to_free2);
