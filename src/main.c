@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/27 22:10:25 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:23:19 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	init_msc(t_msc *msc, char **env)
 	msc->input = NULL;
 	msc->env_cpy = ft_dup_arr(env);
 	msc->lex = NULL;
-	msc->env_cwd = NULL;
+	msc->env_cwd = getcwd(NULL, 0);
 	msc->env_home = getenv("HOME");
-	msc ->prompt_cwd = NULL;
-	msc->prompt = NULL;
+	// msc ->prompt_cwd = NULL;
+	// msc->prompt = NULL;
 	if(!msc->env_cpy)
 	{
 		write(2, "Error: malloc failed\n", 22);
@@ -32,7 +32,7 @@ void	init_msc(t_msc *msc, char **env)
 	}
 	msc->env_path = getenv("PATH");
 	msc->env_user = getenv("USER");
-	set_prompt_and_cwd(msc);
+	//set_prompt_and_cwd(msc);
 	msc->env_cpy = ft_dup_arr(env);
 	if(msc->env_cpy == NULL)
 	{
@@ -56,7 +56,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		signal(SIGINT, handle_sigint);
 		signal(SIGQUIT, SIG_IGN);
-		msc->input = readline(msc->prompt);
+		msc->input = readline("minishell $ ");
         if (!msc->input) 
 		{
             printf("\n");
@@ -75,7 +75,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		add_history(msc->input);
 		free(msc->input);
-		set_prompt_and_cwd(msc);
+		//set_prompt_and_cwd(msc);
 	}
 	
 

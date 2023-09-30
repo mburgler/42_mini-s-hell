@@ -34,7 +34,7 @@ SINGLE RESPONISIBILTY FUNCTION, MODULAR,
 
     1) hey wie "geht es" dir 
     -QUOTES
-    -> is there an unmatched quote? then rejecten
+    -> is there an unmatched quote? then reject
     -> is there a pipe at the end or a >> heredoc -> give back prompt
     1) hey wie 
     2) "geht es"
