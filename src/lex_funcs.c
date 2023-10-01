@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/30 01:56:40 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:52:11 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void    input_lexer(t_msc *msc)
 		return ;
 	tmp = lex_split(msc->input);
 	msc->lex = init_lst(msc, tmp);
+	if (search_estr(msc->lex) || search_opipe(msc->lex))
+		printf("\nOPEN PIPE/EMPTY STRING FOUND\n"); //delete all & print error message instead
 	printf("\n\n### TESTING THE LINKED LIST LEXER THING: ###\n\n");
 	printf("~~ !! _ symbol added for better readability, not part of the string !! ~~\n\n");
 	exp_head(msc); //MATTEO ADDED THIS

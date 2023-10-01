@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/30 02:24:22 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/09/30 21:40:50 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,12 +132,15 @@ char	**set_array(const char *s);
 char	*trim_quotes(const char *s);
 void	set_str(const char *s, char *ret, int *id, int len);
 
-//lex_utils.c
+//lex_utils1.c
 int quote_checker(const char *s);
 void	skip_quotes(const char *s, int *i);
 char    *get_qt(char *s, int *id, char q);
 int s_or_d(const char *s);
 
+//lex_utils2.c
+int	search_estr(t_list *lst);
+int search_opipe(t_list *lst);
 
 //lex_split.c
 int	isws(const char c);

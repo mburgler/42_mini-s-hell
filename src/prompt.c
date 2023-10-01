@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:20:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/29 17:20:06 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/09/30 17:43:15 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 //     cwd = getcwd(NULL, 0);
 //     if (msc->env_home && cwd)
 //     {
-//         pos = ft_strnstr(cwd, msc->env_home, \
+//         pos = ft_strnstr(cwd, msc->env_home,
 // 			ft_strlen(msc->env_home));
 //         if (pos)
 //         {
