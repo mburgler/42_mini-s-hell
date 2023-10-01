@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/01 02:52:38 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/01 04:56:20 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	exp_head(t_msc *msc)
 	{
 		if (tmp->quote_status == 0 && tmp->str[0] == '~')
 			exp_tilde(msc, tmp);
-		if ((tmp->quote_status == 0 || tmp->quote_status == 2) && ft_strchr(tmp->str, '$'))
+		if (tmp && (tmp->quote_status == 0 || tmp->quote_status == 2) && ft_strchr(tmp->str, '$'))
 		{
 			to_free = tmp->str;
 			exp_logic(msc, tmp, placeholder, to_free);
@@ -32,7 +32,10 @@ void	exp_head(t_msc *msc)
 		if(ft_shift_to_dollar(tmp->str) == -1)
 			tmp = tmp->next;
 	}
+	//exp_retokenize(msc);
 }
+
+
 
 char	*exp_sub(t_msc *msc, char *str, char *to_free_in_case_of_error)
 {
@@ -53,6 +56,7 @@ char	*exp_sub(t_msc *msc, char *str, char *to_free_in_case_of_error)
 		tmp = ft_strjoin_and_free(tmp, end, env, end); //ft_strdup(tmp);
 	else
 	{
+		printf("str%s\n", env);
 		printf("str%s\n", end);
 		free_two(env, end);
 		tmp = ft_strdup("");
@@ -77,7 +81,7 @@ void	exp_logic(t_msc *msc, t_list *tmp, char *s1, char *to_free)
 	if (!tmp->str[++i])
 		return (free(s1));
 	j = i;
-	while(tmp->str[i] && ft_is_whitespace(tmp->str, i) != 1)
+	while(tmp->str[i] && ft_is_whitespace(tmp->str, i) == -1)
 		i++;
 	s2 = exp_sub(msc, ft_substr(tmp->str, j, i - j), s1);
 	s1 = ft_strjoin_and_free(s1, s2, s1, s2);
@@ -111,10 +115,36 @@ int	ft_shift_to_dollar(char *str)
 	{
 		if(str[i] == '$')
 		{
-			if(ft_is_whitespace(str, i + 1) == 0 && str[i + 1] != '$')
+			if(ft_is_whitespace(str, i + 1) == -1 && str[i + 1] != '$')
 				return(i);
 		}
 		i++;
 	}
 	return(-1);
 }
+
+// void	exp_retokenize(t_msc *msc)
+// {
+// 	t_list	*tmp;
+// 	char	*to_free;
+// 	int	i;
+
+// 	tmp = msc->lex;
+// 	while (tmp && tmp->str)
+// 	{
+// 		i = ft_is_whitespace_str(tmp->str);
+// 		if (tmp->quote_status == 0 && i != -1)
+// 		{
+// 			to_free = tmp->str;
+// 			tmp->str = ft_substr(tmp->str, 0, i);
+// 			if(!tmp->str)
+// 				malloc_error_free_exit(msc, NULL, NULL);
+// 			if(!ft_lst_insert(tmp, ft_substr(to_free, i, 
+// 				(ft_strlen(to_free) - i)), msc))
+// 				malloc_error_free_exit(msc, to_free, NULL);
+// 			free(to_free);
+// 		}
+// 		tmp = tmp->next;
+// 		printf("DEBUG: %s\n", tmp->str);
+// 	}
+// }

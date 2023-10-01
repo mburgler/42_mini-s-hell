@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 21:04:43 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/01 01:53:44 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/01 04:54:04 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,23 @@ int	ft_is_whitespace(char *pos, int i)
 {
 	if(!pos[i] || pos[i] == ' ' || pos[i] == 9 || pos[i] == 10 || 
 		pos[i] == 11 || pos[i] == 12 || pos[i] == 13)
-		return(1);
-	return(0);
+		return(i);
+	return(-1);
+}
+
+int	ft_is_whitespace_str(char *str)
+{
+	int i;
+
+	i = 0;
+	if(!str)
+		return(-1);
+	while(str[i])
+	{
+		if(str[i] == ' ' && str[i] == 9 && str[i] == 10 && 
+			str[i] == 11 && str[i] == 12 && str[i] == 13)
+			return(i);
+		i++;
+	}
+	return(-1);
 }

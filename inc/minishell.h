@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/01 01:31:39 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/01 04:33:58 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,14 @@ typedef struct s_cmd
 	int		pid;
 	int		fd_in;
 	int		fd_out;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
 }				t_cmd;
 
 typedef struct s_msc
 {
 	t_list	*lex;
+	t_cmd	*cmd;
 	bool	loop;
 	char	*input;
 	char	*env_user;
@@ -103,6 +106,7 @@ char	*exp_sub(t_msc *msc, char *str, char *to_free_in_case_of_error);
 void	exp_logic(t_msc *msc, t_list *tmp, char *s1, char *to_free);
 void	exp_tilde(t_msc *msc, t_list *tmp);
 int	ft_shift_to_dollar(char *str);
+void	exp_retokenize(t_msc *msc);
 
 //exp_utils.c
 char	*ft_strjoin_and_free(char *s1, char *s2, char *to_free, char *to_free2);
@@ -110,6 +114,7 @@ char	*free_two(char *to_free, char *to_free2);
 int	ft_strchr_i(const char *s, int c);
 int	ft_trimascii(char *str);
 int	ft_is_whitespace(char *pos, int i);
+int	ft_is_whitespace_str(char *str);
 
 //op_func.c
 void	tokenize_op(t_msc *msc);
@@ -119,6 +124,7 @@ int	ft_lst_insert(t_list *node, char *s, t_msc *msc);
 //pars_func.c
 void	pars_head(t_msc *msc);
 int	pars_list(t_msc *msc);
+void	pars_init_cmd(t_msc *msc);
 
 //list_utils1.c
 t_list	*ft_lstnew(t_msc *ms, const char *s);

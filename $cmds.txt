@@ -6,7 +6,7 @@
 #    By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/30 00:26:36 by mburgler          #+#    #+#              #
-#    Updated: 2023/10/01 01:50:18 by mburgler         ###   ########.fr        #
+#    Updated: 2023/10/01 04:03:45 by mburgler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,9 +58,10 @@ Wrong with current version; what is to fix:
 - leading characters -> FIXED
 - trailing characters-> FIXED
 - single $sign -> FIXED
-- multiple occurences of $USER
+- multiple occurences of $USER -> FIXED
 
 ###########################
 TO fix v2
 - EXPECTED: echo $?HELLO -> 0HELLO
 - $? in general
+- "$USER $$ ist $$$$USER a$USER!" $USER
