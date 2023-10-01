@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/30 22:59:08 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/01 02:52:38 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,9 @@ void	exp_head(t_msc *msc)
 		if ((tmp->quote_status == 0 || tmp->quote_status == 2) && ft_strchr(tmp->str, '$'))
 		{
 			to_free = tmp->str;
-			if(abort_when_whitespace(msc, &tmp) == 1)
-				continue;
-			exp_double_quotes(msc, tmp, placeholder);
-			free(to_free);
+			exp_logic(msc, tmp, placeholder, to_free);
 		}
-		// if(ft_strchr(tmp->str, '$')
+		if(ft_shift_to_dollar(tmp->str) == -1)
 			tmp = tmp->next;
 	}
 }
@@ -56,25 +53,24 @@ char	*exp_sub(t_msc *msc, char *str, char *to_free_in_case_of_error)
 		tmp = ft_strjoin_and_free(tmp, end, env, end); //ft_strdup(tmp);
 	else
 	{
+		printf("str%s\n", end);
 		free_two(env, end);
-	//	printf("##str: _%s_\n", str);
 		tmp = ft_strdup("");
 	}
-	printf("##str: _%s_\n", str);
 	if(!tmp)
 		malloc_error_free_exit(msc, to_free_in_case_of_error, NULL);
 	return (tmp);
 }
 
-void	exp_double_quotes(t_msc *msc, t_list *tmp, char *s1)
+void	exp_logic(t_msc *msc, t_list *tmp, char *s1, char *to_free)
 {
 	char	*s2;
 	int		i;
 	int		j;
 
-	i = 0;
-	while (tmp->str[i] && tmp->str[i] != '$')
-		i++;
+	i = ft_shift_to_dollar(tmp->str);
+	if(!tmp->str[i] || i == -1)
+		return ;
 	s1 = ft_substr(tmp->str, 0, i);
 	if (!s1)
 		malloc_error_free_exit(msc, NULL, NULL);
@@ -93,6 +89,7 @@ void	exp_double_quotes(t_msc *msc, t_list *tmp, char *s1)
 	tmp->str = ft_strjoin_and_free(s1, s2, s1, s2);
 	if(!tmp->str)
 		malloc_error_free_exit(msc, s1, s2);
+	free(to_free);
 }
 
 void	exp_tilde(t_msc *msc, t_list *tmp)
@@ -105,17 +102,19 @@ void	exp_tilde(t_msc *msc, t_list *tmp)
 		malloc_error_free_exit(msc, tmp->str, NULL);
 }
 
-int	abort_when_whitespace(t_msc *msc, t_list **tmp)
+int	ft_shift_to_dollar(char *str)
 {
-	char	*pos;
+	int	i;
 
-	pos = (ft_strchr((*tmp)->str, '$') + 1);
-	if(!pos || !pos[0] || pos[0] == ' ' || pos[0] == 9 || pos[0] == 10 || 
-		pos[0] == 11 || pos[0] == 12 || pos[0] == 13)
+	i = 0;
+	while(str[i])
 	{
-		*tmp = (*tmp)->next;
-		return(1);
+		if(str[i] == '$')
+		{
+			if(ft_is_whitespace(str, i + 1) == 0 && str[i + 1] != '$')
+				return(i);
+		}
+		i++;
 	}
-	(void)msc;
-	return(0);
+	return(-1);
 }

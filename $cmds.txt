@@ -6,7 +6,7 @@
 #    By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/30 00:26:36 by mburgler          #+#    #+#              #
-#    Updated: 2023/09/30 21:15:35 by mburgler         ###   ########.fr        #
+#    Updated: 2023/10/01 01:50:18 by mburgler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,3 +59,8 @@ Wrong with current version; what is to fix:
 - trailing characters-> FIXED
 - single $sign -> FIXED
 - multiple occurences of $USER
+
+###########################
+TO fix v2
+- EXPECTED: echo $?HELLO -> 0HELLO
+- $? in general
