@@ -6,14 +6,11 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/29 21:19:54 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/01 04:56:20 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-//TO DO
-// - handle $?
 
 void	exp_head(t_msc *msc)
 {
@@ -27,58 +24,64 @@ void	exp_head(t_msc *msc)
 	{
 		if (tmp->quote_status == 0 && tmp->str[0] == '~')
 			exp_tilde(msc, tmp);
-		if (tmp->quote_status == 0 && tmp->str[0] == '$' && tmp->str[1])
+		if (tmp && (tmp->quote_status == 0 || tmp->quote_status == 2) && ft_strchr(tmp->str, '$'))
 		{
 			to_free = tmp->str;
-			tmp->str = exp_sub(msc, tmp->str + 1, NULL);
-			free(to_free);
+			exp_logic(msc, tmp, placeholder, to_free);
 		}
-		else if (tmp->quote_status == 2 && ft_strchr(tmp->str, '$'))
-		{
-			to_free = tmp->str;
-			// if(!ft_strchr(tmp->str, '$') + 1)
-			// {
-			// 	tmp = tmp->next;
-			// 	continue ;
-			// }
-			exp_double_quotes(msc, tmp, placeholder);
-			free(to_free);
-		}
-		tmp = tmp->next;
+		if(ft_shift_to_dollar(tmp->str) == -1)
+			tmp = tmp->next;
 	}
+	//exp_retokenize(msc);
 }
+
+
 
 char	*exp_sub(t_msc *msc, char *str, char *to_free_in_case_of_error)
 {
 	char	*tmp;
-	char	*res;
+	char	*end;
+	int		aA0_end;
+	char	*env;
 
-	tmp = getenv(str);
-	if (tmp)
-		res = ft_strdup(tmp);
-	else
-		res = ft_strdup("");
-	if(!res)
+	aA0_end = ft_trimascii(str);
+	env = ft_substr(str, 0, aA0_end);
+	if(!env)
 		malloc_error_free_exit(msc, to_free_in_case_of_error, NULL);
-	return (res);
+	end = ft_substr(str, aA0_end, ft_strlen(str) - aA0_end);
+	if(!end)
+		malloc_error_free_exit(msc, to_free_in_case_of_error, env);
+	tmp = getenv(env);
+	if (tmp)
+		tmp = ft_strjoin_and_free(tmp, end, env, end); //ft_strdup(tmp);
+	else
+	{
+		printf("str%s\n", env);
+		printf("str%s\n", end);
+		free_two(env, end);
+		tmp = ft_strdup("");
+	}
+	if(!tmp)
+		malloc_error_free_exit(msc, to_free_in_case_of_error, NULL);
+	return (tmp);
 }
 
-void	exp_double_quotes(t_msc *msc, t_list *tmp, char *s1)
+void	exp_logic(t_msc *msc, t_list *tmp, char *s1, char *to_free)
 {
 	char	*s2;
 	int		i;
 	int		j;
 
-	i = 0;
-	while (tmp->str[i] && tmp->str[i] != '$')
-		i++;
+	i = ft_shift_to_dollar(tmp->str);
+	if(!tmp->str[i] || i == -1)
+		return ;
 	s1 = ft_substr(tmp->str, 0, i);
 	if (!s1)
 		malloc_error_free_exit(msc, NULL, NULL);
 	if (!tmp->str[++i])
 		return (free(s1));
 	j = i;
-	while(tmp->str[i] && tmp->str[i] != ' ')
+	while(tmp->str[i] && ft_is_whitespace(tmp->str, i) == -1)
 		i++;
 	s2 = exp_sub(msc, ft_substr(tmp->str, j, i - j), s1);
 	s1 = ft_strjoin_and_free(s1, s2, s1, s2);
@@ -90,6 +93,7 @@ void	exp_double_quotes(t_msc *msc, t_list *tmp, char *s1)
 	tmp->str = ft_strjoin_and_free(s1, s2, s1, s2);
 	if(!tmp->str)
 		malloc_error_free_exit(msc, s1, s2);
+	free(to_free);
 }
 
 void	exp_tilde(t_msc *msc, t_list *tmp)
@@ -102,4 +106,45 @@ void	exp_tilde(t_msc *msc, t_list *tmp)
 		malloc_error_free_exit(msc, tmp->str, NULL);
 }
 
-//$"USER"
+int	ft_shift_to_dollar(char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+	{
+		if(str[i] == '$')
+		{
+			if(ft_is_whitespace(str, i + 1) == -1 && str[i + 1] != '$')
+				return(i);
+		}
+		i++;
+	}
+	return(-1);
+}
+
+// void	exp_retokenize(t_msc *msc)
+// {
+// 	t_list	*tmp;
+// 	char	*to_free;
+// 	int	i;
+
+// 	tmp = msc->lex;
+// 	while (tmp && tmp->str)
+// 	{
+// 		i = ft_is_whitespace_str(tmp->str);
+// 		if (tmp->quote_status == 0 && i != -1)
+// 		{
+// 			to_free = tmp->str;
+// 			tmp->str = ft_substr(tmp->str, 0, i);
+// 			if(!tmp->str)
+// 				malloc_error_free_exit(msc, NULL, NULL);
+// 			if(!ft_lst_insert(tmp, ft_substr(to_free, i, 
+// 				(ft_strlen(to_free) - i)), msc))
+// 				malloc_error_free_exit(msc, to_free, NULL);
+// 			free(to_free);
+// 		}
+// 		tmp = tmp->next;
+// 		printf("DEBUG: %s\n", tmp->str);
+// 	}
+// }
