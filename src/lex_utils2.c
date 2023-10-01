@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 18:25:49 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/30 21:54:19 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:59:59 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 //looks for empty string in the user input
 int search_estr(t_list *lst)
 {
-	//int	i;
-
-	//i = 0;
 	if (lst != NULL)
 	{
 		while (lst)
@@ -35,22 +32,21 @@ int search_estr(t_list *lst)
 int search_opipe(t_list *lst)
 {
 	int i;
-	int	has_pipe;
 	
-	if (lst != NULL)
-		while (lst->next)
-			lst = lst->next;
-	i = 0;
-	has_pipe = 0;
-	while (lst->str[i] != '\0')
+	if (!lst)
+		return (0);
+	while (lst->next)
+		lst = lst->next;
+	i = ft_strlen(lst->str);
+	while (--i >= 0)
 	{
-		if (lst->str[i] == '|')
-			has_pipe = i;
-		if (has_pipe > 0 && lst->str[i] != '|' && !isws(lst->str[i]))
-			break;
-		i++;
+		if (!isws(lst->str[i]))
+		{
+			if (lst->str[i] == '|')
+				return (1);
+			else
+				return (0);
+		}
 	}
-	if (has_pipe > 0 && lst->str[i] != '\0')
-		return (1);
 	return (0);
 }
