@@ -6,12 +6,14 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:47:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/10 18:22:08 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:47:18 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+//counts and returns the number of sections
+//in t_list *lex which are separated by pipes
 int nb_of_cmds(t_list *lst)
 {
 	int	ret;
@@ -28,6 +30,8 @@ int nb_of_cmds(t_list *lst)
 	return (ret);
 }
 
+//separates the t_list *lex into parts which
+//set_full_cmd() can use
 char	**get_full_cmd(t_list *lst)
 {
 	int				i;
@@ -58,6 +62,8 @@ char	**get_full_cmd(t_list *lst)
 	return (set_full_cmd(lst, i));
 }
 
+//assembles the full_cmd variable
+//of each t_cmd node from t_list *lex
 char	**set_full_cmd(t_list *lst, int words)
 {
 	
