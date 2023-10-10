@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:28:49 by abektimi          #+#    #+#             */
-/*   Updated: 2023/09/30 18:25:12 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/05 21:23:44 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,67 +38,88 @@ int quote_checker(const char *s)
 	return (q);
 }
 
-//ensures that sections in the user input which are put in quotes
-// are counted as one contiguous entry, including possible whitespace chars
-void    skip_quotes(const char *s, int *i)
+//ensures that different kinds of quoted and unquoted sections in char *s
+//are counted as one (1) string section respectively
+void	skip_section(const char *s, int *i, int *wc, int id)
 {
-	char    tmp;
-
-	tmp = s[(*i)++];
-	while (s[*i] != '\0' && s[*i] != tmp)
-		(*i)++;
-	if (s[*i] == tmp)
+	if (id != 34 && id != 39)
+		while (s[*i] != '\0' && !isws(s[*i]) && s[*i] != 34 && s[*i] != 39)
+			(*i)++;
+	else if (id == 34)
 	{
 		(*i)++;
-		if (!isws(s[*i]) && s[*i] != '\0')
-		{
-			while (s[*i] != '\0' && !isws(s[*i]))
-				(*i)++;
-		}
+		while (s[*i] != '\0' && s[*i] != 34)
+			(*i)++;
+		(*i)++;
 	}
+	else if (id == 39)
+	{
+		(*i)++;
+		while (s[*i] != '\0' && s[*i] != 39)
+			(*i)++;
+		(*i)++;
+	}
+	if (isws(s[*i]) || s[*i] == '\0')
+			(*wc)++;
 }
 
-//get_qt() returns the input section in quotation marks
-//to lex_split() as one cohesive entry 
-char    *get_qt(char *s, int *id, char q)
+//uses indices start and end to write from char *s into a new string
+char	*set_word(const char *s, int *end, int start)
 {
-	int     i;
-	char    *ret;
+	int		i;
+	int		len;
+	char	*ret;
 
-	i = 1;
-	while (s[*id + i] != '\0' && s[*id + i] != q)
-		i++;
-	if (s[*id + i + 1] != '\0' && !isws(s[*id + i + 1]))
-		while (s[*id + i] != '\0' && !isws(s[*id + i]))
-			i++;
-	else
-		i++;
-	if (i > 1)
-		ret = ft_calloc((i + 1), sizeof(char));
-	else
-		return (NULL);
+	i = 0;
+	len = ((*end) - start);
+	ret = malloc(sizeof(char) * (len + 1));
 	if (!ret)
 		return (NULL);
-	set_str(s, ret, id, i);
+	while (i < len)
+	{
+		ret[i] = s[start];
+		i++;
+		start++;
+	}
+	ret[i] = '\0';
 	return (ret);
 }
 
 //sets the "int quote_status" flag of each t_list node
 //0 -> no quotes
-//1 -> single-quotes
-//2 -> double-quotes
-int s_or_d(const char *s)
+//1 -> quotes
+int has_quotes(const char *s)
 {
 	int i;
 
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] == 34)
-			return (2);
-		else if (s[i] == 39)
+		if (s[i] == 34 || s[i] == 39)
 			return (1);
 		i++;
 	}
 	return (0);
+}
+
+//initializes an empty 2D array for later use in lex_spit()
+char	**set_array(const char *s)
+{
+	char	**ret;
+	int		i;
+	int		wc;
+
+	if (s == NULL)
+		return (NULL);
+	wc = get_wc(s);
+	ret = malloc(sizeof(char *) * (wc + 1));
+	if (!ret)
+		return (NULL);
+	i = 0;
+	while (i < wc)
+	{
+		ret[i] = NULL;
+		i++;
+	}
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/01 16:36:14 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:58:06 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define MINISHELL_H
 
 # define PROMPT "minishell$ "
+# define IS_PIPE 301
+# define IP_REDIR 302
+# define OP_REDIR 303
+# define APPEND 304
+# define HEREDOC 305
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -46,6 +51,7 @@ typedef struct s_list
 	struct s_list	*prev;
 	struct s_msc	*msc;
 	int				quote_status;
+	int				token_status;
 }			t_list;
 
 typedef struct s_cmd
@@ -58,6 +64,7 @@ typedef struct s_cmd
 	int		fd_out;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
+	struct s_msc	*msc;
 }				t_cmd;
 
 typedef struct s_msc
@@ -134,28 +141,38 @@ void	ft_lstclear(t_list **lst);
 t_list  *init_lst(t_msc *msc, char **input);
 
 //lex_funcs.c
-void    del_tmp(char **tmp);
+void	free_2d_arr(char **arr);
 void	input_lexer(t_msc *msc);
 void    ft_printlist(t_list *lst); //ONLY FOR TESTING; DELETE FROM FINAL VERSION
-char	**set_array(const char *s);
-char	*trim_quotes(const char *s);
-void	set_str(const char *s, char *ret, int *id, int len);
 
 //lex_utils1.c
 int quote_checker(const char *s);
-void	skip_quotes(const char *s, int *i);
-char    *get_qt(char *s, int *id, char q);
-int s_or_d(const char *s);
+void	skip_section(const char *s, int *i, int *wc, int id);
+char	*set_word(const char *s, int *end, int start);
+int has_quotes(const char *s);
+char	**set_array(const char *s);
 
 //lex_utils2.c
 int	search_estr(t_list *lst);
 int search_opipe(t_list *lst);
+void	set_token_flag(t_list *lst);
+int	is_operator(const char *s);
 
 //lex_split.c
 int	isws(const char c);
 void	*del_split(char **words, int i);
 int	get_wc(const char *s);
-char	*get_wd(char *s, int *id);
+char	*get_wd(const char *s, int *i);
 char	**lex_split(char *s);
+
+//cmd_utils1.c
+t_cmd	*ft_cmdnew(t_msc *ms);
+void    ft_cmdadd_back(t_cmd **lst, t_cmd *new);
+t_cmd	*ft_cmdlast(t_cmd *lst);
+void    ft_cmdclear(t_cmd **lst);
+t_cmd  *init_cmd(t_msc *msc, int nb);
+
+//cmd_utils2.c
+int	nb_of_cmds(t_list *lst);
 
 #endif
