@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/01 04:56:20 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:05:48 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,9 @@ int	ft_shift_to_dollar(char *str)
 	}
 	return(-1);
 }
+
+//handle $$ correctly, and also handle $?
+//handle $USER'$USER'$USER
 
 // void	exp_retokenize(t_msc *msc)
 // {
