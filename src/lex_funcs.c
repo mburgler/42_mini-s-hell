@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/10 17:51:32 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:51:42 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	input_lexer(t_msc *msc)
 	// tokenize_op(msc);
 	set_token_flag(msc->lex);
 	ft_printlist(msc->lex);
-	msc->cmd = init_cmd(msc, nb_of_cmds(msc->lex));
+	//msc->cmd = init_cmd(msc, nb_of_cmds(msc->lex));
 }
 
 //ONLY INCLUDED FOR TESTING PURPOSES
