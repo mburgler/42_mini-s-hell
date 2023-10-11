@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/11 16:34:13 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:55:46 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,14 @@ void	handle_sigint(int sig);
 
 //exp_func.c
 void	exp_head(t_msc *msc);
+char	*exp_sub(t_msc *msc, char *str, char *to_free_in_case_of_error);
+void	exp_logic(t_msc *msc, t_list *tmp, char *s1, char *to_free);
 void	exp_tilde(t_msc *msc, t_list *tmp);
+int	ft_shift_to_dollar(char *str);
+void	exp_retokenize(t_msc *msc);
 
 //exp_utils.c
-char	*ft_strjoin_free(char *s1, char *s2, char *to_free, char *to_free2);
+char	*ft_strjoin_and_free(char *s1, char *s2, char *to_free, char *to_free2);
 char	*free_two(char *to_free, char *to_free2);
 int	ft_strchr_i(const char *s, int c);
 int	ft_trimascii(char *str);

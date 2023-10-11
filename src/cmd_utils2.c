@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:47:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/10 19:47:18 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:59:37 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	**get_full_cmd(t_list *lst)
 	if (cmds_done == 0)
 	{
 		tmp = lst;
-		cmds_done == 1;
+		cmds_done = 1;
 	}
 	while (tmp)
 	{
@@ -59,12 +59,15 @@ char	**get_full_cmd(t_list *lst)
 	}
 	if (tmp == NULL)
 		cmds_done = 0;	
-	return (set_full_cmd(lst, i));
+	(void)i; //FOR COMPILING PLS FIX
+	return (NULL);// set_full_cmd(lst, i));
 }
 
 //assembles the full_cmd variable
 //of each t_cmd node from t_list *lex
 char	**set_full_cmd(t_list *lst, int words)
 {
-	
+	(void)lst;
+	(void)words;
+	return(NULL);
 }

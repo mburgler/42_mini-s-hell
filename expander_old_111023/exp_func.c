@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/11 16:38:42 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:05:48 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,46 +15,24 @@
 void	exp_head(t_msc *msc)
 {
 	t_list	*tmp;
+	char	*to_free;
+	char	*placeholder;
 
+	placeholder = NULL;
 	tmp = msc->lex;
 	while (tmp && tmp->str)
 	{
 		if (tmp->quote_status == 0 && tmp->str[0] == '~')
-		{
 			exp_tilde(msc, tmp);
-			tmp = tmp->next;
-			continue ;
+		if (tmp && (tmp->quote_status == 0 || tmp->quote_status == 2) && ft_strchr(tmp->str, '$'))
+		{
+			to_free = tmp->str;
+			exp_logic(msc, tmp, placeholder, to_free);
 		}
-		if(ft_strchr(tmp->str, '$'))
-			exp_logic_new(msc, tmp);
-		tmp = tmp->next;
-		// if (tmp && (tmp->quote_status == 0 || tmp->quote_status == 2) && ft_strchr(tmp->str, '$'))
-		// {
-		// 	to_free = tmp->str;
-		// 	exp_logic(msc, tmp, placeholder, to_free);
-		// }
-		// if(ft_shift_to_dollar(tmp->str) == -1)
-		// 	tmp = tmp->next;
+		if(ft_shift_to_dollar(tmp->str) == -1)
+			tmp = tmp->next;
 	}
 	//exp_retokenize(msc);
-}
-
-void	exp_logic_new(t_msc *msc, t_list *tmp);
-{
-	
-}
-
-void	exp_tilde(t_msc *msc, t_list *tmp)
-{
-	char *tf;
-
-	tf = tmp->str;
-	if (tmp->str[1] == '\0')
-		tmp->str = ft_strjoin_free(msc->env_home, "", tf, NULL);
-	else
-		tmp->str = ft_strjoin_free(msc->env_home, tmp->str + 1, tf, NULL);
-	if (!tmp->str)
-		malloc_error_free_exit(msc, tf, NULL);
 }
 
 
@@ -116,6 +94,16 @@ void	exp_logic(t_msc *msc, t_list *tmp, char *s1, char *to_free)
 	if(!tmp->str)
 		malloc_error_free_exit(msc, s1, s2);
 	free(to_free);
+}
+
+void	exp_tilde(t_msc *msc, t_list *tmp)
+{
+	if (tmp->str[1] == '\0')
+		tmp->str = ft_strjoin_and_free(msc->env_home, "", tmp->str, NULL);
+	else
+		tmp->str = ft_strjoin_and_free(msc->env_home, tmp->str + 1, tmp->str, NULL);
+	if(!tmp->str)
+		malloc_error_free_exit(msc, tmp->str, NULL);
 }
 
 int	ft_shift_to_dollar(char *str)

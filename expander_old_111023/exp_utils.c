@@ -6,13 +6,13 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 21:04:43 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/11 16:34:29 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/01 04:54:04 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*ft_strjoin_free(char *s1, char *s2, char *to_free, char *to_free2)
+char	*ft_strjoin_and_free(char *s1, char *s2, char *to_free, char *to_free2)
 {
 	char	*res;
 	int		i;
