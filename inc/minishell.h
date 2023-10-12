@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/11 16:34:13 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:01:30 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,11 @@ void	handle_sigint(int sig);
 
 //exp_func.c
 void	exp_head(t_msc *msc);
+void	exp_logic_new(t_msc *msc, t_list *tmp);
+void	exp_sub(t_list *tmp, int i, int aA0_end, t_msc *msc);
 void	exp_tilde(t_msc *msc, t_list *tmp);
+int	ft_shift_to_dollar(char *str, int reboot);
+int	get_quote_status(char *str, int dol_i);
 
 //exp_utils.c
 char	*ft_strjoin_free(char *s1, char *s2, char *to_free, char *to_free2);

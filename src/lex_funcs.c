@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_funcs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/10 19:51:42 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:47:06 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	input_lexer(t_msc *msc)
 	}
 	printf("\n\n### TESTING THE LINKED LIST LEXER THING: ###\n\n");
 	printf("~~ !! _ symbol added for better readability, not part of the string !! ~~\n\n");
-	// exp_head(msc); //MATTEO ADDED THIS
-	// tokenize_op(msc);
+	exp_head(msc); //MATTEO ADDED THIS
+	tokenize_op(msc); //MATTEO ADDED THIS
 	set_token_flag(msc->lex);
 	ft_printlist(msc->lex);
 	//msc->cmd = init_cmd(msc, nb_of_cmds(msc->lex));

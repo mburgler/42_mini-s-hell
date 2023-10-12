@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/11 16:38:42 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:41:41 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,75 @@ void	exp_head(t_msc *msc)
 			tmp = tmp->next;
 			continue ;
 		}
-		if(ft_strchr(tmp->str, '$'))
+		if (ft_strchr(tmp->str, '$'))
 			exp_logic_new(msc, tmp);
+		ft_shift_to_dollar(tmp->str, 1);
 		tmp = tmp->next;
-		// if (tmp && (tmp->quote_status == 0 || tmp->quote_status == 2) && ft_strchr(tmp->str, '$'))
-		// {
-		// 	to_free = tmp->str;
-		// 	exp_logic(msc, tmp, placeholder, to_free);
-		// }
-		// if(ft_shift_to_dollar(tmp->str) == -1)
-		// 	tmp = tmp->next;
 	}
 	//exp_retokenize(msc);
 }
 
-void	exp_logic_new(t_msc *msc, t_list *tmp);
+void	exp_logic_new(t_msc *msc, t_list *tmp)
 {
-	
+	int i;
+	int	aA0_end;
+
+	i = 0;
+	while (tmp->str[i])
+	{
+		i = ft_shift_to_dollar(tmp->str, 0);
+		if (i == -1)
+			return ;
+		if(get_quote_status(tmp->str, i) == 1)
+			continue;
+		if (tmp->str[i + 1] == '?')
+			printf("$? not yet handled"); //handle ?
+		else
+		{
+			aA0_end = ft_trimascii(tmp->str + i + 1);
+			exp_sub(tmp, i, aA0_end, msc);
+		}
+	}
+}
+
+void	exp_sub(t_list *tmp, int i, int aA0_end, t_msc *msc)
+{
+	char	*env;
+	char	*beg;
+	char	*end;
+	char	*placeholder;
+
+	placeholder = tmp->str;
+	env = ft_substr(tmp->str, i + 1, aA0_end);
+	if (!env)
+		malloc_error_free_exit(msc, NULL, NULL);
+	if(i > 0)
+		beg = ft_substr(tmp->str, 0, i);
+	else
+		beg = ft_strdup("");
+	if (!beg)
+		malloc_error_free_exit(msc, env, NULL);
+	if (tmp->str[i + aA0_end + 1] == '\0')
+		end = ft_strdup("");
+	else
+		end = ft_substr(tmp->str, i + aA0_end + 1, ft_strlen(tmp->str) - aA0_end - i);
+	if (!end)
+		malloc_error_free_exit(msc, beg, env);
+	free(placeholder);
+	placeholder = getenv(env);
+	if (!placeholder)
+		placeholder = ft_strdup("");
+	else
+		placeholder = ft_strdup(placeholder);
+	if (!placeholder)
+		malloc_error_free_exit(msc, beg, end);
+	free(env);
+	tmp->str = ft_strjoin_free(beg, placeholder, beg, placeholder);
+	if (!tmp->str)
+		malloc_error_free_exit(msc, end, NULL);
+	tmp->str = ft_strjoin_free(tmp->str, end, tmp->str, end);
+	if (!tmp->str)
+		malloc_error_free_exit(msc, NULL, NULL);
 }
 
 void	exp_tilde(t_msc *msc, t_list *tmp)
@@ -57,109 +109,51 @@ void	exp_tilde(t_msc *msc, t_list *tmp)
 		malloc_error_free_exit(msc, tf, NULL);
 }
 
-
-
-char	*exp_sub(t_msc *msc, char *str, char *to_free_in_case_of_error)
+int	ft_shift_to_dollar(char *str, int reboot)
 {
-	char	*tmp;
-	char	*end;
-	int		aA0_end;
-	char	*env;
+	static int	i;
 
-	aA0_end = ft_trimascii(str);
-	env = ft_substr(str, 0, aA0_end);
-	if(!env)
-		malloc_error_free_exit(msc, to_free_in_case_of_error, NULL);
-	end = ft_substr(str, aA0_end, ft_strlen(str) - aA0_end);
-	if(!end)
-		malloc_error_free_exit(msc, to_free_in_case_of_error, env);
-	tmp = getenv(env);
-	if (tmp)
-		tmp = ft_strjoin_and_free(tmp, end, env, end); //ft_strdup(tmp);
-	else
+	if(reboot == 1)
 	{
-		printf("str%s\n", env);
-		printf("str%s\n", end);
-		free_two(env, end);
-		tmp = ft_strdup("");
+		i = 0;
+		return (-42);
 	}
-	if(!tmp)
-		malloc_error_free_exit(msc, to_free_in_case_of_error, NULL);
-	return (tmp);
-}
-
-void	exp_logic(t_msc *msc, t_list *tmp, char *s1, char *to_free)
-{
-	char	*s2;
-	int		i;
-	int		j;
-
-	i = ft_shift_to_dollar(tmp->str);
-	if(!tmp->str[i] || i == -1)
-		return ;
-	s1 = ft_substr(tmp->str, 0, i);
-	if (!s1)
-		malloc_error_free_exit(msc, NULL, NULL);
-	if (!tmp->str[++i])
-		return (free(s1));
-	j = i;
-	while(tmp->str[i] && ft_is_whitespace(tmp->str, i) == -1)
-		i++;
-	s2 = exp_sub(msc, ft_substr(tmp->str, j, i - j), s1);
-	s1 = ft_strjoin_and_free(s1, s2, s1, s2);
-	if(!s1)
-		malloc_error_free_exit(msc, NULL, NULL);
-	s2 = ft_substr(tmp->str, i, ft_strlen(tmp->str) - i);
-	if(!s2)
-		malloc_error_free_exit(msc, s1, NULL);
-	tmp->str = ft_strjoin_and_free(s1, s2, s1, s2);
-	if(!tmp->str)
-		malloc_error_free_exit(msc, s1, s2);
-	free(to_free);
-}
-
-int	ft_shift_to_dollar(char *str)
-{
-	int	i;
-
-	i = 0;
 	while(str[i])
 	{
-		if(str[i] == '$')
+		if(str[i] == '$' && str[i + 1] != '$')
 		{
-			if(ft_is_whitespace(str, i + 1) == -1 && str[i + 1] != '$')
-				return(i);
+			if (ft_is_whitespace(str, i + 1) == -1)
+			{
+				i++;
+				return(i - 1);
+			}
 		}
 		i++;
 	}
 	return(-1);
 }
 
-//handle $$ correctly, and also handle $?
-//handle $USER'$USER'$USER
+int	get_quote_status(char *str, int dol_i)
+{
+	int	i;
 
-// void	exp_retokenize(t_msc *msc)
-// {
-// 	t_list	*tmp;
-// 	char	*to_free;
-// 	int	i;
-
-// 	tmp = msc->lex;
-// 	while (tmp && tmp->str)
-// 	{
-// 		i = ft_is_whitespace_str(tmp->str);
-// 		if (tmp->quote_status == 0 && i != -1)
-// 		{
-// 			to_free = tmp->str;
-// 			tmp->str = ft_substr(tmp->str, 0, i);
-// 			if(!tmp->str)
-// 				malloc_error_free_exit(msc, NULL, NULL);
-// 			if(!ft_lst_insert(tmp, ft_substr(to_free, i, 
-// 				(ft_strlen(to_free) - i)), msc))
-// 				malloc_error_free_exit(msc, to_free, NULL);
-// 			free(to_free);
-// 		}
-// 		tmp = tmp->next;
-// 		printf("DEBUG: %s\n", tmp->str);
-// 	}
-// }
+	i = 0;
+	while(str[i] && i < dol_i)
+	{
+		if(str[i] == '\"')
+			return (2);
+		if(str[i] == '\'')
+		{
+			i++;
+			while(str[i] && i < dol_i)
+			{
+				if (str[i] == '\'')
+					return (0);
+				i++;
+			}
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
