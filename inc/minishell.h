@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/10/12 17:58:31 by abektimi         ###   ########.fr       */
+=======
+/*   Updated: 2023/10/12 17:04:35 by mburgler         ###   ########.fr       */
+>>>>>>> d7d6d04293e4c33a9243eb7c955fc23e5fec3ebc
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +35,6 @@
 # include "../MY_LIB/ft_printf/ft_printf.h"
 # include "../MY_LIB/ft_printf2/ft_printf2.h"
 # include "../MY_LIB/get_next_line/get_next_line_bonus.h"
-
-// typedef struct s_env
-// {
-// 	char	*name;
-// 	char	*value;
-// }				t_env;
-
-// typedef struct s_cmd
-// {
-// 	char	**args;
-// 	char	*path;
-// }				t_cmd;
 
 typedef struct s_list
 {
@@ -109,14 +101,14 @@ void	handle_sigint(int sig);
 
 //exp_func.c
 void	exp_head(t_msc *msc);
-char	*exp_sub(t_msc *msc, char *str, char *to_free_in_case_of_error);
-void	exp_logic(t_msc *msc, t_list *tmp, char *s1, char *to_free);
+void	exp_logic_new(t_msc *msc, t_list *tmp);
+void	exp_sub(t_list *tmp, int i, int aA0_end, t_msc *msc);
 void	exp_tilde(t_msc *msc, t_list *tmp);
-int	ft_shift_to_dollar(char *str);
-void	exp_retokenize(t_msc *msc);
+int	ft_shift_to_dollar(char *str, int reboot);
+int	get_quote_status(char *str, int dol_i);
 
 //exp_utils.c
-char	*ft_strjoin_and_free(char *s1, char *s2, char *to_free, char *to_free2);
+char	*ft_strjoin_free(char *s1, char *s2, char *to_free, char *to_free2);
 char	*free_two(char *to_free, char *to_free2);
 int	ft_strchr_i(const char *s, int c);
 int	ft_trimascii(char *str);
