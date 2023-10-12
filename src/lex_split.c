@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 14:49:43 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/05 21:33:04 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:57:28 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char    **lex_split(char *s)
 	int		j;
 	char    **ret;
 
-	ret = set_array(s);
+	ret = set_array(s, get_wc(s));
 	if (!ret)
 		return (NULL);
 	i = 0;

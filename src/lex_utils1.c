@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:28:49 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/05 21:23:44 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:59:15 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,14 @@ int has_quotes(const char *s)
 	return (0);
 }
 
-//initializes an empty 2D array for later use in lex_spit()
-char	**set_array(const char *s)
+//initializes an empty 2D array for later use in lex_spit.c and cmd_utils2.c
+char	**set_array(const char *s, int wc)
 {
 	char	**ret;
 	int		i;
-	int		wc;
 
 	if (s == NULL)
 		return (NULL);
-	wc = get_wc(s);
 	ret = malloc(sizeof(char *) * (wc + 1));
 	if (!ret)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/10 16:58:06 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:58:31 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int quote_checker(const char *s);
 void	skip_section(const char *s, int *i, int *wc, int id);
 char	*set_word(const char *s, int *end, int start);
 int has_quotes(const char *s);
-char	**set_array(const char *s);
+char	**set_array(const char *s, int wc);
 
 //lex_utils2.c
 int	search_estr(t_list *lst);
@@ -174,5 +174,7 @@ t_cmd  *init_cmd(t_msc *msc, int nb);
 
 //cmd_utils2.c
 int	nb_of_cmds(t_list *lst);
+char	**get_full_cmd(t_list *lst);
+char	**set_full_cmd(t_list *lst, int words);
 
 #endif
