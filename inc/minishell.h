@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/12 15:01:30 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:04:35 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,6 @@
 # include "../MY_LIB/ft_printf/ft_printf.h"
 # include "../MY_LIB/ft_printf2/ft_printf2.h"
 # include "../MY_LIB/get_next_line/get_next_line_bonus.h"
-
-// typedef struct s_env
-// {
-// 	char	*name;
-// 	char	*value;
-// }				t_env;
-
-// typedef struct s_cmd
-// {
-// 	char	**args;
-// 	char	*path;
-// }				t_cmd;
 
 typedef struct s_list
 {
