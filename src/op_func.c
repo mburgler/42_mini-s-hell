@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/09/28 21:14:25 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:09:08 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,26 @@ void tokenize_op(t_msc *msc)
     {
         if(tmp->quote_status == 0)
         {
+			check_for_syntax_error(msc, tmp);
             tokenize_individual_op(msc, tmp, '|');
             tokenize_individual_op(msc, tmp, '>');
             tokenize_individual_op(msc, tmp, '<');
         }
         tmp = tmp->next;
     }
+}
+
+void	check_for_syntax_error(t_msc *msc, t_list tmp)
+{
+	int	i;
+
+	i = 0;
+	while (tmp->str[i])
+	{
+		while(tmp->str[i] != '|' && tmp->str[i] != '>' && tmp->str[i] != '<' && tmp->str[i] != '\0')
+			i++;
+		
+	}
 }
 
 void	tokenize_individual_op(t_msc *msc, t_list *tmp, char op)
