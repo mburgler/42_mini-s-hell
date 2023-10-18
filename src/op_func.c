@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/18 16:09:08 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:29:59 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,40 @@ void tokenize_op(t_msc *msc)
     }
 }
 
-void	check_for_syntax_error(t_msc *msc, t_list tmp)
+void	check_for_syntax_error(t_msc *msc, t_list *tmp)
 {
 	int	i;
-
+	
 	i = 0;
-	while (tmp->str[i])
+	while (tmp & tmp->str)
 	{
-		while(tmp->str[i] != '|' && tmp->str[i] != '>' && tmp->str[i] != '<' && tmp->str[i] != '\0')
+		while(tmp->str[i] != '|' && tmp->str[i] != '>' &&
+			tmp->str[i] != '<' && tmp->str[i] != '\0')
 			i++;
-		
+		if(cse2(tmp, i, '|') || cse2(tmp, i, '>') || cse2(tmp, i, '<'))
+		{
+			ft_printf_2("minishell: syntax error near unexpected token `%c'\n",
+			tmp->str[i]);
+			g_sig_status = 258;
+			malloc_error_free_exit(msc, NULL, NULL);
+		}
+		tmp = tmp->next;
 	}
+}
+
+int	cse2(t_list *tmp, int i, char op)
+{
+	if(tmp->str[i] == op && i > 0)
+	{
+		if(tmp->str[i - 1] == op ||
+			(tmp->next && tmp->next->quote_status == 0 && ->next->str[0] == op))
+			return (1);
+	}
+	else if(tmp->str[i] == op && tmp->str[i + 1] && i == 0)
+		if(tmp->str[i + 1] == op ||
+			(tmp->next && tmp->next->quote_status == 0 && ->next->str[0] == op))
+			return (1);
+	return (0);
 }
 
 void	tokenize_individual_op(t_msc *msc, t_list *tmp, char op)
