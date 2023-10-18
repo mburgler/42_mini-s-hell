@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/16 17:27:09 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:36:51 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ int	ft_is_whitespace_str(char *str);
 
 //op_func.c
 void	tokenize_op(t_msc *msc);
+void	check_for_syntax_error(t_msc *msc, t_list *tmp);
+int	cse2(t_list *tmp, int i, char op);
 void	tokenize_individual_op(t_msc *msc, t_list *tmp, char op);
 int	ft_lst_insert(t_list *node, char *s, t_msc *msc);
 
