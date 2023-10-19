@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:25:32 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/10 17:50:57 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:11:13 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_cmd	*ft_cmdnew(t_msc *ms)
 		return (NULL);
 	ret->cmd = NULL;
 	ret->option = NULL;
-	ret->full_cmd = NULL;
+	ret->full_cmd = cmd_setter(ms->lex);
 	ret->fd_in = 0;
 	ret->fd_out = 1;
 	ret->next = NULL;
@@ -89,7 +89,7 @@ t_cmd	*init_cmd(t_msc	*msc, int nb)
 	t_cmd	*tmp;
 	int		i;
 
-	i = 0;
+	i = 1;
 	ret = ft_cmdnew(msc);
 	if(!ret)
 		return (NULL);

@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/12 17:58:31 by abektimi         ###   ########.fr       */
-=======
-/*   Updated: 2023/10/12 17:04:35 by mburgler         ###   ########.fr       */
->>>>>>> d7d6d04293e4c33a9243eb7c955fc23e5fec3ebc
+/*   Updated: 2023/10/19 20:43:31 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +40,7 @@ typedef struct s_list
 	struct s_msc	*msc;
 	int				quote_status;
 	int				token_status;
+	int				id;
 }			t_list;
 
 typedef struct s_cmd
@@ -126,7 +123,7 @@ int	pars_list(t_msc *msc);
 void	pars_init_cmd(t_msc *msc);
 
 //list_utils1.c
-t_list	*ft_lstnew(t_msc *ms, const char *s);
+t_list	*ft_lstnew(t_msc *ms, const char *s, int i);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstclear(t_list **lst);
@@ -149,6 +146,7 @@ int	search_estr(t_list *lst);
 int search_opipe(t_list *lst);
 void	set_token_flag(t_list *lst);
 int	is_operator(const char *s);
+int	consec_ops(t_list *lst);
 
 //lex_split.c
 int	isws(const char c);
@@ -166,7 +164,8 @@ t_cmd  *init_cmd(t_msc *msc, int nb);
 
 //cmd_utils2.c
 int	nb_of_cmds(t_list *lst);
-char	**get_full_cmd(t_list *lst);
-char	**set_full_cmd(t_list *lst, int words);
+char	**cmd_setter(t_list *lst);
+char	**get_full_cmd(t_list *lst, int start, int end);
+void	print2d(t_cmd *cmds);
 
 #endif
