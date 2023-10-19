@@ -6,20 +6,20 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/19 19:27:59 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:18:46 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void tokenize_op(t_msc *msc)
+void	tokenize_op(t_msc *msc)
 {
     t_list    *tmp;
 
     tmp = msc->lex;
     while (tmp && tmp->str)
     {
-        if (tmp->quote_status == 0)
+        if(tmp->quote_status == 0)
         {
             tokenize_individual_op(msc, tmp, '|');
             tokenize_individual_op(msc, tmp, '>');
@@ -27,6 +27,43 @@ void tokenize_op(t_msc *msc)
         }
         tmp = tmp->next;
     }
+	rejoin_tokens(msc);
+}
+
+void	rejoin_tokens(t_msc *msc)
+{
+	t_list	*tmp;
+	t_list	*tf;
+	char	*buff;
+
+    tmp = msc->lex;
+	while (tmp && tmp->str && tmp->next)
+	{
+		tf = tmp->next;
+		if (((tmp->str[0] == '>' && tf->str[0] == '>') || (tmp->str[0] == '<'
+			&& tf->str[0] == '<')) && !tmp->str[1])
+		{
+			buff = tmp->str;
+			tmp->str = ft_strjoin(tmp->str, tmp->next->str);
+			if (!tmp->str)
+				malloc_error_free_exit(msc, buff, NULL);
+			reset_order(tmp);
+			free_two(tf->str, buff);
+			free(tf);
+		}
+		tmp = tmp->next;
+	}
+}
+
+void	reset_order(t_list *tmp)
+{
+	if (tmp->next->next)
+	{
+		tmp->next = tmp->next->next;
+		tmp->next->prev = tmp;
+	}
+	else
+		tmp->next = NULL;
 }
 
 void	tokenize_individual_op(t_msc *msc, t_list *tmp, char op)
