@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 20:38:31 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/19 20:46:13 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/19 21:13:20 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,28 @@ void	kill_quotes(t_msc *msc)
 void	kill_quote_str(t_msc *msc, t_list *tmp, char q)
 {
 	char	*buff;
-	int		i;
-	int		j;
+	char	*to_free;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
-	buff = tmp->str;
+	to_free = tmp->str;
+	buff = calloc(ft_strlen(tmp->str) + 1, sizeof(char));
+	if (!buff)
+		malloc_error_free_exit(msc, NULL, NULL);
 	while (tmp->str[i])
 	{
 		if (tmp->str[i] == q)
 			i++;
 		else
 		{
-			tmp->str[j] = tmp->str[i];
+			buff[j] = tmp->str[i];
 			i++;
 			j++;
 		}
 	}
-	tmp->str[j] = '\0';
-	if (tmp->str[0] == '\0')
-	{
-		free(tmp->str);
-		tmp->str = NULL;
-	}
-	free(buff);
+	buff[j] = '\0';
+	tmp->str = buff;
+	free(to_free);
 }
