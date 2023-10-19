@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/19 19:24:46 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/19 19:27:59 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void tokenize_op(t_msc *msc)
     tmp = msc->lex;
     while (tmp && tmp->str)
     {
-        if(tmp->quote_status == 0)
+        if (tmp->quote_status == 0)
         {
             tokenize_individual_op(msc, tmp, '|');
             tokenize_individual_op(msc, tmp, '>');
