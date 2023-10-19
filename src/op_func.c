@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/19 20:20:08 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:20:39 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,12 @@ int	ft_lst_insert(t_list *node, char *s, t_msc *msc)
 	t_list	*new_node;
 	t_list	*next_node;
 
-	if(!s)
+	if (!s)
 		return (0);
 	new_node = malloc(sizeof(t_list));
 	if (!new_node)
 		malloc_error_free_exit(msc, NULL, NULL);
-	if(s)
+	if (s)
 		new_node->str = s;
 	new_node->next = NULL;
 	new_node->prev = node;
