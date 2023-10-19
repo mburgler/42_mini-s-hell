@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/19 20:18:46 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:19:27 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	tokenize_op(t_msc *msc)
     tmp = msc->lex;
     while (tmp && tmp->str)
     {
-        if(tmp->quote_status == 0)
+        if (tmp->quote_status == 0)
         {
             tokenize_individual_op(msc, tmp, '|');
             tokenize_individual_op(msc, tmp, '>');
@@ -74,17 +74,17 @@ void	tokenize_individual_op(t_msc *msc, t_list *tmp, char op)
 	i = 0;
 	while (tmp->str[i] && tmp->str[i] != op)
 		i++;
-	if(tmp->str[i] == op)
+	if (tmp->str[i] == op)
 	{
-		if(tmp->str[i + 1] && i == 0)
+		if (tmp->str[i + 1] && i == 0)
 			i = 1;
-		else if(i == 0)
+		else if (i == 0)
 			return ;
 		buff = tmp->str;
-		if(!ft_lst_insert(tmp, ft_substr(buff, i, ft_strlen(buff) - i), msc))
+		if (!ft_lst_insert(tmp, ft_substr(buff, i, ft_strlen(buff) - i), msc))
 			malloc_error_free_exit(msc, NULL, NULL);
 		tmp->str = ft_substr(buff, 0, i);
-		if(!tmp->str)
+		if (!tmp->str)
 			malloc_error_free_exit(msc, NULL, NULL);
 		free(buff);
 	}
