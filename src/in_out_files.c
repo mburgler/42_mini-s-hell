@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/18 16:01:31 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/19 19:29:17 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ no whitespaces between < <
 // - handle kill quotes
 // - handle handle operators
 
-void	handle_op(t_msc *msc, t_cmd cmd, )
-{
+// void	handle_op(t_msc *msc, t_cmd cmd, )
+// {
 	
-}
-{
+// }
+// {
 
-}
+// }
 
-int	open_outfile
-{
+// int	open_outfile
+// {
 	
-}
+// }
