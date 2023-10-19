@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/19 20:19:27 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:20:08 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	tokenize_op(t_msc *msc)
 {
-    t_list    *tmp;
+	t_list	*tmp;
 
     tmp = msc->lex;
-    while (tmp && tmp->str)
-    {
-        if (tmp->quote_status == 0)
-        {
-            tokenize_individual_op(msc, tmp, '|');
-            tokenize_individual_op(msc, tmp, '>');
-            tokenize_individual_op(msc, tmp, '<');
-        }
+	while (tmp && tmp->str)
+	{
+		if (tmp->quote_status == 0)
+		{
+			tokenize_individual_op(msc, tmp, '|');
+			tokenize_individual_op(msc, tmp, '>');
+			tokenize_individual_op(msc, tmp, '<');
+		}
         tmp = tmp->next;
-    }
+	}
 	rejoin_tokens(msc);
 }
 
