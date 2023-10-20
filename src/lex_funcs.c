@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/19 20:38:19 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/20 19:16:52 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	input_lexer(t_msc *msc)
 	ft_printlist(msc->lex);
 	msc->cmd = init_cmd(msc, nb_of_cmds(msc->lex));
 	// printf("\n\nNumber of cmds: %d\n\n", n_o_c(msc->cmd));
-	// print2d(msc->cmd);
+	print2d(msc->cmd);
 }
 
 //ONLY INCLUDED FOR TESTING PURPOSES
