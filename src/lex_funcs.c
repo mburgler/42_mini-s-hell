@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_funcs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/19 20:38:19 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/20 19:19:21 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	input_lexer(t_msc *msc)
 	printf("~~ !! _ symbol added for better readability, not part of the string !! ~~\n\n");
 	exp_head(msc); //MATTEO ADDED THIS
 	tokenize_op(msc); //MATTEO ADDED THIS
-	set_token_flag(msc->lex);
+	set_token_flag(msc->lex); //MATTEO ADDED THIS
+	kill_quotes(msc);
 	//delete all and print appropriate error message in if-clause below
 	if (consec_ops(msc->lex))
 	{

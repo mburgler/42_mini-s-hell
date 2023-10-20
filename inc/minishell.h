@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/20 18:04:18 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/20 18:48:10 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,9 @@ void	tokenize_individual_op(t_msc *msc, t_list *tmp, char op);
 int	ft_lst_insert(t_list *node, char *s, t_msc *msc);
 
 //kill_quotes.c
+void	kill_quotes(t_msc *msc);
+void	kill_quote_str(t_msc *msc, t_list *tmp, char q);
+int	jump_quotes(char *s, int i);
 
 //pars_func.c
 void	pars_head(t_msc *msc);
