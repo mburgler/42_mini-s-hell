@@ -6,11 +6,13 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/19 20:20:39 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/20 19:00:26 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+//hey>du>>burli
 
 void	tokenize_op(t_msc *msc)
 {
@@ -19,13 +21,10 @@ void	tokenize_op(t_msc *msc)
     tmp = msc->lex;
 	while (tmp && tmp->str)
 	{
-		if (tmp->quote_status == 0)
-		{
-			tokenize_individual_op(msc, tmp, '|');
-			tokenize_individual_op(msc, tmp, '>');
-			tokenize_individual_op(msc, tmp, '<');
-		}
-        tmp = tmp->next;
+		tokenize_individual_op(msc, tmp, '|');
+		tokenize_individual_op(msc, tmp, '>');
+		tokenize_individual_op(msc, tmp, '<');
+		tmp = tmp->next;
 	}
 	rejoin_tokens(msc);
 }
@@ -72,6 +71,10 @@ void	tokenize_individual_op(t_msc *msc, t_list *tmp, char op)
 	int		i;
 
 	i = 0;
+	while (tmp->str[i] && tmp->str[i] != op
+		&& (tmp->str[i] != '\"' || tmp->str[i] != '\"'))
+		i++;
+	i = jump_quotes(tmp->str, i);
 	while (tmp->str[i] && tmp->str[i] != op)
 		i++;
 	if (tmp->str[i] == op)

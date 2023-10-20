@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/20 19:16:52 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/20 19:21:20 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	input_lexer(t_msc *msc)
 	printf("~~ !! _ symbol added for better readability, not part of the string !! ~~\n\n");
 	exp_head(msc); //MATTEO ADDED THIS
 	tokenize_op(msc); //MATTEO ADDED THIS
-	set_token_flag(msc->lex);
+	set_token_flag(msc->lex); //MATTEO ADDED THIS
+	kill_quotes(msc);
 	//delete all and print appropriate error message in if-clause below
 	if (consec_ops(msc->lex))
 	{
