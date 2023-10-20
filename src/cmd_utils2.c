@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:47:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/13 00:37:37 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:44:50 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,41 +30,82 @@ int nb_of_cmds(t_list *lst)
 	return (ret);
 }
 
-//separates the t_list *lex into parts which
-//set_full_cmd() can use
-// char	**get_full_cmd(t_list *lst)
-// {
-// 	int				i;
-// 	static int		p_count;
-// 	static t_list	*tmp;
+char	**cmd_setter(t_list *lst)
+{
+	static int		start;
+	static int		end;
+	static t_list	*tmp;
 
 	if (!lst)
 		return (NULL);
-	i = 0;
-	if (cmds_done == 0)
+	if (tmp == NULL)
 	{
 		tmp = lst;
-		cmds_done == 1;
+		start = 0;
+		end = 0;
 	}
 	while (tmp)
 	{
-		if (tmp->token_status != IS_PIPE)
-			i++;
-		else
+		start = end;
+		if (tmp->token_status == IS_PIPE || tmp->next == NULL)
 		{
+			end = tmp->id;
 			tmp = tmp->next;
 			break;
 		}
 		tmp = tmp->next;
 	}
-	if (tmp == NULL)
-		cmds_done = 0;	
-	return (set_full_cmd(lst, i));
+	return (get_full_cmd(lst, start, end));
 }
 
-//assembles the full_cmd variable
-//of each t_cmd node from t_list *lex
-char	**set_full_cmd(t_list *lst, int words)
+//creates a 2D array containing the strings of the lexer list
+//separated by pipes and/or the end of the list
+char	**get_full_cmd(t_list *lst, int start, int end)
 {
-	
+	int		i;
+	char	**ret;
+
+	ret = malloc(sizeof(char *) * (end - start + 1));
+	if (!ret)
+		return (NULL);
+	while (lst->id != start)
+		lst = lst->next;
+	if (lst->token_status == IS_PIPE)
+		lst = lst->next;
+	i = 0;
+	while (lst != NULL && lst->token_status != IS_PIPE)
+	{
+		ret[i] = ft_strdup(lst->str);
+		if (ret[i] == NULL)
+			return (del_split(ret, i));
+		i++;
+		lst = lst->next;
+	}
+	ret[i] = NULL;
+	return (ret);
+}
+
+//ONLY MEANT FOR TESTING PURPOSES
+void	print2d(t_cmd *cmds)
+{
+	int	i;
+	int	j;
+
+	if (!cmds)
+	{
+		printf("\n\nCouldn't print stuff\n\n");
+		return ;
+	}
+	j = 0;
+	while (cmds)
+	{
+		i = 0;
+		printf("\nNode %d:\n\n", j++);
+		while (cmds->full_cmd[i] != NULL)
+		{
+			printf("\n%s\n", cmds->full_cmd[i]);
+			i++;
+		}
+		cmds = cmds->next;
+	}
 }

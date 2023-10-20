@@ -6,14 +6,14 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:21:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/07 18:23:13 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/15 15:42:23 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //creates and returns a blank node of type t_list
-t_list  *ft_lstnew(t_msc *ms, const char *s)
+t_list  *ft_lstnew(t_msc *ms, const char *s, int i)
 {
 	t_list  *ret;
 
@@ -25,7 +25,7 @@ t_list  *ft_lstnew(t_msc *ms, const char *s)
 	ret->prev = NULL;
 	ret->msc = ms;
 	ret->quote_status = has_quotes(s);
-	ret->token_status = 0;
+	ret->id = i;
 	return (ret);
 }
 
@@ -86,12 +86,12 @@ t_list  *init_lst(t_msc *msc, char **input)
 	int     i;
 
 	i = 1;
-	ret = ft_lstnew(msc, input[0]);
+	ret = ft_lstnew(msc, input[0], 0);
 	if(!ret)
 		return (NULL);
 	while (input[i])
 	{
-		tmp = ft_lstnew(msc, input[i]);
+		tmp = ft_lstnew(msc, input[i], i);
 		ft_lstadd_back(&ret, tmp);
 		if (!tmp)
 		{
