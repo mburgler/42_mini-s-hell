@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/20 18:48:10 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/21 14:50:07 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,15 @@ char	**set_array(const char *s, int wc);
 
 //lex_utils2.c
 int	search_estr(t_list *lst);
-int search_opipe(t_list *lst);
+//int search_opipe(t_list *lst);
 void	set_token_flag(t_list *lst);
 int	is_operator(const char *s);
-int	consec_ops(t_list *lst);
+
+//lex_utils3.c
+int	check_whs_betw_op(t_msc *msc, char op);
+int	check_open_op(t_msc *msc);
+int	consec_ops(t_msc *msc);
+int	pipe_first(t_msc *msc);
 
 //lex_split.c
 int	isws(const char c);
