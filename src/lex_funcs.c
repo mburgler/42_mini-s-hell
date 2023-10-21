@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/21 14:54:06 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:55:44 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,32 @@ void	input_lexer(t_msc *msc)
 	if (!msc->lex)
 		exit(1);
 	//delete all and print appropriate error message in if-clause below
-	if (search_estr(msc->lex) || search_opipe(msc->lex))
+	if (search_estr(msc->lex))
 	{
 		//ft_lstclear(&(msc->lex));
-		printf("\nOPEN PIPE/EMPTY STRING FOUND\n");
+		printf("\nEMPTY STRING FOUND\n");
 	}
-	// printf("\n\n### TESTING THE LINKED LIST LEXER THING: ###\n\n");
-	// printf("~~ !! _ symbol added for better readability, not part of the string !! ~~\n\n");
-	exp_head(msc);
-	tokenize_op(msc);
-	set_token_flag(msc->lex);
+	exp_head(msc); //MATTEO ADDED THIS
+	tokenize_op(msc); //MATTEO ADDED THIS
+	set_token_flag(msc->lex); //MATTEO ADDED THIS
 	kill_quotes(msc);
 	//delete all and print appropriate error message in if-clause below
-	if (consec_ops(msc->lex))
+	if (consec_ops(msc))
 	{
 		//ft_lstclear(&(msc->lex));
 		printf("\nCANNOT HAVE CONSECUTIVE OPERATORS!\n");
 	}
-	// ft_printlist(msc->lex);
+	if(check_open_op(msc))
+	{
+		//ft_lstclear(&(msc->lex));
+		printf("syntax error near unexpected token `newline'\n");
+	}
+	if(pipe_first(msc))
+	{
+		//ft_lstclear(&(msc->lex));
+		printf("syntax error near unexpected token `|'\n");
+	}
+	ft_printlist(msc->lex);
 	msc->cmd = init_cmd(msc, nb_of_cmds(msc->lex));
 	print2d(msc->cmd);
 }
@@ -74,6 +82,7 @@ void	ft_printlist(t_list *lst)
 	if (lst)
 	{
 		tmp = lst;
+		printf("\n\n### TESTING THE LINKED LIST LEXER ###\n\n");
 		while (tmp)
 		{
 			printf("Node %d contains: _%s_\n", tmp->id, tmp->str);
