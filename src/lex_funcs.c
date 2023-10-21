@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/21 15:55:44 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/21 17:11:12 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	input_lexer(t_msc *msc)
 		//ft_lstclear(&(msc->lex));
 		printf("syntax error near unexpected token `|'\n");
 	}
-	ft_printlist(msc->lex);
+	// ft_printlist(msc->lex);
 	msc->cmd = init_cmd(msc, nb_of_cmds(msc->lex));
 	print2d(msc->cmd);
 }

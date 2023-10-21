@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:25:32 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/21 19:01:06 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:03:01 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_cmd	*init_cmd(t_msc	*msc, int nb)
 
 	i = 1;
 	ret = ft_cmdnew(msc);
-	if(!ret)
+	if (!ret)
 		return (NULL);
 	//set_in_out_file(ret);
 	while (i < nb)

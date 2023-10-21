@@ -3,23 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   lex_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 18:25:49 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/21 14:51:41 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/21 17:59:14 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //looks for empty string in the user input
-int search_estr(t_list *lst)
+int	search_estr(t_list *lst)
 {
 	if (lst != NULL)
 	{
 		while (lst)
 		{
-			if (ft_strlen(lst->str) == 0)
+			if (ft_strncmp(lst->str, "''", 2) == 0)
+				return (1);
+			else if (ft_strlen(lst->str) == 2 && lst->str[0] == 34
+				&& lst->str[1] == 34)
 				return (1);
 			lst = lst->next;
 		}
@@ -55,7 +58,8 @@ int search_estr(t_list *lst)
 // 	return (0);
 // }
 
-//checks if a list node contains an operator from the list specified in the subject
+//checks if a list node contains an operator from
+//the list specified in the subject
 void	set_token_flag(t_list *lst)
 {
 	if (!lst)
