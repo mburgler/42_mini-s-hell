@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:25:32 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/21 15:07:04 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/21 16:56:45 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_cmd	*init_cmd(t_msc	*msc, int nb)
 
 	i = 1;
 	ret = ft_cmdnew(msc);
-	if(!ret)
+	if (!ret)
 		return (NULL);
 	while (i < nb)
 	{

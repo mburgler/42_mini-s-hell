@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:28:49 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/12 17:59:15 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/21 16:54:45 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 //i) a value of 0 shows that all quotes are closed
 //ii) a value of 1 shows that there are open double-quotes
 //iii) a value of 2 shows that there are open single-quotes
-int quote_checker(const char *s)
+int	quote_checker(const char *s)
 {
-	int i;
-	int q;
+	int	i;
+	int	q;
 
 	i = 0;
 	q = 0;
@@ -60,7 +60,7 @@ void	skip_section(const char *s, int *i, int *wc, int id)
 		(*i)++;
 	}
 	if (isws(s[*i]) || s[*i] == '\0')
-			(*wc)++;
+		(*wc)++;
 }
 
 //uses indices start and end to write from char *s into a new string
@@ -88,9 +88,9 @@ char	*set_word(const char *s, int *end, int start)
 //sets the "int quote_status" flag of each t_list node
 //0 -> no quotes
 //1 -> quotes
-int has_quotes(const char *s)
+int	has_quotes(const char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i] != '\0')

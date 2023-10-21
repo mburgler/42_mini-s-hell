@@ -6,22 +6,23 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 14:49:43 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/12 17:57:28 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/21 17:06:09 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //returns 1 upon encountering a white space characyer
-int isws(const char c)
+int	isws(const char c)
 {
 	if (c == 32 || (c >= 9 && c <= 13))
 		return (1);
 	return (0);
 }
 
-//deletes the content of char **words up until the most recently initialized index
-void    *del_split(char **words, int i)
+//deletes the content of char **words
+//up until the most recently initialized index
+void	*del_split(char **words, int i)
 {
 	if (words)
 	{
@@ -37,7 +38,7 @@ void    *del_split(char **words, int i)
 }
 
 //returns the number of sections in the input string using skip_section()
-int		get_wc(const char *s)
+int	get_wc(const char *s)
 {
 	int		i;
 	int		wc;
@@ -53,7 +54,8 @@ int		get_wc(const char *s)
 	return (wc);
 }
 
-//returns a string which contains one (1) contiguous input section using set_word()
+//returns a string which contains one (1)
+//contiguous input section using set_word()
 char	*get_wd(const char *s, int *i)
 {
 	int		start;
@@ -73,18 +75,19 @@ char	*get_wd(const char *s, int *i)
 			(*i)++;
 		}
 		if (isws(s[*i]) || s[*i] == '\0')
-			break;
+			break ;
 	}
 	return (set_word(s, i, start));
 }
 
-//splits the string read by readline() into a 2D array for later use in input_lexer()
+//splits the string read by readline() into
+//a 2D array for later use in input_lexer()
 //each entry in char **ret contains one section of input respectively
-char    **lex_split(char *s)
+char	**lex_split(char *s)
 {
-	int     i;
+	int		i;
 	int		j;
-	char    **ret;
+	char	**ret;
 
 	ret = set_array(s, get_wc(s));
 	if (!ret)
