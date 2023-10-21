@@ -6,7 +6,7 @@
 #    By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/21 10:55:14 by mburgler          #+#    #+#              #
-#    Updated: 2023/10/21 14:51:30 by mburgler         ###   ########.fr        #
+#    Updated: 2023/10/21 18:33:38 by mburgler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,9 +88,10 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
                     src/lex_utils1.c \
                     src/lex_utils2.c \
 					src/lex_utils3.c \
-                    src/cmd_utils1.c \
 					src/kill_quotes.c \
-                    src/cmd_utils2.c
+                    src/cmd_utils1.c \
+                    src/cmd_utils2.c \
+                    src/in_out_files.c
 OBJS        := $(SRCS:.c=.o)
 
 .c.o:

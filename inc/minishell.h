@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/21 15:54:12 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/21 18:36:20 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define MINISHELL_H
 
 # define PROMPT "minishell$ "
-# define IS_PIPE 301
-# define IP_REDIR 302
-# define OP_REDIR 303
-# define APPEND 304
-# define HEREDOC 305
+# define IS_PIPE 301 // |
+# define IP_REDIR 302 // <
+# define OP_REDIR 303 // >
+# define APPEND 304 // >>
+# define HEREDOC 305 // <<
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -28,6 +28,9 @@
 # include <stdbool.h>
 # include <signal.h>
 # include <sys/ioctl.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include "../MY_LIB/ft_printf/ft_printf.h"
 # include "../MY_LIB/ft_printf2/ft_printf2.h"
 # include "../MY_LIB/get_next_line/get_next_line_bonus.h"
@@ -50,7 +53,9 @@ typedef struct s_cmd
 	char	**full_cmd;
 	int		pid;
 	int		fd_in;
+	int		fd_in_type;
 	int		fd_out;
+	int		fd_out_type;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 	struct s_msc	*msc;
@@ -180,5 +185,10 @@ int	nb_of_cmds(t_list *lst);
 char	**cmd_setter(t_list *lst);
 char	**get_full_cmd(t_list *lst, int start, int end);
 void	print2d(t_cmd *cmds);
+
+//in_out_files.c
+int	set_in_out_file(t_cmd *cmd);
+void	ft_outfile(t_cmd *cmd, int i, int type);
+void	ft_infile(t_cmd *cmd, int i, int type);
 
 #endif

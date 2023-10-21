@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/21 15:15:17 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:00:19 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ no whitespaces between < <
 // expand ~ to home directory
 //-> can execv handle relative paths on its own?
 
+//>: Redirects standard output to a file, overwriting the file.
+//>>: Redirects standard output to a file, appending to the file.
+//<: Redirects standard input from a file.
+//<<: Here document
+
 //TO DO MATTEO
 // - handle $?
 // - handle heredoc
@@ -48,3 +53,52 @@ no whitespaces between < <
 // {
 	
 // }
+
+int	set_in_out_file(t_cmd *cmd)
+{
+	int i;
+
+	i = 0;
+	printf("###debug0###\n");
+	while (cmd->full_cmd[i])
+	{
+		printf("###debug1###\n");
+		if(cmd->full_cmd[i][0] == '>' && !cmd->full_cmd[i][1])
+			ft_outfile(cmd, i + 1, OP_REDIR);
+		else if(cmd->full_cmd[i][0] == '>' && cmd->full_cmd[i][1] == '>')
+			ft_outfile(cmd, i + 1, APPEND);
+		else if(cmd->full_cmd[1][0] == '<' && cmd->full_cmd[i][1] == '<')
+			ft_infile(cmd, i + 1, HEREDOC);
+		i++;
+		printf("###debug2###\n");
+	}
+	//errorhandling when two fd
+	//kill op and adjacent file
+	return (0);
+}
+
+void	ft_outfile(t_cmd *cmd, int i, int type)
+{
+	if (type == OP_REDIR)
+	{
+		cmd->fd_out = open(cmd->full_cmd[i], O_CREAT | O_RDWR | O_TRUNC, 
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		cmd->fd_out_type = OP_REDIR;
+	}
+	else if (type == APPEND)
+	{
+		cmd->fd_out = open(cmd->full_cmd[i], O_CREAT | O_WRONLY | O_APPEND, 
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		cmd->fd_out_type = APPEND;
+	}
+	printf("####fd: %d\n", cmd->fd_out);
+	if(cmd->fd_out == -1)
+		printf("ERROR w/ output redirection\n");
+}
+
+void	ft_infile(t_cmd *cmd, int i, int type)
+{
+	(void)cmd;
+	(void)i;
+	(void)type;
+}

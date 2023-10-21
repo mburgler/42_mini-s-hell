@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:25:32 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/21 15:07:04 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:01:06 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_cmd	*ft_cmdnew(t_msc *ms)
 	ret->full_cmd = cmd_setter(ms->lex);
 	ret->fd_in = 0;
 	ret->fd_out = 1;
+	ret->fd_in_type = 0;
+	ret->fd_out_type = 0;
 	ret->next = NULL;
 	ret->prev = NULL;
 	ret->msc = ms;
@@ -96,6 +98,7 @@ t_cmd	*init_cmd(t_msc	*msc, int nb)
 	ret = ft_cmdnew(msc);
 	if(!ret)
 		return (NULL);
+	//set_in_out_file(ret);
 	while (i < nb)
 	{
 		tmp = ft_cmdnew(msc);
@@ -106,6 +109,7 @@ t_cmd	*init_cmd(t_msc	*msc, int nb)
 			free(ret);
 			return (NULL);
 		}
+		//set_in_out_file(tmp); // Matteo added this
 		i++;
 	}
 	return (ret);
