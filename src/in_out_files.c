@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/21 13:45:55 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:15:17 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ cat < eingabe.txt > ausgabe.txt
 no whitespaces between < <
 <DATEINAME ist dasselbe wie < DATEINAME
 */
+
+// expand . and .. in pathnames
+// expand ~ to home directory
+//-> can execv handle relative paths on its own?
+
 //TO DO MATTEO
 // - handle $?
 // - handle heredoc
