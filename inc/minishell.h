@@ -6,11 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/21 18:36:20 by mburgler         ###   ########.fr       */
-=======
-/*   Updated: 2023/10/21 18:38:49 by abektimi         ###   ########.fr       */
->>>>>>> ad1335649b1673f36b0786dd6838b43256b23f22
+/*   Updated: 2023/10/21 19:06:11 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +48,6 @@ typedef struct s_list
 
 typedef struct s_cmd
 {
-<<<<<<< HEAD
 	char	*cmd;
 	char	*option;
 	char	**full_cmd;
@@ -61,14 +56,6 @@ typedef struct s_cmd
 	int		fd_in_type;
 	int		fd_out;
 	int		fd_out_type;
-=======
-	char			*cmd;
-	char			*option;
-	char			**full_cmd;
-	int				pid;
-	int				fd_in;
-	int				fd_out;
->>>>>>> ad1335649b1673f36b0786dd6838b43256b23f22
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 	struct s_msc	*msc;

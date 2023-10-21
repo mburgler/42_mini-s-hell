@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/21 19:00:19 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:42:24 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	set_in_out_file(t_cmd *cmd)
 			ft_outfile(cmd, i + 1, OP_REDIR);
 		else if(cmd->full_cmd[i][0] == '>' && cmd->full_cmd[i][1] == '>')
 			ft_outfile(cmd, i + 1, APPEND);
-		else if(cmd->full_cmd[1][0] == '<' && cmd->full_cmd[i][1] == '<')
+		else if(cmd->full_cmd[i][0] == '<' && cmd->full_cmd[i][1] == '<')
 			ft_infile(cmd, i + 1, HEREDOC);
 		i++;
 		printf("###debug2###\n");
@@ -93,7 +93,10 @@ void	ft_outfile(t_cmd *cmd, int i, int type)
 	}
 	printf("####fd: %d\n", cmd->fd_out);
 	if(cmd->fd_out == -1)
+	{
+		g_sig_status = 1;
 		printf("ERROR w/ output redirection\n");
+	}
 }
 
 void	ft_infile(t_cmd *cmd, int i, int type)

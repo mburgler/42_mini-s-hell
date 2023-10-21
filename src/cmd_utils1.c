@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:25:32 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/21 19:03:01 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:08:50 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_cmd	*init_cmd(t_msc	*msc, int nb)
 	ret = ft_cmdnew(msc);
 	if (!ret)
 		return (NULL);
-	//set_in_out_file(ret);
+	set_in_out_file(ret);
 	while (i < nb)
 	{
 		tmp = ft_cmdnew(msc);
@@ -109,7 +109,7 @@ t_cmd	*init_cmd(t_msc	*msc, int nb)
 			free(ret);
 			return (NULL);
 		}
-		//set_in_out_file(tmp); // Matteo added this
+		set_in_out_file(tmp); // Matteo added this
 		i++;
 	}
 	return (ret);
