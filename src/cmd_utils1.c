@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:25:32 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/19 20:11:13 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:07:04 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,12 @@ void	ft_cmdclear(t_cmd **lst)
 	while (lst && *lst)
 	{
 		tmp = (*lst)->next;
-		free((*lst)->cmd);
-		free((*lst)->option);
-		free_2d_arr((*lst)->full_cmd);
+		if ((*lst)->cmd)
+			free((*lst)->cmd);
+		if ((*lst)->option)
+			free((*lst)->option);
+		if ((*lst)->full_cmd)
+			free_2d_arr((*lst)->full_cmd);
 		free(*lst);
 		*lst = tmp;
 	}

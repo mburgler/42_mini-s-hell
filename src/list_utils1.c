@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:21:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/15 15:42:23 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:07:29 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void    ft_lstclear(t_list **lst)
 	while (lst && *lst)
 	{
 		tmp = (*lst)->next;
-		free((*lst)->str);
+		if ((*lst)->str)
+			free((*lst)->str);
 		free(*lst);
 		*lst = tmp;
 	}
@@ -86,6 +87,8 @@ t_list  *init_lst(t_msc *msc, char **input)
 	int     i;
 
 	i = 1;
+	if (!input)
+		return (NULL);
 	ret = ft_lstnew(msc, input[0], 0);
 	if(!ret)
 		return (NULL);

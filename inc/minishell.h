@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/20 18:48:10 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:39:12 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ extern int	g_sig_status;
 //free_stuff.c
 void	free_null(void **ptr);
 void	ft_free_arr(char **strs);
+void	free_structs(t_msc *msc);
 void	free_all(t_msc *msc);
 
 //error_handling.c
