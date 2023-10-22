@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:25:32 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/22 19:41:45 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/22 20:08:53 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ t_cmd	*init_cmd(t_msc	*msc, int nb)
 	t_cmd	*tmp;
 	int		i;
 
+	reset_lex_index(msc->lex);
 	i = 1;
 	ret = ft_cmdnew(msc);
 	if (!ret)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/21 19:06:11 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/22 20:51:38 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ int		search_estr(t_list *lst);
 //int search_opipe(t_list *lst);
 void	set_token_flag(t_list *lst);
 int		is_operator(const char *s);
+void	reset_lex_index(t_list *lst);
+int		no_pipes(t_list *lst);
 
 //lex_utils3.c
 int		check_whs_betw_op(t_msc *msc, char op);

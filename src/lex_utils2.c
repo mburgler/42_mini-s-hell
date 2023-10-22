@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 18:25:49 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/21 17:59:14 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/22 20:54:35 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,32 @@ int	is_operator(const char *s)
 	else if (ft_strncmp(s, "<", 1) == 0)
 		return (OP_REDIR);
 	return (0);
+}
+
+void	reset_lex_index(t_list *lst)
+{
+	int	i;
+
+	if (!lst)
+		return ;
+	i = 0;
+	while (lst)
+	{
+		lst->id = i;
+		i++;
+		lst = lst->next;
+	}
+}
+
+int	no_pipes(t_list *lst)
+{
+	if (!lst)
+		return (1);
+	while (lst)
+	{
+		if (lst->token_status == IS_PIPE)
+			return (0);
+		lst = lst->next;
+	}
+	return (1);
 }
