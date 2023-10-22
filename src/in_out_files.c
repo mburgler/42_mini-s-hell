@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/22 21:03:52 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/22 22:57:03 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,8 @@ no whitespaces between < <
 // - handle $?
 // - handle heredoc
 
-// void	handle_op(t_msc *msc, t_cmd cmd, )
-// {
-	
-// }
-// {
-
-// }
-
-// int	open_outfile
-// {
-	
-// }
+//errorhandling when two fd
+//kill op and adjacent file
 
 int	set_in_out_file(t_cmd *cmd)
 {
@@ -72,8 +62,6 @@ int	set_in_out_file(t_cmd *cmd)
 		i++;
 	}
 	kill_in_out_file(cmd);
-	//errorhandling when two fd
-	//kill op and adjacent file
 	return (0);
 }
 
@@ -93,7 +81,6 @@ void	ft_outfile(t_cmd *cmd, int i, int type)
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		cmd->fd_out_type = APPEND;
 	}
-	printf("####fd: %d\n", cmd->fd_out);
 	if(cmd->fd_out == -1)
 	{
 		g_sig_status = 1;
@@ -110,16 +97,26 @@ void	ft_infile(t_cmd *cmd, int i, int type)
 
 void	kill_in_out_file(t_cmd *cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (cmd->full_cmd[i])
 	{
-		if(cmd->full_cmd[i][0] == '>' || (cmd->full_cmd[i][0] == '<'
-			&& !cmd->full_cmd[i][1]))
+		if (cmd->full_cmd[i][0] == '>' || cmd->full_cmd[i][0] == '>')
 		{
-			
+			free(cmd->full_cmd[i]);
+			cmd->full_cmd[i] = NULL;
+			cmd->full_cmd[i] = ft_strdup("");
+			free(cmd->full_cmd[i + 1]);
+			cmd->full_cmd[i + 1] = NULL;
+			cmd->full_cmd[i + 1] = ft_strdup("");
 		}
 		i++;
+	}
+	cmd->full_cmd = shorten_arr(cmd->full_cmd, i);
+	if (cmd->full_cmd == NULL)
+	{
+		//errorhandling
+		return ;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/22 20:51:38 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/22 21:06:01 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,5 +191,6 @@ void	print2d(t_cmd *cmds);
 int	set_in_out_file(t_cmd *cmd);
 void	ft_outfile(t_cmd *cmd, int i, int type);
 void	ft_infile(t_cmd *cmd, int i, int type);
+void	kill_in_out_file(t_cmd *cmd);
 
 #endif
