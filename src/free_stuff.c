@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:54:00 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/21 16:45:18 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:01:39 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_free_arr(char **strs)
 {
 	int	i;
 
-	if(!strs)
+	if (!strs)
 		return ;
 	i = 0;
 	while (strs[i])
