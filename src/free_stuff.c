@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:54:00 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/21 19:01:39 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/22 21:44:35 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ void	ft_free_arr(char **strs)
 	free(strs);
 }
 
-void	free_structs(t_msc *msc)
+void	free_structs_and_input(t_msc *msc)
 {
 	if (!msc)
 		return ;
+	if (msc->input)
+		free(msc->input);
 	if (msc->lex)
 		ft_lstclear(&(msc->lex));
 	if (msc->cmd)

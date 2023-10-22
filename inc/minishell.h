@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/22 20:51:38 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/22 21:45:08 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ extern int	g_sig_status;
 //free_stuff.c
 void	free_null(void **ptr);
 void	ft_free_arr(char **strs);
-void	free_structs(t_msc *msc);
+void	free_structs_and_input(t_msc *msc);
 void	free_all(t_msc *msc);
 
 //error_handling.c
