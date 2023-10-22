@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/21 17:11:12 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/22 21:58:37 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,27 @@ void	free_2d_arr(char **arr)
 	}
 }
 
+//checks for syntax errors after the input was lexed and expanded
+int	check_syntax(t_msc *msc)
+{
+	if (consec_ops(msc))
+	{
+		printf("syntax error: consecutive operators\n");
+		return (0);
+	}
+	if (check_open_op(msc))
+	{
+		printf("syntax error: open operator\n");
+		return (0);
+	}
+	if (pipe_first(msc))
+	{
+		printf("syntax error: pipe at the beginning of the command\n");
+		return (0);
+	}
+	return (1);
+}
+
 //splits the input received by readline() into separate parts,
 //and creates a linked list with a node for each individual section
 void	input_lexer(t_msc *msc)
@@ -44,31 +65,17 @@ void	input_lexer(t_msc *msc)
 	if (!msc->lex)
 		exit(1);
 	//delete all and print appropriate error message in if-clause below
-	if (search_estr(msc->lex))
-	{
-		//ft_lstclear(&(msc->lex));
-		printf("\nEMPTY STRING FOUND\n");
-	}
-	exp_head(msc); //MATTEO ADDED THIS
-	tokenize_op(msc); //MATTEO ADDED THIS
-	set_token_flag(msc->lex); //MATTEO ADDED THIS
+	// if (search_estr(msc->lex))
+	// {
+	// 	//ft_lstclear(&(msc->lex));
+	// 	printf("\nEMPTY STRING FOUND\n");
+	// }
+	exp_head(msc);
+	tokenize_op(msc);
+	set_token_flag(msc->lex);
 	kill_quotes(msc);
-	//delete all and print appropriate error message in if-clause below
-	if (consec_ops(msc))
-	{
-		//ft_lstclear(&(msc->lex));
-		printf("\nCANNOT HAVE CONSECUTIVE OPERATORS!\n");
-	}
-	if(check_open_op(msc))
-	{
-		//ft_lstclear(&(msc->lex));
-		printf("syntax error near unexpected token `newline'\n");
-	}
-	if(pipe_first(msc))
-	{
-		//ft_lstclear(&(msc->lex));
-		printf("syntax error near unexpected token `|'\n");
-	}
+	if (check_syntax(msc) == 0)
+		return ;
 	// ft_printlist(msc->lex);
 	msc->cmd = init_cmd(msc, nb_of_cmds(msc->lex));
 	print2d(msc->cmd);

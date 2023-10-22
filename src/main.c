@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/21 17:08:42 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/22 22:00:50 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	handle_input(t_msc *msc)
 	}
 	if (g_sig_status != 131)
 	{
-		input_lexer(msc);
 		g_sig_status = 0;
+		input_lexer(msc);
 	}
 }
 
@@ -69,9 +69,7 @@ int	main(int argc, char **argv, char **env)
 		else
 			handle_input(msc);
 		add_history(msc->input);
-		if (msc->input)
-			free(msc->input);
-		free_structs(msc);
+		free_structs_and_input(msc);
 	}
 	free_all(msc);
 	return (0);

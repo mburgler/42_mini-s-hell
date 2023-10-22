@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/22 21:06:01 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/22 22:58:18 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ extern int	g_sig_status;
 //free_stuff.c
 void	free_null(void **ptr);
 void	ft_free_arr(char **strs);
-void	free_structs(t_msc *msc);
+void	free_structs_and_input(t_msc *msc);
 void	free_all(t_msc *msc);
 
 //error_handling.c
@@ -141,6 +141,7 @@ t_list	*init_lst(t_msc *msc, char **input);
 
 //lex_funcs.c
 void	free_2d_arr(char **arr);
+int		check_syntax(t_msc *msc);
 void	input_lexer(t_msc *msc);
 void	ft_printlist(t_list *lst); //ONLY FOR TESTING; DELETE FROM FINAL VERSION
 
@@ -185,7 +186,7 @@ char	**cmd_setter(t_list *lst);
 char	**get_full_cmd(t_list *lst, int start, int end);
 char	**shorten_arr(char **ret, int len);
 int		nb_of_estr(char **arr);
-void	print2d(t_cmd *cmds);
+void	print2d(t_cmd *cmds); //ONLY FOR TESTING PURPOSES
 
 //in_out_files.c
 int	set_in_out_file(t_cmd *cmd);
