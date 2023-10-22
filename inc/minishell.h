@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/22 22:53:17 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/22 22:54:15 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ char	**cmd_setter(t_list *lst);
 char	**get_full_cmd(t_list *lst, int start, int end);
 char	**shorten_arr(char **ret, int len);
 int		nb_of_estr(char **arr);
-void	print2d(t_cmd *cmds);
+void	print2d(t_cmd *cmds); //ONLY FOR TESTING PURPOSES
 
 //in_out_files.c
 int	set_in_out_file(t_cmd *cmd);
