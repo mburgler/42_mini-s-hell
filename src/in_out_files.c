@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/21 19:42:24 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/22 21:03:52 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,19 @@ int	set_in_out_file(t_cmd *cmd)
 	int i;
 
 	i = 0;
-	printf("###debug0###\n");
 	while (cmd->full_cmd[i])
 	{
-		printf("###debug1###\n");
 		if(cmd->full_cmd[i][0] == '>' && !cmd->full_cmd[i][1])
 			ft_outfile(cmd, i + 1, OP_REDIR);
 		else if(cmd->full_cmd[i][0] == '>' && cmd->full_cmd[i][1] == '>')
 			ft_outfile(cmd, i + 1, APPEND);
+		else if(cmd->full_cmd[i][0] == '<' && !cmd->full_cmd[i][1])
+			ft_infile(cmd, i + 1, OP_REDIR);
 		else if(cmd->full_cmd[i][0] == '<' && cmd->full_cmd[i][1] == '<')
 			ft_infile(cmd, i + 1, HEREDOC);
 		i++;
-		printf("###debug2###\n");
 	}
+	kill_in_out_file(cmd);
 	//errorhandling when two fd
 	//kill op and adjacent file
 	return (0);
@@ -79,6 +79,8 @@ int	set_in_out_file(t_cmd *cmd)
 
 void	ft_outfile(t_cmd *cmd, int i, int type)
 {
+	if(cmd->fd_out > 1)
+		close(cmd->fd_out);
 	if (type == OP_REDIR)
 	{
 		cmd->fd_out = open(cmd->full_cmd[i], O_CREAT | O_RDWR | O_TRUNC, 
@@ -104,4 +106,20 @@ void	ft_infile(t_cmd *cmd, int i, int type)
 	(void)cmd;
 	(void)i;
 	(void)type;
+}
+
+void	kill_in_out_file(t_cmd *cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd->full_cmd[i])
+	{
+		if(cmd->full_cmd[i][0] == '>' || (cmd->full_cmd[i][0] == '<'
+			&& !cmd->full_cmd[i][1]))
+		{
+			
+		}
+		i++;
+	}
 }
