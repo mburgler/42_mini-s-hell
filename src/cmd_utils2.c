@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:47:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/22 20:49:43 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/22 22:48:13 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char	**get_full_cmd(t_list *lst, int start, int end)
 
 	if (no_pipes(lst))
 		end++;
-	printf("\n\nSTART = %d, END = %d\n\n", start, end);
 	ret = malloc(sizeof(char *) * (end - start + 1));
 	if (!ret)
 		return (NULL);

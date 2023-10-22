@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/22 21:45:08 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/22 22:53:17 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ t_list	*init_lst(t_msc *msc, char **input);
 
 //lex_funcs.c
 void	free_2d_arr(char **arr);
+int		check_syntax(t_msc *msc);
 void	input_lexer(t_msc *msc);
 void	ft_printlist(t_list *lst); //ONLY FOR TESTING; DELETE FROM FINAL VERSION
 
