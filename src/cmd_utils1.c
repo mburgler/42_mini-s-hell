@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:25:32 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/22 19:50:16 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/22 21:04:42 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ t_cmd	*init_cmd(t_msc	*msc, int nb)
 	t_cmd	*tmp;
 	int		i;
 
+	reset_lex_index(msc->lex);
 	i = 1;
 	ret = ft_cmdnew(msc);
 	if (!ret)
