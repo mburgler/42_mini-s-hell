@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/23 20:06:41 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/23 21:24:27 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	handle_sigint(int sig);
 void	exp_head(t_msc *msc);
 void	exp_logic_new(t_msc *msc, t_list *tmp);
 void	exp_sub(t_list *tmp, int i, int aA0_end, t_msc *msc);
+void	exp_dol_qmark(t_msc *msc, t_list* tmp, int i);
 void	exp_tilde(t_msc *msc, t_list *tmp);
 int		ft_shift_to_dollar(char *str, int reboot);
 int		get_quote_status(char *str, int dol_i);
