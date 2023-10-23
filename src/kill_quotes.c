@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:06:02 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/20 18:48:23 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/23 20:10:32 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ void	kill_quotes(t_msc *msc)
 	while (tmp && tmp->str)
 	{
 		i = 0;
+		// if(tmp->str[0] == '\"' || tmp->str[0] == '\'')
+		// 	tmp->quote_first_pos = 1;
+		// else
+		// 	tmp->quote_first_pos = 0;
 		while (tmp->str[i])
 		{
 			if (tmp->str[i] == '\'')

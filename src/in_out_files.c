@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/23 19:13:19 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/23 20:17:31 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ no whitespaces between < <
 // - handle $?
 // - handle heredoc
 // - local env copy for when doing cd or (un)setting vars
-//errorhandling when two fd
+// - errorhandling when two fd
 // - $mburgler for minishell $ $$"$USER"
 // - DONE echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $  <<" results in syntax error: consecutive operators
-// 	- resplit for l$s -la
+// - resplit for l$s -la
 // - fix $cmds.txt
 
 //DONE
@@ -110,6 +110,37 @@ void	ft_infile(t_cmd *cmd, int i, int type)
 }
 
 //echo test >kkkk"helpmeneu"
+//verweis auf kill_quotes 24-27
+/*
+minishell $ echo test test>x"0">x1
+
+
+### TESTING THE LINKED LIST LEXER ###
+
+Node 0 contains: _echo_
+Quotes: 0
+Token status: 0
+Node 1 contains: _test_
+Quotes: 0
+Token status: 0
+Node 2 contains: _test_
+Quotes: 1
+Token status: 0
+Node 3 contains: _>_
+Quotes: 1
+Token status: 302
+Node 2 contains: _x0_
+Quotes: 1
+Token status: 0
+Node 1 contains: _>_
+Quotes: 1
+Token status: 302
+Node 0 contains: _x1_
+Quotes: 1
+Token status: 0
+
+should create x0 and x1, text in x1
+*/
 
 void	kill_in_out_file(t_cmd *cmd)
 {

@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/23 15:39:33 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/23 20:06:41 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_list
 	struct s_msc	*msc;
 	int				quote_status;
 	int				token_status;
+	int				quote_first_pos;
 	int				id;
 }			t_list;
 
