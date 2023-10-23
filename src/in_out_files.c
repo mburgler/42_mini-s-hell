@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/22 22:57:03 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/23 13:27:45 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ no whitespaces between < <
 //TO DO MATTEO
 // - handle $?
 // - handle heredoc
+// - local env copy for when doing cd or (un)setting vars
+// - $mburgler for minishell $ $$"$USER"
+// - echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $  <<" results in syntax error: consecutive operators
+// - fix $cmds.txt
+//	- $"$" doesnt show anything
+// 	- resplit for l$s -la
 
 //errorhandling when two fd
 //kill op and adjacent file
