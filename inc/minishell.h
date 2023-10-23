@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/22 22:58:18 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/23 15:39:33 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_cmd
 	char	*option;
 	char	**full_cmd;
 	int		pid;
+	int		index;
 	int		fd_in;
 	int		fd_in_type;
 	int		fd_out;
@@ -162,6 +163,7 @@ int		no_pipes(t_list *lst);
 
 //lex_utils3.c
 int		check_whs_betw_op(t_msc *msc, char op);
+int		op_no_quotes(char *tmp, int op_pos);
 int		check_open_op(t_msc *msc);
 int		consec_ops(t_msc *msc);
 int		pipe_first(t_msc *msc);
@@ -174,7 +176,7 @@ char	*get_wd(const char *s, int *i);
 char	**lex_split(char *s);
 
 //cmd_utils1.c
-t_cmd	*ft_cmdnew(t_msc *ms);
+t_cmd	*ft_cmdnew(t_msc *ms, int i);
 void	ft_cmdadd_back(t_cmd **lst, t_cmd *new);
 t_cmd	*ft_cmdlast(t_cmd *lst);
 void	ft_cmdclear(t_cmd **lst);
@@ -189,9 +191,10 @@ int		nb_of_estr(char **arr);
 void	print2d(t_cmd *cmds); //ONLY FOR TESTING PURPOSES
 
 //in_out_files.c
-int	set_in_out_file(t_cmd *cmd);
+int		set_in_out_file(t_cmd *cmd);
 void	ft_outfile(t_cmd *cmd, int i, int type);
 void	ft_infile(t_cmd *cmd, int i, int type);
 void	kill_in_out_file(t_cmd *cmd);
+t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp);
 
 #endif

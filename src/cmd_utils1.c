@@ -6,14 +6,14 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:25:32 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/22 21:04:42 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/23 15:33:31 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //creates and returns a blank node of type t_cmd
-t_cmd	*ft_cmdnew(t_msc *ms)
+t_cmd	*ft_cmdnew(t_msc *ms, int i)
 {
 	t_cmd	*ret;
 
@@ -23,6 +23,7 @@ t_cmd	*ft_cmdnew(t_msc *ms)
 	ret->cmd = NULL;
 	ret->option = NULL;
 	ret->full_cmd = cmd_setter(ms->lex);
+	ret->index = i;
 	ret->fd_in = 0;
 	ret->fd_out = 1;
 	ret->fd_in_type = 0;
@@ -96,13 +97,13 @@ t_cmd	*init_cmd(t_msc	*msc, int nb)
 
 	reset_lex_index(msc->lex);
 	i = 1;
-	ret = ft_cmdnew(msc);
+	ret = ft_cmdnew(msc, 0);
 	if (!ret)
 		return (NULL);
 	set_in_out_file(ret);
 	while (i < nb)
 	{
-		tmp = ft_cmdnew(msc);
+		tmp = ft_cmdnew(msc, i);
 		ft_cmdadd_back(&ret, tmp);
 		if (!tmp)
 		{

@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/23 19:16:56 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/23 20:02:25 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,42 @@ no whitespaces between < <
 //<: Redirects standard input from a file.
 //<<: Here document
 
-//TO DO MATTEO
+//OPEN
 // - handle $?
 // - handle heredoc
-
+// - local env copy for when doing cd or (un)setting vars
 //errorhandling when two fd
-//kill op and adjacent file
+// - $mburgler for minishell $ $$"$USER"
+// - DONE echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $  <<" results in syntax error: consecutive operators
+// 	- resplit for l$s -la
+// - fix $cmds.txt
+
+//DONE
+// - $mburgler for minishell $ $$"$USER"
+//- kill op and adjacent file
+//	- DONE $"$" doesnt show anything
 
 int	set_in_out_file(t_cmd *cmd)
 {
 	int i;
+	t_list	*tmp;
 
 	i = 0;
+	tmp = shift_lex_for_cmd(cmd, cmd->msc->lex);
 	while (cmd->full_cmd[i])
 	{
-		if(cmd->full_cmd[i][0] == '>' && !cmd->full_cmd[i][1])
-			ft_outfile(cmd, i + 1, OP_REDIR);
-		else if(cmd->full_cmd[i][0] == '>' && cmd->full_cmd[i][1] == '>')
-			ft_outfile(cmd, i + 1, APPEND);
-		else if(cmd->full_cmd[i][0] == '<' && !cmd->full_cmd[i][1])
-			ft_infile(cmd, i + 1, OP_REDIR);
-		else if(cmd->full_cmd[i][0] == '<' && cmd->full_cmd[i][1] == '<')
-			ft_infile(cmd, i + 1, HEREDOC);
+		if(tmp->quote_status == 0)
+		{
+			if(cmd->full_cmd[i][0] == '>' && !cmd->full_cmd[i][1])
+				ft_outfile(cmd, i + 1, OP_REDIR);
+			else if(cmd->full_cmd[i][0] == '>' && cmd->full_cmd[i][1] == '>')
+				ft_outfile(cmd, i + 1, APPEND);
+			else if(cmd->full_cmd[i][0] == '<' && !cmd->full_cmd[i][1])
+				ft_infile(cmd, i + 1, OP_REDIR);
+			else if(cmd->full_cmd[i][0] == '<' && cmd->full_cmd[i][1] == '<')
+				ft_infile(cmd, i + 1, HEREDOC);
+		}
+		tmp = tmp->next;
 		i++;
 	}
 	kill_in_out_file(cmd);
@@ -95,14 +109,19 @@ void	ft_infile(t_cmd *cmd, int i, int type)
 	(void)type;
 }
 
+//echo test >kkkk"helpmeneu"
+
 void	kill_in_out_file(t_cmd *cmd)
 {
 	int	i;
+	t_list *tmp;
 
 	i = 0;
+	tmp = shift_lex_for_cmd(cmd, cmd->msc->lex);
 	while (cmd->full_cmd[i])
 	{
-		if (cmd->full_cmd[i][0] == '>' || cmd->full_cmd[i][0] == '>')
+		if ((cmd->full_cmd[i][0] == '>' || cmd->full_cmd[i][0] == '<')
+			&& tmp->quote_status == 0)
 		{
 			free(cmd->full_cmd[i]);
 			cmd->full_cmd[i] = NULL;
@@ -112,11 +131,34 @@ void	kill_in_out_file(t_cmd *cmd)
 			cmd->full_cmd[i + 1] = ft_strdup("");
 		}
 		i++;
+		tmp = tmp->next;
 	}
 	cmd->full_cmd = shorten_arr(cmd->full_cmd, i);
 	if (cmd->full_cmd == NULL)
 	{
-		//errorhandling
+		//errorhandling for malloc error
 		return ;
 	}
+}
+
+t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp)
+{
+	int i;
+
+	i = 0;
+	if(cmd->prev == NULL)
+		return(tmp);
+	else
+	{
+		while(cmd->index != i)
+		{
+			while(tmp->token_status != IS_PIPE)
+			{
+				tmp = tmp->next;
+			}
+			tmp = tmp->next;
+			i++;
+		}
+	}
+	return(tmp);
 }
