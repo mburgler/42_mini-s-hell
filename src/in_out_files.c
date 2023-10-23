@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/23 15:47:32 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/23 19:13:19 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ void	ft_infile(t_cmd *cmd, int i, int type)
 	(void)type;
 }
 
+//echo test >kkkk"helpmeneu"
+
 void	kill_in_out_file(t_cmd *cmd)
 {
 	int	i;
@@ -134,7 +136,7 @@ void	kill_in_out_file(t_cmd *cmd)
 	cmd->full_cmd = shorten_arr(cmd->full_cmd, i);
 	if (cmd->full_cmd == NULL)
 	{
-		//errorhandling
+		//errorhandling for malloc error
 		return ;
 	}
 }
