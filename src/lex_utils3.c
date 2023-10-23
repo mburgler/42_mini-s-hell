@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 14:50:24 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/22 23:10:06 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:22:45 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,35 @@ int	check_whs_betw_op(t_msc *msc, char op)
 		while (tmp[i] && (tmp[i] == ' ' || tmp[i] == 9 || tmp[i] == 10
 			|| tmp[i] == 11 || tmp[i] == 12 || tmp[i] == 13))
 			i++;
-		if (tmp[i] && tmp[i] == op && tmp[i - 1] != op)
+		if (tmp[i] && tmp[i] == op && tmp[i - 1] != op && op_no_quotes(tmp, i))
 			return (1);
 	}
 	return (0);
+}
+
+int	op_no_quotes(char *tmp, int op_pos)
+{
+	int i;
+	int quote_status;
+
+	i = 0;
+	quote_status = 0;
+	while(i <= op_pos)
+	{
+		if(tmp[i] == '\"' && quote_status == 0)
+			quote_status = 2;
+		else if(tmp[i] == '\'' && quote_status == 0)
+			quote_status = 1;
+		else if(tmp[i] == '\"' && quote_status == 2)
+			quote_status = 0;
+		else if(tmp[i] == '\'' && quote_status == 1)
+			quote_status = 0;
+		i++;
+	}
+	if(quote_status != 0)
+		return (0);
+	else
+		return (1);
 }
 
 int	check_open_op(t_msc *msc)

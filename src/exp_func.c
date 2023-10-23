@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/23 13:35:52 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:18:18 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	ft_shift_to_dollar(char *str, int reboot)
 	}
 	while(str[i])
 	{
-		if(str[i] == '$' && str[i + 1] != '$' && str[i + 1] != '"')
+		if(str[i] == '$' && str[i + 1] != '$' && str[i + 1] != '\"')
 		{
 			if (ft_is_whitespace(str, i + 1) == -1)
 			{
