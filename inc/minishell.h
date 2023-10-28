@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/23 22:15:47 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/28 20:26:24 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ typedef struct s_cmd
 	char	*option;
 	char	**full_cmd;
 	int		pid;
+	int		index;
 	int		fd_in;
 	int		fd_in_type;
 	int		fd_out;
 	int		fd_out_type;
+	char	*heredoc_name;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 	struct s_msc	*msc;
@@ -142,6 +144,7 @@ void	ft_lstclear(t_list **lst);
 t_list	*init_lst(t_msc *msc, char **input);
 
 //lex_funcs.c
+minishell $ 
 void	free_2d_arr(char **arr);
 int		check_syntax(t_msc *msc);
 void	input_lexer(t_msc *msc);
@@ -196,6 +199,7 @@ int		set_in_out_file(t_cmd *cmd);
 void	ft_outfile(t_cmd *cmd, int i, int type);
 void	ft_infile(t_cmd *cmd, int i, int type);
 void	kill_in_out_file(t_cmd *cmd);
+int		handle_heredoc(t_cmd *cmd, int i);
 t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp);
 
 #endif
