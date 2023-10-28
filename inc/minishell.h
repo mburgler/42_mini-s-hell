@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/23 21:24:27 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/23 22:15:47 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_cmd
 	char	*option;
 	char	**full_cmd;
 	int		pid;
-	int		index;
 	int		fd_in;
 	int		fd_in_type;
 	int		fd_out;

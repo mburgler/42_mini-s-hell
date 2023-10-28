@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/23 21:32:24 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/23 22:19:04 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,13 +147,13 @@ t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp)
 	int i;
 
 	i = 0;
-	if(cmd->prev == NULL)
-		return(tmp);
+	if (cmd->prev == NULL)
+		return (tmp);
 	else
 	{
-		while(cmd->index != i)
+		while (cmd->index != i)
 		{
-			while(tmp->token_status != IS_PIPE)
+			while (tmp->token_status != IS_PIPE)
 			{
 				tmp = tmp->next;
 			}
@@ -161,5 +161,5 @@ t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp)
 			i++;
 		}
 	}
-	return(tmp);
+	return (tmp);
 }
