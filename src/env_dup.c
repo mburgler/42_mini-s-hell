@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_copy.c                                         :+:      :+:    :+:   */
+/*   env_dup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:40:53 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 23:23:55 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 23:50:23 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 // //kill getenv
 // //change free_stuff.c line 24 & 64
+//tilde is in home
 
 //void	ft_print_env(t_env *env); //Just for testing; delete from final version
 
@@ -77,6 +78,22 @@ void	dup_env_error(t_msc *msc, t_env *current_node)
 		ft_envclear(&msc->dup_env);
 	free(msc);
 	exit(1);
+}
+
+char	*ft_getenv(char *searchterm, t_msc *msc)
+{
+	t_env	*tmp;
+
+	tmp = msc->dup_env;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->key, searchterm) == 0)
+		{
+			return (tmp->value);
+		}
+		tmp = tmp->next;
+	}
+	return (NULL);
 }
 
 //JUST FOR TESTING; DELETE FROM FINAL VERSION

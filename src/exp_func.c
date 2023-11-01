@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_func.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 19:59:16 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 23:55:10 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	exp_sub(t_list *tmp, int i, int aA0_end, t_msc *msc)
 	if (!end)
 		malloc_error_free_exit(msc, beg, env);
 	free(placeholder);
-	placeholder = getenv(env);
+	placeholder = ft_getenv(env, msc);
 	if (!placeholder)
 		placeholder = ft_strdup("");
 	else

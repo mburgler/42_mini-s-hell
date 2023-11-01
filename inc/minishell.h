@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 23:05:45 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/02 00:25:21 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ typedef struct s_msc
 	t_cmd	*cmd;
 	bool	loop;
 	char	*input;
-	char	*env_user;
-	char	*env_path;
-	char	*env_cwd;
-	char	*env_home;
+	//char	*env_user;
+	//char	*env_path;
+	//char	*env_cwd;
+	//char	*env_home;
 	// char	*prompt_cwd;
 	// char	*prompt;
 	t_env	*dup_env;
@@ -109,15 +109,17 @@ t_msc	*init_msc(char **env);
 void	handle_input(t_msc *msc);
 void	ft_print2d(char **strs); //ONLY FOR TESTING; DELETE FROM FINAL VERSION
 
-//env_copy.c
+//env_dup.c
 void	dup_env_head(t_msc *msc, char **org_env);
 t_env	*ft_dup_envnew(char *str, t_msc *msc);
 void	dup_env_error(t_msc *msc, t_env *current_node);
+char	*ft_getenv(char *searchterm, t_msc *msc);
 
 //env_utils.c
 void	ft_envadd_back(t_env **lst, t_env *new);
 t_env	*ft_envlast(t_env *lst);
 void	ft_envclear(t_env **lst);
+int	ft_strcmp(const char *s1, const char *s2);
 
 //signals.c
 void	handle_sigint(int sig);

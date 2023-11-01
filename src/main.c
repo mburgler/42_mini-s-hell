@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 23:06:43 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/02 00:28:45 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_msc	*init_msc(char **env)
 	msc->loop = true;
 	msc->input = NULL;
 	dup_env_head(msc, env);
-	msc->env_user = getenv("USER"); //KILL
-	msc->env_path = getenv("PATH"); //KILL
-	msc->env_cwd = getcwd(NULL, 0); //KILL
-	msc->env_home = getenv("HOME"); //KILL
+	//msc->env_user = getenv("USER"); //KILL
+	//msc->env_path = getenv("PATH"); //KILL
+	//msc->env_cwd = getcwd(NULL, 0); //KILL & reference in free_stuff.c
+	//msc->env_home = getenv("HOME"); //Dont kill - special case tilde
 	// msc ->prompt_cwd = NULL;
 	// msc->prompt = NULL;
 	return(msc);
