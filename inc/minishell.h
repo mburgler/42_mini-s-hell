@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 19:58:40 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:40:29 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,14 @@ typedef struct s_cmd
 	struct s_msc	*msc;
 }				t_cmd;
 
+typedef struct s_env
+{
+	struct s_env	*next;
+	char	*key;
+	char	*value;
+
+}				t_env;
+
 typedef struct s_msc
 {
 	t_list	*lex;
@@ -77,7 +85,7 @@ typedef struct s_msc
 	char	*env_home;
 	// char	*prompt_cwd;
 	// char	*prompt;
-	char	**env_cpy;
+	t_env	*env_cpy;
 }				t_msc;
 
 //global variable
@@ -99,9 +107,9 @@ t_msc	*init_msc(char **env);
 void	handle_input(t_msc *msc);
 void	ft_print2d(char **strs); //ONLY FOR TESTING; DELETE FROM FINAL VERSION
 
-//dup_utils.c
-int		ft_arrlen(char **str);
-char	**ft_dup_arr(char **strs);
+//env_copy.c
+t_env	*dup_env_head(t_msc *msc, char **org_env);
+
 
 //signals.c
 void	handle_sigint(int sig);
@@ -208,8 +216,8 @@ int		handle_heredoc(t_cmd *cmd, int i);
 //exec_funcs.c
 void	set_cmd_and_option(t_cmd *cmds);
 //void	executor();
-void	prep_parent(t_cmd *cmd, int *p_fds, char **env);
-void	prep_child(t_cmd *cmd, int *p_fds, char **env);
+void	prep_parent(t_cmd *cmd, int *p_fds, t_env *env);
+void	prep_child(t_cmd *cmd, int *p_fds, t_env *env);
 void	make_pipeline(t_msc *msc);
 
 //exec_utils.c

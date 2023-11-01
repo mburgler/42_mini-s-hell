@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:03:57 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/01 20:25:32 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:47:02 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	set_cmd_and_option(t_cmd *cmds)
 //void	executor();
 
 //preps the parameters of the parent process for passing on to executer()
-void	prep_parent(t_cmd *cmd, int *p_fds, char **env)
+void	prep_parent(t_cmd *cmd, int *p_fds, t_env *env)
 {
 	//int	fd;
 	(void)cmd;
@@ -68,7 +68,7 @@ void	prep_parent(t_cmd *cmd, int *p_fds, char **env)
 }
 
 //preps the parameters of the child process for passing on to executer()
-void	prep_child(t_cmd *cmd, int *p_fds, char **env)
+void	prep_child(t_cmd *cmd, int *p_fds, t_env *env)
 {
 	//int	fd;
 	(void)cmd;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_stuff.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:54:00 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/22 21:44:35 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:30:52 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	free_all(t_msc *msc)
 		ft_cmdclear(&(msc->cmd));
 	if (msc->input)
 		free(msc->input);
-	if (msc->env_cpy)
-		ft_free_arr(msc->env_cpy);
+	// if (msc->env_cpy)
+	// 	ft_free_arr(msc->env_cpy);
 	// free_null((void **)&msc->env_cwd);
 	if (msc->env_cwd)
 		free(msc->env_cwd);
