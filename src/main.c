@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 18:40:33 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:31:13 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,14 @@ void	init_msc(t_msc *msc, char **env)
 	msc->cmd = NULL;
 	msc->loop = true;
 	msc->input = NULL;
-	msc->env_user = getenv("USER");
-	msc->env_path = getenv("PATH");
-	msc->env_cwd = getcwd(NULL, 0);
-	msc->env_home = getenv("HOME");
-	msc->env_cpy = ft_dup_arr(env);
+	// msc->env_cpy = dup_env_head(msc, env);
+	(void)env;
+	msc->env_user = getenv("USER"); //KILL
+	msc->env_path = getenv("PATH"); //KILL
+	msc->env_cwd = getcwd(NULL, 0); //KILL
+	msc->env_home = getenv("HOME"); //KILL
 	// msc ->prompt_cwd = NULL;
 	// msc->prompt = NULL;
-	if (!msc->env_cpy)
-	{
-		write(2, "Error: malloc failed\n", 22);
-		free_all(msc);
-		exit(1);
-	}
 }
 
 void	handle_input(t_msc *msc)

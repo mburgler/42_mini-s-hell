@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 18:37:46 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:53:06 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,14 @@ typedef struct s_cmd
 	struct s_msc	*msc;
 }				t_cmd;
 
+typedef struct s_env
+{
+	struct s_env	*next;
+	char	*key;
+	char	*value;
+
+}				t_env;
+
 typedef struct s_msc
 {
 	t_list	*lex;
@@ -76,7 +84,7 @@ typedef struct s_msc
 	char	*env_home;
 	// char	*prompt_cwd;
 	// char	*prompt;
-	char	**env_cpy;
+	t_env	*env_cpy;
 }				t_msc;
 
 //global variable
@@ -96,9 +104,9 @@ void	init_msc(t_msc *msc, char **env);
 void	handle_input(t_msc *msc);
 void	ft_print2d(char **strs); //ONLY FOR TESTING; DELETE FROM FINAL VERSION
 
-//dup_utils.c
-int		ft_arrlen(char **str);
-char	**ft_dup_arr(char **strs);
+//env_copy.c
+t_env	*dup_env_head(t_msc *msc, char **org_env);
+
 
 //signals.c
 void	handle_sigint(int sig);
