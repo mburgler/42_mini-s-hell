@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_funcs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/23 15:11:56 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:14:59 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,7 @@ void	input_lexer(t_msc *msc)
 	msc->lex = init_lst(msc, tmp);
 	free_2d_arr(tmp);
 	if (!msc->lex)
-		exit(1);
-	//delete all and print appropriate error message in if-clause below
-	// if (search_estr(msc->lex))
-	// {
-	// 	//ft_lstclear(&(msc->lex));
-	// 	printf("\nEMPTY STRING FOUND\n");
-	// }
+		free_msc_and_exit(msc, "Memory allocation error: malloc\n");
 	exp_head(msc);
 	tokenize_op(msc);
 	set_token_flag(msc->lex);
@@ -78,7 +72,9 @@ void	input_lexer(t_msc *msc)
 		return ;
 	ft_printlist(msc->lex);
 	msc->cmd = init_cmd(msc, nb_of_cmds(msc->lex));
+	set_cmd_and_option(msc->cmd);
 	print2d(msc->cmd);
+	make_pipeline(msc);
 }
 
 //ONLY INCLUDED FOR TESTING PURPOSES

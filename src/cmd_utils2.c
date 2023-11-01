@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:47:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/22 22:48:13 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 05:08:42 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //counts and returns the number of sections
 //in t_list *lex which are separated by pipes
-int nb_of_cmds(t_list *lst)
+int	nb_of_cmds(t_list *lst)
 {
 	int	ret;
 
@@ -136,23 +136,28 @@ int	nb_of_estr(char **arr)
 void	print2d(t_cmd *cmds)
 {
 	int	i;
-	int	j;
 
 	if (!cmds)
 	{
 		printf("\n\nCouldn't print stuff\n\n");
 		return ;
 	}
-	j = 0;
 	while (cmds)
 	{
 		i = 0;
-		printf("\nNode %d:\n\n", j++);
+		printf("\nNode %d:\n\n", cmds->index);
 		while (cmds->full_cmd && cmds->full_cmd[i] != NULL)
 		{
 			printf("\n%s\n", cmds->full_cmd[i]);
 			i++;
 		}
+		printf("cmd: %s\n", cmds->cmd);
+		printf("option: %s\n", cmds->option);
+		printf("pid: %d\n", cmds->pid);
+		printf("fd_in: %d\n", cmds->fd_in);
+		printf("fd_in_type: %d\n", cmds->fd_in_type);
+		printf("fd_out: %d\n", cmds->fd_out);
+		printf("fd_out_type: %d\n", cmds->fd_out_type);
 		cmds = cmds->next;
 	}
 }

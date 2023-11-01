@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+         #
+#    By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/21 10:55:14 by mburgler          #+#    #+#              #
-#    Updated: 2023/10/21 19:05:22 by mburgler         ###   ########.fr        #
+#    Updated: 2023/11/01 18:19:44 by abektimi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,9 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
 					src/kill_quotes.c \
                     src/cmd_utils1.c \
                     src/cmd_utils2.c \
-                    src/in_out_files.c
+                    src/in_out_files.c \
+                    src/exec_funcs.c \
+                    src/exec_utils.c
 
 OBJS        := $(SRCS:.c=.o)
 
