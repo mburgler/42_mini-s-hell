@@ -6,16 +6,16 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:21:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/21 15:07:29 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:06:15 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //creates and returns a blank node of type t_list
-t_list  *ft_lstnew(t_msc *ms, const char *s, int i)
+t_list	*ft_lstnew(t_msc *ms, const char *s, int i)
 {
-	t_list  *ret;
+	t_list	*ret;
 
 	ret = malloc(sizeof(t_list));
 	if (!ret)
@@ -30,9 +30,9 @@ t_list  *ft_lstnew(t_msc *ms, const char *s, int i)
 }
 
 //adds a node 'new' to the back of list 'lst'
-void    ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list  *tmp;
+	t_list	*tmp;
 
 	if (lst && new)
 	{
@@ -51,7 +51,7 @@ void    ft_lstadd_back(t_list **lst, t_list *new)
 }
 
 //returns a pointer to the last node of list 'lst'
-t_list  *ft_lstlast(t_list *lst)
+t_list	*ft_lstlast(t_list *lst)
 {
 	if (lst != NULL)
 	{
@@ -62,9 +62,9 @@ t_list  *ft_lstlast(t_list *lst)
 }
 
 //frees all nodes of a list 'lst'
-void    ft_lstclear(t_list **lst)
+void	ft_lstclear(t_list **lst)
 {
-	t_list  *tmp;
+	t_list	*tmp;
 
 	if (!lst || !(*lst))
 		return ;
@@ -80,17 +80,17 @@ void    ft_lstclear(t_list **lst)
 
 //creates and initializes a list with the required number of nodes
 //returns a pointer to the first node in the list
-t_list  *init_lst(t_msc *msc, char **input)
+t_list	*init_lst(t_msc *msc, char **input)
 {
-	t_list  *ret;
-	t_list  *tmp;
-	int     i;
+	t_list	*ret;
+	t_list	*tmp;
+	int		i;
 
 	i = 1;
 	if (!input)
 		return (NULL);
 	ret = ft_lstnew(msc, input[0], 0);
-	if(!ret)
+	if (!ret)
 		return (NULL);
 	while (input[i])
 	{

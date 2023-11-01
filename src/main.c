@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 20:31:13 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:34:35 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 int	g_sig_status = 0;
 
-void	init_msc(t_msc *msc, char **env)
+t_msc	*init_msc(char **env)
 {
+	t_msc	*msc;
+
+	msc = malloc(sizeof(t_msc));
+	if (!msc)
+		return NULL;
 	msc->lex = NULL;
 	msc->cmd = NULL;
 	msc->loop = true;
@@ -49,11 +54,10 @@ int	main(int argc, char **argv, char **env)
 	t_msc	*msc;
 
 	if (argc != 1 || !argv[0] || !env)
-		return (-1);
-	msc = malloc(sizeof(t_msc));
+		return (1);
+	msc = init_msc(env);
 	if (!msc)
-		return (-1);
-	init_msc(msc, env);
+		return (1);
 	while (msc->loop == true)
 	{
 		signal(SIGINT, handle_sigint);

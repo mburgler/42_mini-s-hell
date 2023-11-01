@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_out_files.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 18:16:10 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:59:41 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	set_in_out_file(t_cmd *cmd)
 
 void	ft_outfile(t_cmd *cmd, int i, int type)
 {
-	if(cmd->fd_out > 1)
+	if (cmd->fd_out > 1)
 		close(cmd->fd_out);
 	if (type == OP_REDIR)
 	{
@@ -98,7 +98,7 @@ void	ft_outfile(t_cmd *cmd, int i, int type)
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		cmd->fd_out_type = APPEND;
 	}
-	if(cmd->fd_out == -1)
+	if (cmd->fd_out == -1)
 	{
 		g_sig_status = 1;
 		printf("ERROR w/ output redirection\n");
@@ -164,8 +164,8 @@ int	handle_heredoc(t_cmd *cmd, int i)
 
 void	kill_in_out_file(t_cmd *cmd)
 {
-	int	i;
-	t_list *tmp;
+	int		i;
+	t_list	*tmp;
 
 	i = 0;
 	tmp = shift_lex_for_cmd(cmd, cmd->msc->lex);
@@ -186,10 +186,7 @@ void	kill_in_out_file(t_cmd *cmd)
 	}
 	cmd->full_cmd = shorten_arr(cmd->full_cmd, i);
 	if (cmd->full_cmd == NULL)
-	{
-		//errorhandling for malloc error
-		return ;
-	}
+		free_msc_and_exit(cmd->msc, "Memory allocation error: malloc\n");
 }
 
 t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp)

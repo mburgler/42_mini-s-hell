@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 19:53:06 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:33:55 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <signal.h>
+# include <errno.h>
 # include <sys/ioctl.h>
 # include <fcntl.h>
 # include <sys/types.h>
@@ -98,9 +99,11 @@ void	free_all(t_msc *msc);
 
 //error_handling.c
 void	malloc_error_free_exit(t_msc *msc, char *to_free, char *to_free2);
+void	free_msc_and_exit(t_msc *msc, char *msg);
+void	free_msc_and_errno(t_msc *msc, char *msg);
 
 //main.c
-void	init_msc(t_msc *msc, char **env);
+t_msc	*init_msc(char **env);
 void	handle_input(t_msc *msc);
 void	ft_print2d(char **strs); //ONLY FOR TESTING; DELETE FROM FINAL VERSION
 
@@ -209,5 +212,15 @@ void	ft_infile(t_cmd *cmd, int i, int type);
 void	kill_in_out_file(t_cmd *cmd);
 t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp);
 int		handle_heredoc(t_cmd *cmd, int i);
+
+//exec_funcs.c
+void	set_cmd_and_option(t_cmd *cmds);
+//void	executor();
+void	prep_parent(t_cmd *cmd, int *p_fds, char **env);
+void	prep_child(t_cmd *cmd, int *p_fds, char **env);
+void	make_pipeline(t_msc *msc);
+
+//exec_utils.c
+int		is_option(const char *str);
 
 #endif

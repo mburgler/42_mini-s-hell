@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_func.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/23 21:30:31 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:59:16 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	exp_head(t_msc *msc)
 {
 	t_list	*tmp;
 
+	if (!msc->lex)
+		return ;
 	tmp = msc->lex;
 	while (tmp && tmp->str)
 	{
@@ -35,7 +37,7 @@ void	exp_head(t_msc *msc)
 
 void	exp_logic_new(t_msc *msc, t_list *tmp)
 {
-	int i;
+	int	i;
 	int	aA0_end;
 
 	i = 0;
@@ -44,7 +46,7 @@ void	exp_logic_new(t_msc *msc, t_list *tmp)
 		i = ft_shift_to_dollar(tmp->str, 0);
 		if (i == -1)
 			return ;
-		if(get_quote_status(tmp->str, i) == 1)
+		if (get_quote_status(tmp->str, i) == 1)
 			continue;
 		if (tmp->str[i + 1] == '?')
 			exp_dol_qmark(msc, tmp, i);
@@ -67,7 +69,7 @@ void	exp_sub(t_list *tmp, int i, int aA0_end, t_msc *msc)
 	env = ft_substr(tmp->str, i + 1, aA0_end);
 	if (!env)
 		malloc_error_free_exit(msc, NULL, NULL);
-	if(i > 0)
+	if (i > 0)
 		beg = ft_substr(tmp->str, 0, i);
 	else
 		beg = ft_strdup("");
@@ -125,7 +127,7 @@ void	exp_dol_qmark(t_msc *msc, t_list* tmp, int i)
 
 void	exp_tilde(t_msc *msc, t_list *tmp)
 {
-	char *tf;
+	char	*tf;
 
 	tf = tmp->str;
 	if (tmp->str[1] == '\0')
@@ -140,24 +142,24 @@ int	ft_shift_to_dollar(char *str, int reboot)
 {
 	static int	i;
 
-	if(reboot == 1)
+	if (reboot == 1)
 	{
 		i = 0;
 		return (-42);
 	}
-	while(str[i])
+	while (str[i])
 	{
-		if(str[i] == '$' && str[i + 1] != '$' && str[i + 1] != '\"')
+		if (str[i] == '$' && str[i + 1] != '$' && str[i + 1] != '\"')
 		{
 			if (ft_is_whitespace(str, i + 1) == -1)
 			{
 				i++;
-				return(i - 1);
+				return (i - 1);
 			}
 		}
 		i++;
 	}
-	return(-1);
+	return (-1);
 }
 
 int	get_quote_status(char *str, int dol_i)
@@ -165,14 +167,14 @@ int	get_quote_status(char *str, int dol_i)
 	int	i;
 
 	i = 0;
-	while(str[i] && i < dol_i)
+	while (str[i] && i < dol_i)
 	{
-		if(str[i] == '\"')
+		if (str[i] == '\"')
 			return (2);
-		if(str[i] == '\'')
+		if (str[i] == '\'')
 		{
 			i++;
-			while(str[i] && i < dol_i)
+			while (str[i] && i < dol_i)
 			{
 				if (str[i] == '\'')
 					return (0);

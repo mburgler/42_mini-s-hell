@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:25:32 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/01 18:19:46 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:58:59 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_cmd	*ft_cmdnew(t_msc *ms, int i)
 	ret->cmd = NULL;
 	ret->option = NULL;
 	ret->full_cmd = cmd_setter(ms->lex);
+	ret->pid = -1;
 	ret->index = i;
 	ret->fd_in = 0;
 	ret->fd_out = 1;
@@ -122,7 +123,7 @@ t_cmd	*init_cmd(t_msc	*msc, int nb)
 			free(ret);
 			return (NULL);
 		}
-		set_in_out_file(tmp); // Matteo added this
+		set_in_out_file(tmp);
 		i++;
 	}
 	return (ret);
