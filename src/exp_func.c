@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/26 20:09:27 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:59:16 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	exp_logic_new(t_msc *msc, t_list *tmp)
 		if (get_quote_status(tmp->str, i) == 1)
 			continue;
 		if (tmp->str[i + 1] == '?')
-			printf("$? not yet handled"); //handle ?
+			exp_dol_qmark(msc, tmp, i);
 		else
 		{
 			aA0_end = ft_trimascii(tmp->str + i + 1);
@@ -96,6 +96,33 @@ void	exp_sub(t_list *tmp, int i, int aA0_end, t_msc *msc)
 	tmp->str = ft_strjoin_free(tmp->str, end, tmp->str, end);
 	if (!tmp->str)
 		malloc_error_free_exit(msc, NULL, NULL);
+}
+
+void	exp_dol_qmark(t_msc *msc, t_list* tmp, int i)
+{
+	char	*to_free;
+	char	*code;
+	char	*ph;
+
+	to_free = tmp->str;
+	code = ft_itoa(g_sig_status);
+	if (!code)
+		malloc_error_free_exit(msc, NULL, NULL);
+	if (i > 0)
+		ph = ft_substr(tmp->str, 0, i);
+	else
+		ph = ft_strdup("");
+	if (!ph)
+		malloc_error_free_exit(msc, code, NULL);
+	tmp->str = ft_strjoin_free(ph, code, ph, code);
+	if (to_free[i + 2] == '\0')
+		ph = ft_strdup("");
+	else
+		ph = ft_substr(to_free, i + 2, ft_strlen(to_free) - i - 2);
+	if (!ph)
+		malloc_error_free_exit(msc, to_free, NULL);
+	tmp->str = ft_strjoin_free(tmp->str, ph, tmp->str, ph);
+	free(to_free);
 }
 
 void	exp_tilde(t_msc *msc, t_list *tmp)

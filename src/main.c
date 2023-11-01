@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/26 19:54:42 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:00:21 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,17 @@ int	main(int argc, char **argv, char **env)
 	}
 	free_all(msc);
 	return (0);
+}
+
+//BELOW JUST FOR TESTING PURPOSES - ONLY FOR TESTING; DELETE FROM FINAL VERSION
+void	ft_print2d(char **strs)
+{
+	int	i;
+
+	i = 0;
+	while (strs[i] != NULL)
+	{
+		printf("%s\n", strs[i]);
+		i++;
+	}
 }

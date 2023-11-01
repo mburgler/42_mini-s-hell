@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 18:36:50 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:58:40 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_list
 	struct s_msc	*msc;
 	int				quote_status;
 	int				token_status;
+	int				quote_first_pos;
 	int				id;
 }			t_list;
 
@@ -53,13 +54,14 @@ typedef struct s_cmd
 	char	*option;
 	char	**full_cmd;
 	int		pid;
-	int		index;
+	int 	index;
 	int		fd_in;
 	int		fd_in_type;
 	int		fd_out;
 	int		fd_out_type;
+	char	*heredoc_name;
 	struct s_cmd	*next;
-	struct s_cmd	*prev;
+	struct  s_cmd	*prev;
 	struct s_msc	*msc;
 }				t_cmd;
 
@@ -95,6 +97,7 @@ void	free_msc_and_errno(t_msc *msc, char *msg);
 //main.c
 t_msc	*init_msc(char **env);
 void	handle_input(t_msc *msc);
+void	ft_print2d(char **strs); //ONLY FOR TESTING; DELETE FROM FINAL VERSION
 
 //dup_utils.c
 int		ft_arrlen(char **str);
@@ -107,6 +110,7 @@ void	handle_sigint(int sig);
 void	exp_head(t_msc *msc);
 void	exp_logic_new(t_msc *msc, t_list *tmp);
 void	exp_sub(t_list *tmp, int i, int aA0_end, t_msc *msc);
+void	exp_dol_qmark(t_msc *msc, t_list* tmp, int i);
 void	exp_tilde(t_msc *msc, t_list *tmp);
 int		ft_shift_to_dollar(char *str, int reboot);
 int		get_quote_status(char *str, int dol_i);
@@ -191,7 +195,7 @@ char	**cmd_setter(t_list *lst);
 char	**get_full_cmd(t_list *lst, int start, int end);
 char	**shorten_arr(char **ret, int len);
 int		nb_of_estr(char **arr);
-void	print2d(t_cmd *cmds); //ONLY FOR TESTING PURPOSES
+void	printcmds(t_cmd *cmds); //ONLY FOR TESTING PURPOSES
 
 //in_out_files.c
 int		set_in_out_file(t_cmd *cmd);
@@ -199,6 +203,7 @@ void	ft_outfile(t_cmd *cmd, int i, int type);
 void	ft_infile(t_cmd *cmd, int i, int type);
 void	kill_in_out_file(t_cmd *cmd);
 t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp);
+int		handle_heredoc(t_cmd *cmd, int i);
 
 //exec_funcs.c
 void	set_cmd_and_option(t_cmd *cmds);

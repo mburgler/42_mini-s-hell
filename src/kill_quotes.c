@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:06:02 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/20 18:48:23 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/10/23 20:35:04 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,15 @@ void	kill_quotes(t_msc *msc)
 				kill_quote_str(msc, tmp, '\'');
 				break ;
 			}
-			if(tmp->str[i] == '\"')
+			if (tmp->str[i] == '\"')
 			{
 				kill_quote_str(msc, tmp, '\"');
 				break ;
 			}
 			i++;
 		}
+		if (!tmp->str[i])
+			tmp->quote_status = 0;
 		tmp = tmp->next;
 	}
 }

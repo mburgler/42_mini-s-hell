@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/23 20:32:40 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:59:41 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,22 @@ no whitespaces between < <
 //<<: Here document
 
 //OPEN
-// - handle $?
+// PARTLY - handle $?
 // - handle heredoc
 // - local env copy for when doing cd or (un)setting vars
-//errorhandling when two fd
+// - errorhandling when two fd
 // - $mburgler for minishell $ $$"$USER"
-// - DONE echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $  <<" results in syntax error: consecutive operators
-// 	- resplit for l$s -la
+// - resplit for l$s -la
 // - fix $cmds.txt
+// - ❯ echo hey$USER"$USER"'$USER'$USER
+//		should be: heymburglermburgler$USERmburgler
+//		is: _heymburglermburgler'mburgler'mburgler_
 
 //DONE
 // - $mburgler for minishell $ $$"$USER"
 //- kill op and adjacent file
 //	- DONE $"$" doesnt show anything
+// - DONE echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $  <<" results in syntax error: consecutive operators
 
 int	set_in_out_file(t_cmd *cmd)
 {
@@ -61,15 +64,15 @@ int	set_in_out_file(t_cmd *cmd)
 	tmp = shift_lex_for_cmd(cmd, cmd->msc->lex);
 	while (cmd->full_cmd[i])
 	{
-		if(tmp->quote_status == 0)
+		if (tmp->quote_status == 0)
 		{
-			if(cmd->full_cmd[i][0] == '>' && !cmd->full_cmd[i][1])
+			if (cmd->full_cmd[i][0] == '>' && !cmd->full_cmd[i][1])
 				ft_outfile(cmd, i + 1, OP_REDIR);
-			else if(cmd->full_cmd[i][0] == '>' && cmd->full_cmd[i][1] == '>')
+			else if (cmd->full_cmd[i][0] == '>' && cmd->full_cmd[i][1] == '>')
 				ft_outfile(cmd, i + 1, APPEND);
-			else if(cmd->full_cmd[i][0] == '<' && !cmd->full_cmd[i][1])
-				ft_infile(cmd, i + 1, OP_REDIR);
-			else if(cmd->full_cmd[i][0] == '<' && cmd->full_cmd[i][1] == '<')
+			else if (cmd->full_cmd[i][0] == '<' && !cmd->full_cmd[i][1])
+				ft_infile(cmd, i + 1, IP_REDIR);
+			else if (cmd->full_cmd[i][0] == '<' && cmd->full_cmd[i][1] == '<')
 				ft_infile(cmd, i + 1, HEREDOC);
 		}
 		tmp = tmp->next;
@@ -99,17 +102,65 @@ void	ft_outfile(t_cmd *cmd, int i, int type)
 	{
 		g_sig_status = 1;
 		printf("ERROR w/ output redirection\n");
+		//BEKTI BITTE MACHEN
 	}
 }
 
 void	ft_infile(t_cmd *cmd, int i, int type)
 {
-	(void)cmd;
-	(void)i;
-	(void)type;
+	if (cmd->fd_in > 0)
+	{
+		close(cmd->fd_in);
+		if(cmd->fd_in_type == HEREDOC)
+		{
+			unlink(cmd->heredoc_name);
+			free(cmd->heredoc_name);
+		}
+	}
+	if (type == IP_REDIR)
+	{
+		cmd->fd_in = open(cmd->full_cmd[i], O_RDWR);
+		cmd->fd_in_type = IP_REDIR;
+	}
+	if (type == HEREDOC)
+		cmd->fd_in = handle_heredoc(cmd, i);
+	if (cmd->fd_in == -1)
+	{
+		g_sig_status = 1;
+		printf("ERROR w/ input redirection\n");
+		//BEKTI BITTE MACHEN
+	}
 }
 
-//echo test >kkkk"helpmeneu"
+int	handle_heredoc(t_cmd *cmd, int i)
+{
+	char *nmb_itoa;
+	char *buff;
+	int	fd;
+
+	nmb_itoa = ft_itoa(cmd->index);
+	cmd->heredoc_name = ft_strjoin(".tmp_heredoc", nmb_itoa);
+	fd = open(cmd->heredoc_name, O_CREAT | O_RDWR, 
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	free(nmb_itoa);
+	cmd->fd_in_type = HEREDOC;
+	if(fd == -1)
+		return(fd);
+	buff = NULL;
+	while(1)
+	{
+		buff = readline("minidoc> ");
+		buff = ft_strjoin_free(buff, "\n", buff, NULL);
+		if(!ft_strncmp(cmd->full_cmd[i], buff, ft_strlen(cmd->full_cmd[i])))
+		{
+			free(buff);
+			break;
+		}
+		write(fd, buff, ft_strlen(buff));
+		free(buff);
+	}
+	return(fd);
+}
 
 void	kill_in_out_file(t_cmd *cmd)
 {

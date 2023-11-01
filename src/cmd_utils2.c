@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:47:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/01 05:08:42 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:55:12 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int	nb_of_estr(char **arr)
 }
 
 //ONLY MEANT FOR TESTING PURPOSES
-void	print2d(t_cmd *cmds)
+void	printcmds(t_cmd *cmds)
 {
 	int	i;
 
