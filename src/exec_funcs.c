@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:03:57 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/01 18:37:00 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:39:42 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	set_cmd_and_option(t_cmd *cmds)
 //void	executor();
 
 //preps the parameters of the parent process for passing on to executer()
-void	prep_parent(t_cmd *cmd, int *p_fds, char **env)
+void	prep_parent(t_cmd *cmd, int *p_fds, t_env *env)
 {
 	//int	fd;
 	(void)cmd;
@@ -68,7 +68,7 @@ void	prep_parent(t_cmd *cmd, int *p_fds, char **env)
 }
 
 //preps the parameters of the child process for passing on to executer()
-void	prep_child(t_cmd *cmd, int *p_fds, char **env)
+void	prep_child(t_cmd *cmd, int *p_fds, t_env *env)
 {
 	//int	fd;
 	(void)cmd;

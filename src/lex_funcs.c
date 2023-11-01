@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_funcs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/01 20:00:01 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:42:24 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,8 @@ void	input_lexer(t_msc *msc)
 	ft_printlist(msc->lex);
 	msc->cmd = init_cmd(msc, nb_of_cmds(msc->lex));
 	set_cmd_and_option(msc->cmd);
-	print2d(msc->cmd);
-	make_pipeline(msc);
 	printcmds(msc->cmd);
+	make_pipeline(msc);
 }
 
 //ONLY INCLUDED FOR TESTING PURPOSES

@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 20:33:55 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:40:29 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,8 +216,8 @@ int		handle_heredoc(t_cmd *cmd, int i);
 //exec_funcs.c
 void	set_cmd_and_option(t_cmd *cmds);
 //void	executor();
-void	prep_parent(t_cmd *cmd, int *p_fds, char **env);
-void	prep_child(t_cmd *cmd, int *p_fds, char **env);
+void	prep_parent(t_cmd *cmd, int *p_fds, t_env *env);
+void	prep_child(t_cmd *cmd, int *p_fds, t_env *env);
 void	make_pipeline(t_msc *msc);
 
 //exec_utils.c

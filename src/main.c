@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 20:34:35 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:37:54 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_msc	*init_msc(char **env)
 	msc->env_home = getenv("HOME"); //KILL
 	// msc ->prompt_cwd = NULL;
 	// msc->prompt = NULL;
+	return(msc);
 }
 
 void	handle_input(t_msc *msc)
