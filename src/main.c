@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 20:00:21 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:38:02 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_msc	*init_msc(char **env)
 
 	msc = malloc(sizeof(t_msc));
 	if (!msc)
-		return NULL;
+		return (NULL);
 	msc->lex = NULL;
 	msc->cmd = NULL;
 	msc->loop = true;

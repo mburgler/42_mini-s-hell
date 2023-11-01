@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:03:57 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/01 18:37:00 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 20:25:32 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	prep_child(t_cmd *cmd, int *p_fds, char **env)
 	//2. otherwise use dup2 to adjust file descriptors, check for return == -1
 	//3. close unused file descriptor of pipe
 	//4. call executor function
+	exit(0);
 }
 
 //This function is supposed to create a pipeline consisting of the cmds
