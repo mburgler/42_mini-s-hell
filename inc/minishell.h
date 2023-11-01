@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/28 19:10:54 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:08:21 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_cmd
 	int		fd_out;
 	int		fd_out_type;
 	struct s_cmd	*next;
-	struct s_cmd	*prev;
+	struct  s_cmd	*prev;
 	struct s_msc	*msc;
 }				t_cmd;
 
