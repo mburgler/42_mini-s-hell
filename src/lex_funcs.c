@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/23 15:11:56 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:35:34 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	input_lexer(t_msc *msc)
 		return ;
 	ft_printlist(msc->lex);
 	msc->cmd = init_cmd(msc, nb_of_cmds(msc->lex));
-	print2d(msc->cmd);
+	printcmds(msc->cmd);
 }
 
 //ONLY INCLUDED FOR TESTING PURPOSES

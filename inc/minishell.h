@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 18:11:02 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:37:46 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	malloc_error_free_exit(t_msc *msc, char *to_free, char *to_free2);
 //main.c
 void	init_msc(t_msc *msc, char **env);
 void	handle_input(t_msc *msc);
+void	ft_print2d(char **strs); //ONLY FOR TESTING; DELETE FROM FINAL VERSION
 
 //dup_utils.c
 int		ft_arrlen(char **str);
@@ -191,7 +192,7 @@ char	**cmd_setter(t_list *lst);
 char	**get_full_cmd(t_list *lst, int start, int end);
 char	**shorten_arr(char **ret, int len);
 int		nb_of_estr(char **arr);
-void	print2d(t_cmd *cmds); //ONLY FOR TESTING PURPOSES
+void	printcmds(t_cmd *cmds); //ONLY FOR TESTING PURPOSES
 
 //in_out_files.c
 int		set_in_out_file(t_cmd *cmd);

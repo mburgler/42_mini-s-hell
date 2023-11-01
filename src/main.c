@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/28 19:29:31 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:40:33 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,17 @@ int	main(int argc, char **argv, char **env)
 	}
 	free_all(msc);
 	return (0);
+}
+
+//BELOW JUST FOR TESTING PURPOSES - ONLY FOR TESTING; DELETE FROM FINAL VERSION
+void	ft_print2d(char **strs)
+{
+	int	i;
+
+	i = 0;
+	while (strs[i] != NULL)
+	{
+		printf("%s\n", strs[i]);
+		i++;
+	}
 }

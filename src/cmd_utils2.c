@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:47:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/22 22:48:13 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:35:20 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int	nb_of_estr(char **arr)
 }
 
 //ONLY MEANT FOR TESTING PURPOSES
-void	print2d(t_cmd *cmds)
+void	printcmds(t_cmd *cmds)
 {
 	int	i;
 	int	j;
