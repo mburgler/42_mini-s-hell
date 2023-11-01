@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:25:32 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/28 19:10:22 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:19:46 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,17 @@ void	ft_cmdclear(t_cmd **lst)
 			free((*lst)->option);
 		if ((*lst)->full_cmd)
 			free_2d_arr((*lst)->full_cmd);
+		if ((*lst)->fd_out > 1)
+			close((*lst)->fd_out);
+		if ((*lst)->fd_in > 0)
+		{
+			close((*lst)->fd_in);
+			if ((*lst)->fd_in_type == HEREDOC)
+			{
+				unlink((*lst)->heredoc_name);
+				free((*lst)->heredoc_name);
+			}
+		}
 		free(*lst);
 		*lst = tmp;
 	}

@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 18:08:21 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:11:02 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_cmd
 	int		fd_in_type;
 	int		fd_out;
 	int		fd_out_type;
+	char	*heredoc_name;
 	struct s_cmd	*next;
 	struct  s_cmd	*prev;
 	struct s_msc	*msc;
@@ -198,5 +199,6 @@ void	ft_outfile(t_cmd *cmd, int i, int type);
 void	ft_infile(t_cmd *cmd, int i, int type);
 void	kill_in_out_file(t_cmd *cmd);
 t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp);
+int		handle_heredoc(t_cmd *cmd, int i);
 
 #endif

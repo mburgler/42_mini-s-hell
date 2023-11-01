@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/28 20:27:45 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:16:10 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	ft_outfile(t_cmd *cmd, int i, int type)
 
 void	ft_infile(t_cmd *cmd, int i, int type)
 {
-	if(cmd->fd_in > 0)
+	if (cmd->fd_in > 0)
 	{
 		close(cmd->fd_in);
 		if(cmd->fd_in_type == HEREDOC)
@@ -124,7 +124,7 @@ void	ft_infile(t_cmd *cmd, int i, int type)
 	}
 	if (type == HEREDOC)
 		cmd->fd_in = handle_heredoc(cmd, i);
-	if(cmd->fd_in == -1)
+	if (cmd->fd_in == -1)
 	{
 		g_sig_status = 1;
 		printf("ERROR w/ input redirection\n");
