@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:54:00 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 23:22:01 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/02 00:22:34 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	free_all(t_msc *msc)
 	if (msc->dup_env)
 		ft_envclear(&msc->dup_env);
 	// free_null((void **)&msc->env_cwd);
-	if (msc->env_cwd)
-		free(msc->env_cwd);
+	//if (msc->env_cwd)
+	//	free(msc->env_cwd);
 	//don't free msc->env_home, it's a pointer to an environment variable
 	//free_null((void **)&msc->prompt_cwd);
 	//free_null((void **)&msc->prompt);

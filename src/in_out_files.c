@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_out_files.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 19:59:41 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/02 03:56:43 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ void	kill_in_out_file(t_cmd *cmd)
 	while (cmd->full_cmd[i])
 	{
 		if ((cmd->full_cmd[i][0] == '>' || cmd->full_cmd[i][0] == '<')
-			&& tmp->quote_status == 0)
+			&& tmp->quote_status == 0 && tmp->exp == 0)
 		{
 			free(cmd->full_cmd[i]);
 			cmd->full_cmd[i] = NULL;

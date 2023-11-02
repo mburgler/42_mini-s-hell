@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/20 20:51:54 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/02 03:54:49 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@ void	tokenize_op(t_msc *msc)
     tmp = msc->lex;
 	while (tmp && tmp->str)
 	{
-		tokenize_individual_op(msc, tmp, '|');
-		tokenize_individual_op(msc, tmp, '>');
-		tokenize_individual_op(msc, tmp, '<');
+		if(tmp->exp == 0)
+		{
+			tokenize_individual_op(msc, tmp, '|');
+			tokenize_individual_op(msc, tmp, '>');
+			tokenize_individual_op(msc, tmp, '<');
+		}
 		tmp = tmp->next;
 	}
 	rejoin_tokens(msc);
@@ -40,7 +43,7 @@ void	rejoin_tokens(t_msc *msc)
 	{
 		tf = tmp->next;
 		if (((tmp->str[0] == '>' && tf->str[0] == '>') || (tmp->str[0] == '<'
-			&& tf->str[0] == '<')) && !tmp->str[1])
+			&& tf->str[0] == '<')) && !tmp->str[1] && tmp->exp == 0)
 		{
 			buff = tmp->str;
 			tmp->str = ft_strjoin(tmp->str, tmp->next->str);

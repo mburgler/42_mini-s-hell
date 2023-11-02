@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_func.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 19:59:16 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/02 04:01:00 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	exp_head(t_msc *msc)
 	tmp = msc->lex;
 	while (tmp && tmp->str)
 	{
+		tmp->exp = 0;
 		if (tmp->quote_status == 0 && tmp->str[0] == '~')
 		{
 			exp_tilde(msc, tmp);
@@ -47,11 +48,12 @@ void	exp_logic_new(t_msc *msc, t_list *tmp)
 		if (i == -1)
 			return ;
 		if (get_quote_status(tmp->str, i) == 1)
-			continue;
+			continue ;
 		if (tmp->str[i + 1] == '?')
 			exp_dol_qmark(msc, tmp, i);
 		else
 		{
+			tmp->exp = 1;
 			aA0_end = ft_trimascii(tmp->str + i + 1);
 			exp_sub(tmp, i, aA0_end, msc);
 		}
@@ -82,7 +84,7 @@ void	exp_sub(t_list *tmp, int i, int aA0_end, t_msc *msc)
 	if (!end)
 		malloc_error_free_exit(msc, beg, env);
 	free(placeholder);
-	placeholder = getenv(env);
+	placeholder = ft_getenv(env, msc);
 	if (!placeholder)
 		placeholder = ft_strdup("");
 	else
@@ -128,12 +130,19 @@ void	exp_dol_qmark(t_msc *msc, t_list* tmp, int i)
 void	exp_tilde(t_msc *msc, t_list *tmp)
 {
 	char	*tf;
+	char	*env_home;
 
 	tf = tmp->str;
-	if (tmp->str[1] == '\0')
-		tmp->str = ft_strjoin_free(msc->env_home, "", tf, NULL);
+	if (ft_getenv("HOME", msc))
+		env_home = ft_getenv("HOME", msc);
+	else if (msc->env_home)
+		env_home = msc->env_home;
 	else
-		tmp->str = ft_strjoin_free(msc->env_home, tmp->str + 1, tf, NULL);
+		env_home = "~\0";
+	if (tmp->str[1] == '\0')
+		tmp->str = ft_strjoin_free(env_home, "", tf, NULL);
+	else
+		tmp->str = ft_strjoin_free(env_home, tmp->str + 1, tf, NULL);
 	if (!tmp->str)
 		malloc_error_free_exit(msc, tf, NULL);
 }

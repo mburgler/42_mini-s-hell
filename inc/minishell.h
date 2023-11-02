@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/02 18:55:03 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/02 19:13:16 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,14 @@ typedef struct s_list
 	int				quote_status;
 	int				token_status;
 	int				quote_first_pos;
+	int				exp;
 	int				id;
 	struct s_list	*next;
 	struct s_list	*prev;
 	struct s_msc	*msc;
 }			t_list;
+
+//exp = 0: not expanded; exp = 1: expanded; exp = 2: expanded with op
 
 typedef struct s_cmd
 {
@@ -81,9 +84,9 @@ typedef struct s_msc
 	t_cmd	*cmd;
 	bool	loop;
 	char	*input;
-	char	*env_user;
-	char	*env_path;
-	char	*env_cwd;
+	//char	*env_user;
+	//char	*env_path;
+	//char	*env_cwd;
 	char	*env_home;
 	// char	*prompt_cwd;
 	// char	*prompt;
@@ -109,15 +112,17 @@ t_msc	*init_msc(char **env);
 void	handle_input(t_msc *msc);
 void	ft_print2d(char **strs); //ONLY FOR TESTING; DELETE FROM FINAL VERSION
 
-//env_copy.c
+//env_dup.c
 void	dup_env_head(t_msc *msc, char **org_env);
 t_env	*ft_dup_envnew(char *str, t_msc *msc);
 void	dup_env_error(t_msc *msc, t_env *current_node);
+char	*ft_getenv(char *searchterm, t_msc *msc);
 
 //env_utils.c
 void	ft_envadd_back(t_env **lst, t_env *new);
 t_env	*ft_envlast(t_env *lst);
 void	ft_envclear(t_env **lst);
+int	ft_strcmp(const char *s1, const char *s2);
 
 //signals.c
 void	handle_sigint(int sig);
@@ -182,6 +187,7 @@ int		search_estr(t_list *lst);
 //int search_opipe(t_list *lst);
 void	set_token_flag(t_list *lst);
 int		is_operator(const char *s);
+int		is_operator_str(const char *s);
 void	reset_lex_index(t_list *lst);
 int		no_pipes(t_list *lst);
 

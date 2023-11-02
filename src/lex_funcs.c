@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_funcs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/02 01:59:57 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/02 13:02:27 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	ft_printlist(t_list *lst)
 		{
 			printf("Node %d contains: _%s_\n", tmp->id, tmp->str);
 			printf("Quotes: %d\n", tmp->quote_status);
+			printf("Op_in_exp: %d\n", tmp->exp);
 			printf("Token status: %d\n", tmp->token_status);
 			tmp = tmp->next;
 		}
