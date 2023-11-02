@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:03:57 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/01 23:08:40 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/02 02:05:15 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	set_cmd_and_option(t_cmd *cmds)
 	{
 		cmd_and_opt = ft_split(cmds->full_cmd[0], ' ');
 		i = 0;
-		while (cmd_and_opt[i] != NULL)
+		while (cmd_and_opt && cmd_and_opt[i] != NULL)
 			i++;
 		if (i == 1)
 		{
@@ -55,14 +55,17 @@ void	set_cmd_and_option(t_cmd *cmds)
 //preps the parameters of the parent process for passing on to executer()
 void	prep_parent(t_cmd *cmd, int *p_fds, t_env *env)
 {
-	//int	fd;
-	(void)cmd;
-	(void)p_fds;
 	(void)env;
 
 	printf("Parent: I'm the parent\n");
-	//1. check for builtins and execute if necessary;
-	//2. otherwise use dup2 to adjust file descriptors, check for return == -1
+	if (close(p_fds[1]) == -1)
+		free_msc_and_errno(cmd->msc, "Error in prep_parent(): ");
+	if (dup2(cmd->next->fd_out, 1) == -1 || dup2(p_fds[0], 0) == -1)
+		free_msc_and_errno(cmd->msc, "Error in prep_parent(): ");
+	// if (is_builtin(cmd->cmd))
+	// 	executor(cmd, p_fds, env, 1);
+	if (!is_builtin(cmd->cmd))
+		printf("\nParent: Received cmd is not a builtin\n");
 	//3. close unused file descriptor of pipe
 	//4. call executor function
 }
@@ -70,14 +73,17 @@ void	prep_parent(t_cmd *cmd, int *p_fds, t_env *env)
 //preps the parameters of the child process for passing on to executer()
 void	prep_child(t_cmd *cmd, int *p_fds, t_env *env)
 {
-	//int	fd;
-	(void)cmd;
-	(void)p_fds;
 	(void)env;
 
 	printf("Child: I'm the child\n");
-	//1. check for builtins and execute if necessary;
-	//2. otherwise use dup2 to adjust file descriptors, check for return == -1
+	if (close(p_fds[0]) == -1)
+		free_msc_and_errno(cmd->msc, "Error in prep_child(): ");
+	if (dup2(cmd->prev->fd_in, 0) == -1 || dup2(p_fds[1], 1) == -1)
+		free_msc_and_errno(cmd->msc, "Error in prep_child(): ");
+	// if (is_builtin(cmd->cmd))
+	// 	executor(cmd, p_fds, env, 1);
+	if (!is_builtin(cmd->cmd))
+		printf("\nChild: Received cmd is not a builtin\n");
 	//3. close unused file descriptor of pipe
 	//4. call executor function
 	exit(0);

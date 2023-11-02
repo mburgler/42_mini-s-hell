@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/02 03:55:27 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/02 13:02:27 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	input_lexer(t_msc *msc)
 	msc->cmd = init_cmd(msc, nb_of_cmds(msc->lex));
 	set_cmd_and_option(msc->cmd);
 	printcmds(msc->cmd);
-	make_pipeline(msc);
+	//make_pipeline(msc);
 }
 
 //ONLY INCLUDED FOR TESTING PURPOSES

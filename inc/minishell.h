@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/02 03:52:16 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/02 13:02:10 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,32 +40,32 @@
 typedef struct s_list
 {
 	char			*str;
-	struct s_list	*next;
-	struct s_list	*prev;
-	struct s_msc	*msc;
 	int				quote_status;
 	int				token_status;
 	int				quote_first_pos;
 	int				exp;
 	int				id;
+	struct s_list	*next;
+	struct s_list	*prev;
+	struct s_msc	*msc;
 }			t_list;
 
 //exp = 0: not expanded; exp = 1: expanded; exp = 2: expanded with op
 
 typedef struct s_cmd
 {
-	char	*cmd;
-	char	*option;
-	char	**full_cmd;
-	int		pid;
-	int 	index;
-	int		fd_in;
-	int		fd_in_type;
-	int		fd_out;
-	int		fd_out_type;
-	char	*heredoc_name;
+	char			*cmd;
+	char			*option;
+	char			**full_cmd;
+	int				pid;
+	int				index;
+	int				fd_in;
+	int				fd_in_type;
+	int				fd_out;
+	int				fd_out_type;
+	char			*heredoc_name;
 	struct s_cmd	*next;
-	struct  s_cmd	*prev;
+	struct s_cmd	*prev;
 	struct s_msc	*msc;
 }				t_cmd;
 
@@ -237,5 +237,6 @@ void	make_pipeline(t_msc *msc);
 
 //exec_utils.c
 int		is_option(const char *str);
+int		is_builtin(const char *str);
 
 #endif
