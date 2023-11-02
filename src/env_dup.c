@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:40:53 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/02 04:03:58 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:13:51 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 // //kill getenv
 // //change free_stuff.c line 24 & 64
 //tilde is in home
-
-//void	ft_print_env(t_env *env); //Just for testing; delete from final version
 
 void	dup_env_head(t_msc *msc, char **org_env)
 {
@@ -32,9 +30,6 @@ void	dup_env_head(t_msc *msc, char **org_env)
 		tmp = ft_dup_envnew(org_env[i], msc);
 		ft_envadd_back(&msc->dup_env, tmp);
 	}
-	//ft_print_env(msc->dup_env); //Just for testing; delete from final version
-	//ft_print2d(org_env); //Just for testing; delete from final version
-	//printf("### TESTING END ###\n");
 }
 
 t_env	*ft_dup_envnew(char *str, t_msc *msc)
@@ -94,21 +89,4 @@ char	*ft_getenv(char *searchterm, t_msc *msc)
 		tmp = tmp->next;
 	}
 	return (NULL);
-}
-
-//JUST FOR TESTING; DELETE FROM FINAL VERSION
-
-void	ft_print_env(t_env *env)
-{
-	t_env	*tmp;
-
-	tmp = env;
-	printf("### Printing env (START):\n");
-	while (tmp)
-	{
-		printf("key: %s\n", tmp->key);
-		printf("value: %s\n", tmp->value);
-		tmp = tmp->next;
-	}
-	printf("### Printing env (END):\n");
 }

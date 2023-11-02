@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/02 13:02:10 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:00:12 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,5 +238,9 @@ void	make_pipeline(t_msc *msc);
 //exec_utils.c
 int		is_option(const char *str);
 int		is_builtin(const char *str);
+
+//BUILTINS
+//builtin_env.c
+void	builtin_env(t_msc *msc);
 
 #endif

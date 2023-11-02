@@ -13,6 +13,6 @@
 - FIXED export MYVAR="> hey"
 	- bash-3.2$ echo Hallo $MYVAR
 	- Hallo > hey
-- resplit when tmp->exp = 1 for the echo > test in VAr cases or the s -la cases
+- RESPLIT when tmp->exp = 1 for the echo > test in VAr cases or the s -la cases
 	- pay attention that all nodes get to know their exp status so that no in files get created
 */
