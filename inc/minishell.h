@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/02 00:34:57 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/02 01:52:33 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <string.h>
 # include <stdbool.h>
 # include <signal.h>
 # include <errno.h>
@@ -70,6 +71,7 @@ typedef struct s_env
 	struct s_env	*next;
 	char	*key;
 	char	*value;
+	struct s_msc 	*msc;
 
 }				t_env;
 
@@ -85,7 +87,7 @@ typedef struct s_msc
 	char	*env_home;
 	// char	*prompt_cwd;
 	// char	*prompt;
-	t_env	*env_cpy;
+	t_env	*dup_env;
 }				t_msc;
 
 //global variable
@@ -108,8 +110,14 @@ void	handle_input(t_msc *msc);
 void	ft_print2d(char **strs); //ONLY FOR TESTING; DELETE FROM FINAL VERSION
 
 //env_copy.c
-t_env	*dup_env_head(t_msc *msc, char **org_env);
+void	dup_env_head(t_msc *msc, char **org_env);
+t_env	*ft_dup_envnew(char *str, t_msc *msc);
+void	dup_env_error(t_msc *msc, t_env *current_node);
 
+//env_utils.c
+void	ft_envadd_back(t_env **lst, t_env *new);
+t_env	*ft_envlast(t_env *lst);
+void	ft_envclear(t_env **lst);
 
 //signals.c
 void	handle_sigint(int sig);
@@ -170,6 +178,7 @@ char	**set_array(const char *s, int wc);
 
 //lex_utils2.c
 int		search_estr(t_list *lst);
+
 //int search_opipe(t_list *lst);
 void	set_token_flag(t_list *lst);
 int		is_operator(const char *s);

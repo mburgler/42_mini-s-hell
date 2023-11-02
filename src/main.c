@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 20:47:51 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/01 23:06:43 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ t_msc	*init_msc(char **env)
 	msc->cmd = NULL;
 	msc->loop = true;
 	msc->input = NULL;
-	// msc->env_cpy = dup_env_head(msc, env);
-	(void)env;
+	dup_env_head(msc, env);
 	msc->env_user = getenv("USER"); //KILL
 	msc->env_path = getenv("PATH"); //KILL
 	msc->env_cwd = getcwd(NULL, 0); //KILL

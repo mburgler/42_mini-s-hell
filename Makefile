@@ -6,7 +6,7 @@
 #    By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/21 10:55:14 by mburgler          #+#    #+#              #
-#    Updated: 2023/11/01 20:35:00 by mburgler         ###   ########.fr        #
+#    Updated: 2023/11/01 23:08:54 by mburgler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
                     src/free_stuff.c \
 					src/error_handling.c \
                     src/env_copy.c \
+					src/env_utils.c \
                     src/signal.c \
                     src/main.c \
                     src/list_utils1.c \

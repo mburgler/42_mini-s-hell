@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:03:57 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/02 01:49:50 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/02 01:51:47 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ void	make_pipeline(t_msc *msc)
 		if (pid == -1)
 			free_msc_and_errno(msc, "Error in make_pipeline(): ");
 		else if (pid == 0)
-			prep_child(tmp->next, p_fds, msc->env_cpy);
+			prep_child(tmp->next, p_fds, msc->dup_env);
 		else if (pid > 0)
-			prep_parent(tmp, p_fds, msc->env_cpy);
+			prep_parent(tmp, p_fds, msc->dup_env);
 		tmp = tmp->next;
 	}
 }
