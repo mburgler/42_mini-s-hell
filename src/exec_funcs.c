@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:03:57 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/02 01:51:47 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/02 02:05:15 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	set_cmd_and_option(t_cmd *cmds)
 	{
 		cmd_and_opt = ft_split(cmds->full_cmd[0], ' ');
 		i = 0;
-		while (cmd_and_opt[i] != NULL)
+		while (cmd_and_opt && cmd_and_opt[i] != NULL)
 			i++;
 		if (i == 1)
 		{
