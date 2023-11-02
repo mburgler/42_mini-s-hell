@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/02 01:52:33 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:55:03 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ typedef struct s_cmd
 typedef struct s_env
 {
 	struct s_env	*next;
-	char	*key;
-	char	*value;
+	char			*key;
+	char			*value;
 	struct s_msc 	*msc;
 
 }				t_env;
