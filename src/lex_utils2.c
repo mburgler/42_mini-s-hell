@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 18:25:49 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/22 20:54:35 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/02 03:56:18 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	set_token_flag(t_list *lst)
 		return ;
 	while (lst != NULL)
 	{
-		if (lst->str)
+		if (lst->str && lst->exp == 0)
 			lst->token_status = is_operator(lst->str);
 		lst = lst->next;
 	}
@@ -85,6 +85,21 @@ int	is_operator(const char *s)
 	else if (ft_strncmp(s, ">", 1) == 0)
 		return (IP_REDIR);
 	else if (ft_strncmp(s, "<", 1) == 0)
+		return (OP_REDIR);
+	return (0);
+}
+
+int	is_operator_str(const char *s)
+{
+	if (ft_strcmp(s, "|") == 0)
+		return (IS_PIPE);
+	else if (ft_strcmp(s, ">>") == 0)
+		return (APPEND);
+	else if (ft_strcmp(s, "<<") == 0)
+		return (HEREDOC);
+	else if (ft_strcmp(s, ">") == 0)
+		return (IP_REDIR);
+	else if (ft_strcmp(s, "<") == 0)
 		return (OP_REDIR);
 	return (0);
 }

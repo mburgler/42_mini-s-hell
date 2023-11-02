@@ -5,4 +5,14 @@
 - kill 2D array env copy also in free
 - uncomment rl_replace_line in signal.c
 
+
+
+- TMRW 15 & 47 in exp_func.c expand tilde
+- 	printf("### DEBUG MYVAR:%s und env->home%s ###\n", ft_getenv("MYVAR", msc), msc->env_home);
+	if(ft_getenv("HOME", msc)) in 134/135 in exp_func.char
+- FIXED export MYVAR="> hey"
+	- bash-3.2$ echo Hallo $MYVAR
+	- Hallo > hey
+- resplit when tmp->exp = 1 for the echo > test in VAr cases or the s -la cases
+	- pay attention that all nodes get to know their exp status so that no in files get created
 */

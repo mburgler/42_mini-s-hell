@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/02 00:25:21 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/02 03:52:16 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ typedef struct s_list
 	int				quote_status;
 	int				token_status;
 	int				quote_first_pos;
+	int				exp;
 	int				id;
 }			t_list;
+
+//exp = 0: not expanded; exp = 1: expanded; exp = 2: expanded with op
 
 typedef struct s_cmd
 {
@@ -84,7 +87,7 @@ typedef struct s_msc
 	//char	*env_user;
 	//char	*env_path;
 	//char	*env_cwd;
-	//char	*env_home;
+	char	*env_home;
 	// char	*prompt_cwd;
 	// char	*prompt;
 	t_env	*dup_env;
@@ -184,6 +187,7 @@ int		search_estr(t_list *lst);
 //int search_opipe(t_list *lst);
 void	set_token_flag(t_list *lst);
 int		is_operator(const char *s);
+int		is_operator_str(const char *s);
 void	reset_lex_index(t_list *lst);
 int		no_pipes(t_list *lst);
 
