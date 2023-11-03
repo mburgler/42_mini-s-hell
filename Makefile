@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+         #
+#    By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/21 10:55:14 by mburgler          #+#    #+#              #
-#    Updated: 2023/11/01 23:46:39 by mburgler         ###   ########.fr        #
+#    Updated: 2023/11/03 13:38:01 by abektimi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,8 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
                     src/cmd_utils2.c \
                     src/in_out_files.c \
                     src/exec_funcs.c \
-                    src/exec_utils.c
+                    src/exec_utils1.c \
+                    src/exec_utils2.c
 
 OBJS        := $(SRCS:.c=.o)
 

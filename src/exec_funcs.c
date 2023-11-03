@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:03:57 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/02 18:50:28 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/03 15:57:22 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	set_cmd_and_option(t_cmd *cmds)
 		if (i == 1)
 		{
 			cmds->cmd = ft_strdup(cmd_and_opt[0]);
-			if (cmds->full_cmd[1] != NULL && (cmds->full_cmd[1]))
+			if (cmds->full_cmd[1] != NULL && is_option(cmds->full_cmd[1]))
 				cmds->option = ft_strdup(cmds->full_cmd[1]);
 		}
 		else if (i == 2)
@@ -50,42 +50,53 @@ void	set_cmd_and_option(t_cmd *cmds)
 
 //supposed to execute commands the way they've been formulated in
 //the functions prep_parent() and prep_child()
-//void	executor();
+	//???SHOULD MINISHELL QUIT OR CONTINUE WHEN NO PATH IS FOUND???
+	//???SHOULD MINISHELL QUIT OR CONTINUE WHEN NO EXE IS FOUND???
+void	executor(t_cmd *cmd, t_env *env, int cmd_type)
+{
+	char	*path;
+	char	**cur_cmd;
+	char	**cur_env;
+
+	// if (cmd->type == 1)
+	// 	exec_builtin(cmd, env);
+	cur_cmd = assemble_cmd(cmd);
+	cur_env = assemble_env(env);
+	path = find_cmd_path(cur_cmd, env);
+	if (!path || !cur_cmd || !cur_env)
+	{
+		free_exec_temps(path, NULL, cur_cmd, cur_env);
+		free_msc_and_errno(cmd->msc, "Error in executor(): ");
+	}
+	if (execve(path, cur_cmd, cur_env) == -1)
+	{
+		free(path);
+		free_2d_arr(cur_cmd);
+		free_2d_arr(cur_env);
+		free_msc_and_errno(cmd->msc, "Error in executor(): ");
+	}
+}
 
 //preps the parameters of the parent process for passing on to executer()
 void	prep_parent(t_cmd *cmd, int *p_fds, t_env *env)
 {
-	(void)env;
-
-	printf("Parent: I'm the parent\n");
+	printf("Parent: I'm the parent\n"); //FOR TESTING ONLY! DELETE LATER!
 	if (close(p_fds[1]) == -1)
 		free_msc_and_errno(cmd->msc, "Error in prep_parent(): ");
 	if (dup2(cmd->next->fd_out, 1) == -1 || dup2(p_fds[0], 0) == -1)
 		free_msc_and_errno(cmd->msc, "Error in prep_parent(): ");
-	// if (is_builtin(cmd->cmd))
-	// 	executor(cmd, p_fds, env, 1);
-	if (!is_builtin(cmd->cmd))
-		printf("\nParent: Received cmd is not a builtin\n");
-	//3. close unused file descriptor of pipe
-	//4. call executor function
+	executor(cmd, env, is_builtin(cmd->cmd));
 }
 
 //preps the parameters of the child process for passing on to executer()
 void	prep_child(t_cmd *cmd, int *p_fds, t_env *env)
 {
-	(void)env;
-
-	printf("Child: I'm the child\n");
+	printf("Child: I'm the child\n"); //FOR TESTING ONLY! DELETE LATER!
 	if (close(p_fds[0]) == -1)
 		free_msc_and_errno(cmd->msc, "Error in prep_child(): ");
 	if (dup2(cmd->prev->fd_in, 0) == -1 || dup2(p_fds[1], 1) == -1)
 		free_msc_and_errno(cmd->msc, "Error in prep_child(): ");
-	// if (is_builtin(cmd->cmd))
-	// 	executor(cmd, p_fds, env, 1);
-	if (!is_builtin(cmd->cmd))
-		printf("\nChild: Received cmd is not a builtin\n");
-	//3. close unused file descriptor of pipe
-	//4. call executor function
+	executor(cmd, env, is_builtin(cmd->cmd));
 	exit(0);
 }
 
