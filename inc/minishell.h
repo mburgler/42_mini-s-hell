@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/02 15:00:12 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/03 16:54:47 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ typedef struct s_cmd
 typedef struct s_env
 {
 	struct s_env	*next;
-	char	*key;
-	char	*value;
+	char			*key;
+	char			*value;
 	struct s_msc 	*msc;
 
 }				t_env;
@@ -230,14 +230,23 @@ int		handle_heredoc(t_cmd *cmd, int i);
 
 //exec_funcs.c
 void	set_cmd_and_option(t_cmd *cmds);
-//void	executor();
+void	executor(t_cmd *cmd, t_env *env, int cmd_type);
 void	prep_parent(t_cmd *cmd, int *p_fds, t_env *env);
 void	prep_child(t_cmd *cmd, int *p_fds, t_env *env);
 void	make_pipeline(t_msc *msc);
 
-//exec_utils.c
+//exec_utils1.c
 int		is_option(const char *str);
 int		is_builtin(const char *str);
+char	**assemble_cmd(t_cmd *cmd);
+char	**assemble_env(t_env *env);
+char	*get_key_and_value(const char *key, const char *value);
+
+//exec_utils2.c
+void	*free_exec_temps(char *del1, char *del2, char **del3, char **del4);
+char	**get_dirs(t_env *env);
+char	*find_cmd_path(char *const cmd[], t_env *env);
+
 
 //BUILTINS
 //builtin_env.c
