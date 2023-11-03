@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:03:57 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/03 15:57:22 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:16:50 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	executor(t_cmd *cmd, t_env *env, int cmd_type)
 	char	**cur_cmd;
 	char	**cur_env;
 
-	// if (cmd->type == 1)
+	// if (cmd_type == 1)
 	// 	exec_builtin(cmd, env);
 	cur_cmd = assemble_cmd(cmd);
 	cur_env = assemble_env(env);
