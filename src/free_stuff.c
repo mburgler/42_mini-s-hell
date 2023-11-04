@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:54:00 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/04 14:21:04 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/04 15:05:18 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	free_structs_and_input(t_msc *msc)
 		ft_lstclear(&(msc->lex));
 	if (msc->cmd)
 		ft_cmdclear(&(msc->cmd));
-	if (msc->dup_env)
-		ft_envclear(&msc->dup_env);
 }
 
 void	free_all(t_msc *msc)
