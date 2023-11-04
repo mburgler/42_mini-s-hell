@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/03 16:54:47 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:57:44 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include "../MY_LIB/ft_printf/ft_printf.h"
 # include "../MY_LIB/ft_printf2/ft_printf2.h"
 # include "../MY_LIB/get_next_line/get_next_line_bonus.h"
@@ -231,7 +232,7 @@ int		handle_heredoc(t_cmd *cmd, int i);
 //exec_funcs.c
 void	set_cmd_and_option(t_cmd *cmds);
 void	executor(t_cmd *cmd, t_env *env, int cmd_type);
-void	prep_parent(t_cmd *cmd, int *p_fds, t_env *env);
+void	prep_parent(t_cmd *cmd, int *p_fds, t_env *env, pid_t pid);
 void	prep_child(t_cmd *cmd, int *p_fds, t_env *env);
 void	make_pipeline(t_msc *msc);
 
