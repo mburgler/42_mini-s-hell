@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:03:57 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/03 19:48:22 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/04 21:27:42 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ void	executor(t_cmd *cmd, t_env *env, int cmd_type)
 	char	**cur_cmd;
 	char	**cur_env;
 
-	// if (cmd_type == 1)
-	// 	exec_builtin(cmd, env);
+	if (cmd_type == 1)
+		if (exec_builtin(cmd, env) == -1)
+			free_msc_and_exit(cmd->msc, "INSERT MSG FOR EXEC_BUILTIN = -1\n");
 	cur_cmd = assemble_cmd(cmd);
 	cur_env = assemble_env(env);
 	path = find_cmd_path(cur_cmd, env);
@@ -81,13 +82,21 @@ void	executor(t_cmd *cmd, t_env *env, int cmd_type)
 void	prep_parent(t_cmd *cmd, int *p_fds, t_env *env, pid_t pid)
 {
 	int	status;
-	
+	int	terminated_pid;
+
 	if (close(p_fds[1]) == -1)
 		free_msc_and_errno(cmd->msc, "Error in prep_parent(): ");
 	if (dup2(cmd->next->fd_out, 1) == -1 || dup2(p_fds[0], 0) == -1)
 		free_msc_and_errno(cmd->msc, "Error in prep_parent(): ");
 	executor(cmd, env, is_builtin(cmd->cmd));
-	if (waitpid(pid, &status, WUNTRACED))
+	terminated_pid = waitpid(pid, &status, WUNTRACED);
+	if (terminated_pid == -1)
+		free_msc_and_errno(cmd->msc, "Error in waitpid(): ");
+	if (terminated_pid >= 0)
+	{
+		//INSERT PROPER EXIT STATUS HANDLING BELOW
+		printf("*Exit status handling goes here*\n");
+	}
 }
 
 //preps the parameters of the child process for passing on to executer()

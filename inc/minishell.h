@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/03 17:57:44 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/04 21:29:42 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,7 @@ char	*get_key_and_value(const char *key, const char *value);
 void	*free_exec_temps(char *del1, char *del2, char **del3, char **del4);
 char	**get_dirs(t_env *env);
 char	*find_cmd_path(char *const cmd[], t_env *env);
+int		exec_builtin(t_cmd *cmd, t_env *env);
 
 
 //BUILTINS

@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 05:24:27 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/03 13:37:38 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/04 21:35:30 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	is_builtin(const char *str)
 char	**assemble_cmd(t_cmd *cmd)
 {
 	int		i;
-	char	*ret;
+	char	**ret;
 
 	if (cmd->cmd == NULL)
 		return (NULL);
@@ -101,6 +101,7 @@ char	**assemble_env(t_env *env)
 		env = env->next;
 	}
 	ret[i] = NULL;
+	return (ret);
 }
 
 //returns a string containing an env variable's name 
