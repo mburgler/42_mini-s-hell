@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:40:53 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/04 13:33:03 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/04 14:23:47 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,8 @@ void	dup_env_error(t_msc *msc, t_env *current_node)
 			free(current_node->value);
 		free(current_node);
 	}
-	if (msc->dup_env)
-		ft_envclear(&msc->dup_env);
-	free(msc);
+	if (msc)
+		free_all(msc);
 	exit(1);
 }
 
