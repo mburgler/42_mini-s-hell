@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 13:13:35 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/04 14:42:44 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/04 14:54:03 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,3 +58,12 @@ void	export_new(t_msc *msc, t_cmd *cmd)
 //valid input regarding characters
 // += 
 // double occurence
+// space in expanded variable might conflict with expander of ls -la
+/*
+bash-3.2$ export TEST="hallo wie gehts"
+bash-3.2$ echo $TEST
+hallo wie gehts
+bash-3.2$ export TEST=$TEST$TEST$TEST
+bash-3.2$ echo $TEST
+hallo wie gehtshallo wie gehtshallo wie gehts
+*/
