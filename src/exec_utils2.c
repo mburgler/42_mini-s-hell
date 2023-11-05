@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:38:26 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/05 14:31:15 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:45:59 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	exec_builtin(t_cmd *cmd, t_env *env)
 	if (!cmd) // MATTEO AUSKOMMENTIERT weil muss funtktionieren für export, unset und env|| !env)
 		return (-1);
 	if (ft_strcmp(cmd->cmd, "echo") == 0)
-		printf("*output of echo cmd goes here*\n");
+		builtin_echo_head(cmd);
 	if (ft_strcmp(cmd->cmd, "cd") == 0)
 		printf("*output of cd cmd goes here*\n");
 	if (ft_strcmp(cmd->cmd, "pwd") == 0)

@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 13:13:35 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 15:30:54 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:17:44 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	check_export_syntax(char *str)
 		}
 		i++;
 	}
-	if((str[i] == '+' && str[i + 1] != '=') || ft_isdigit(str[0])
+	if ((str[i] == '+' && str[i + 1] != '=') || ft_isdigit(str[0])
 		|| str[0] == '=' || str[0] == '+')
 	{
 		ft_printf("minishell: export: `%s': not a valid identifier\n",

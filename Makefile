@@ -6,7 +6,7 @@
 #    By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/21 10:55:14 by mburgler          #+#    #+#              #
-#    Updated: 2023/11/05 03:12:07 by mburgler         ###   ########.fr        #
+#    Updated: 2023/11/05 16:45:18 by mburgler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,6 +97,7 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
                     src/exec_utils2.c \
                     src/builtin_env.c \
 					src/builtin_export.c \
+					src/builtin_echo.c \
 					src/builtin_unset.c
 
 OBJS        := $(SRCS:.c=.o)

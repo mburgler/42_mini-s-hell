@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 03:11:28 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:45:07 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,5 +264,10 @@ int	check_export_syntax(char *str);
 //builtin_unset.c
 void	builtin_unset_head(t_msc *msc, t_cmd *cmd);
 void	unset_indiv_node(t_msc *msc, t_env *node);
+
+//builtin_echo_head.c
+void	builtin_echo_head(t_cmd *cmd);
+int	shift_to_print(char **str);
+int	no_n(char *str);
 
 #endif

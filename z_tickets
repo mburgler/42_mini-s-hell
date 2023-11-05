@@ -19,9 +19,14 @@
 
 /*
 (5.11.2023)
-- 
-
-
-
-
+- echo -n -nnnnnnn not "-n "
+- cd
+- pwd
 */
+
+WAS FEHL
+- builtins
+- signals
+- clear - readline
+- strg + 
+- close fd, delete .tmp files
