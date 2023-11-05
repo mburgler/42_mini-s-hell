@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 13:13:35 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 14:34:05 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/05 15:22:10 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,38 @@ void	export_new(t_msc *msc, char *str)
 
 void	export_known(t_msc *msc, char *str, t_env *node)
 {
-	int	i_split;
+	int		i_split;
+	char	*tmp;
 
 	i_split = ft_strchr_i(str, '=');
 	if (i_split == -1)
 		return ;
-	free (node->value);
-	node->value = ft_substr(str, i_split + 1, ft_strlen(str) - i_split);
+	tmp = node->value;
+	if (str[i_split - 1] == '+')
+	{
+		node->value = ft_strjoin(node->value, str + i_split + 1);
+	}
+	else
+		node->value = ft_substr(str, i_split + 1, ft_strlen(str) - i_split);
 	if (!node->value)
 		free_msc_and_exit(msc, "malloc error");
+	free(tmp);
 }
 
 t_env	*check_if_known_var(t_msc *msc, char *str)
 {
 	t_env	*tmp;
+	char 	c;
+	int		i;
 
+	i = 0;
+	while (str[i] && str[i] != '+' && str[i] != '=')
+		i++;
+	c = str[i];
 	tmp = msc->dup_env;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->key, str, ft_strchr_i(str, '=')) == 0)
+		if (ft_strncmp(tmp->key, str, ft_strchr_i(str, c)) == 0)
 			return (tmp);
 		tmp = tmp->next;
 	}
@@ -91,7 +104,7 @@ int	check_export_syntax(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && str[i] != '=')
+	while (str[i] && str[i] != '=' && str[i] != '+')
 	{
 		if ((!ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_'))
 		{
@@ -102,7 +115,8 @@ int	check_export_syntax(char *str)
 		}
 		i++;
 	}
-	if (ft_isdigit(str[0]) || str[0] == '=')
+	if((str[i] == '+' && str[i + 1] != '=') || ft_isdigit(str[0])
+		|| str[0] == '=' || str[0] == '+')
 	{
 		ft_printf("minishell: export: `%s': not a valid identifier\n",
 			str);
