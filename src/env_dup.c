@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:40:53 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/02 15:13:51 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/04 14:23:47 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void	dup_env_head(t_msc *msc, char **org_env)
 	int		i;
 
 	i = 0;
+	msc->dup_env = NULL;
 	if (!org_env || !org_env[i])
-		return (dup_env_error(msc, NULL));
+		return ;
 	msc->dup_env = ft_dup_envnew(org_env[i], msc);
 	while (org_env[++i])
 	{
@@ -69,9 +70,8 @@ void	dup_env_error(t_msc *msc, t_env *current_node)
 			free(current_node->value);
 		free(current_node);
 	}
-	if (msc->dup_env)
-		ft_envclear(&msc->dup_env);
-	free(msc);
+	if (msc)
+		free_all(msc);
 	exit(1);
 }
 
