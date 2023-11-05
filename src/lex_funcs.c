@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/04 21:30:24 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/05 02:19:30 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	input_lexer(t_msc *msc)
 	set_cmd_and_option(msc->cmd);
 	printcmds(msc->cmd);
 	exec_builtin(msc->cmd, msc->dup_env);
-	//make_pipeline(msc);
+	make_pipeline(msc);
 }
 
 //ONLY INCLUDED FOR TESTING PURPOSES

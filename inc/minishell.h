@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/04 21:29:42 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/05 02:19:10 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,8 +232,8 @@ int		handle_heredoc(t_cmd *cmd, int i);
 //exec_funcs.c
 void	set_cmd_and_option(t_cmd *cmds);
 void	executor(t_cmd *cmd, t_env *env, int cmd_type);
-void	prep_parent(t_cmd *cmd, int *p_fds, t_env *env, pid_t pid);
-void	prep_child(t_cmd *cmd, int *p_fds, t_env *env);
+void	parent(t_cmd *cmd, int *p_fds, t_env *env, pid_t pid);
+void	child(t_cmd *cmd, int *p_fds, t_env *env);
 void	make_pipeline(t_msc *msc);
 
 //exec_utils1.c
@@ -242,6 +242,7 @@ int		is_builtin(const char *str);
 char	**assemble_cmd(t_cmd *cmd);
 char	**assemble_env(t_env *env);
 char	*get_key_and_value(const char *key, const char *value);
+void	print_env(char **env);
 
 //exec_utils2.c
 void	*free_exec_temps(char *del1, char *del2, char **del3, char **del4);

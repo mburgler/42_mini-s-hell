@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:03:57 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/04 21:27:42 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/05 01:20:40 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	set_cmd_and_option(t_cmd *cmds)
 }
 
 //supposed to execute commands the way they've been formulated in
-//the functions prep_parent() and prep_child()
+//the functions parent() and child()
 	//???SHOULD MINISHELL QUIT OR CONTINUE WHEN NO PATH IS FOUND???
 	//???SHOULD MINISHELL QUIT OR CONTINUE WHEN NO EXE IS FOUND???
 void	executor(t_cmd *cmd, t_env *env, int cmd_type)
@@ -60,52 +60,63 @@ void	executor(t_cmd *cmd, t_env *env, int cmd_type)
 
 	if (cmd_type == 1)
 		if (exec_builtin(cmd, env) == -1)
-			free_msc_and_exit(cmd->msc, "INSERT MSG FOR EXEC_BUILTIN = -1\n");
+			free_msc_and_exit(cmd->msc, "INSERT MSG FOR EXEC_BUILTIN == -1\n");
 	cur_cmd = assemble_cmd(cmd);
 	cur_env = assemble_env(env);
 	path = find_cmd_path(cur_cmd, env);
 	if (!path || !cur_cmd || !cur_env)
 	{
+		if (!path)
+			printf("\nNO PATH\n");
+		if (!cur_cmd)
+			printf("\nNO CUR_CMD\n");
+		if (!cur_env)
+			printf("\nNO CUR_ENV\n");
 		free_exec_temps(path, NULL, cur_cmd, cur_env);
-		free_msc_and_errno(cmd->msc, "Error in executor(): ");
+		free_msc_and_errno(cmd->msc, "Error in executor1(): ");
 	}
 	if (execve(path, cur_cmd, cur_env) == -1)
 	{
 		free(path);
 		free_2d_arr(cur_cmd);
 		free_2d_arr(cur_env);
-		free_msc_and_errno(cmd->msc, "Error in executor(): ");
+		free_msc_and_errno(cmd->msc, "Error in executor2(): ");
 	}
 }
 
 //preps the parameters of the parent process for passing on to executer()
-void	prep_parent(t_cmd *cmd, int *p_fds, t_env *env, pid_t pid)
+void	parent(t_cmd *cmd, int *p_fds, t_env *env, pid_t pid)
 {
 	int	status;
 	int	terminated_pid;
 
 	if (close(p_fds[1]) == -1)
-		free_msc_and_errno(cmd->msc, "Error in prep_parent(): ");
+		free_msc_and_errno(cmd->msc, "Error in parent(): ");
 	if (dup2(cmd->next->fd_out, 1) == -1 || dup2(p_fds[0], 0) == -1)
-		free_msc_and_errno(cmd->msc, "Error in prep_parent(): ");
+		free_msc_and_errno(cmd->msc, "Error in parent(): ");
 	executor(cmd, env, is_builtin(cmd->cmd));
 	terminated_pid = waitpid(pid, &status, WUNTRACED);
 	if (terminated_pid == -1)
-		free_msc_and_errno(cmd->msc, "Error in waitpid(): ");
-	if (terminated_pid >= 0)
-	{
-		//INSERT PROPER EXIT STATUS HANDLING BELOW
-		printf("*Exit status handling goes here*\n");
-	}
+		free_msc_and_errno(cmd->msc, "waitpid() error in parent(): ");
+	// if (terminated_pid >= 0)
+	// {
+	// 	if (!WIFEXITED(status))
+	// 	{
+	// 		if (WIFSIGNALED(status))
+	// 			respond_to_termsig(WTERMSIG(status));
+	// 		else if (WIFSTOPPED(status))
+	// 			respond_to_stopsig(WSTOPSIG(status));
+	// 	}
+	// }
 }
 
 //preps the parameters of the child process for passing on to executer()
-void	prep_child(t_cmd *cmd, int *p_fds, t_env *env)
+void	child(t_cmd *cmd, int *p_fds, t_env *env)
 {
 	if (close(p_fds[0]) == -1)
-		free_msc_and_errno(cmd->msc, "Error in prep_child(): ");
+		free_msc_and_errno(cmd->msc, "Error in child(): ");
 	if (dup2(cmd->prev->fd_in, 0) == -1 || dup2(p_fds[1], 1) == -1)
-		free_msc_and_errno(cmd->msc, "Error in prep_child(): ");
+		free_msc_and_errno(cmd->msc, "Error in child(): ");
 	executor(cmd, env, is_builtin(cmd->cmd));
 	exit(0);
 }
@@ -121,6 +132,8 @@ void	make_pipeline(t_msc *msc)
 	if (!msc->cmd)
 		return ;
 	tmp = msc->cmd;
+	if (tmp->next == NULL)
+		executor(tmp, msc->dup_env, is_builtin(tmp->cmd));
 	while (tmp->next)
 	{
 		if (pipe(p_fds) == -1)
@@ -129,9 +142,9 @@ void	make_pipeline(t_msc *msc)
 		if (pid == -1)
 			free_msc_and_errno(msc, "Error in make_pipeline(): ");
 		else if (pid == 0)
-			prep_child(tmp->next, p_fds, msc->dup_env);
+			child(tmp->next, p_fds, msc->dup_env);
 		else if (pid > 0)
-			prep_parent(tmp, p_fds, msc->dup_env, pid);
+			parent(tmp, p_fds, msc->dup_env, pid);
 		tmp = tmp->next;
 	}
 }
