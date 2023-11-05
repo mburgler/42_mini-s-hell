@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 02:32:07 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/05 19:11:09 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,12 @@ void	exp_tilde(t_msc *msc, t_list *tmp)
 		env_home = "~\0";
 	if (tmp->str[1] == '\0')
 		tmp->str = ft_strjoin_free(env_home, "", tf, NULL);
-	else
+	else if (tmp->str[1] == '/')
+	{
 		tmp->str = ft_strjoin_free(env_home, tmp->str + 1, tf, NULL);
+	}
+	else
+		tmp->str = ft_strjoin_free("~", tmp->str + 1, tf, NULL);
 	if (!tmp->str)
 		malloc_error_free_exit(msc, tf, NULL);
 }

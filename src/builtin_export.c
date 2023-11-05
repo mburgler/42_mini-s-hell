@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 13:13:35 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 17:17:44 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/05 23:47:46 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	builtin_export_head(t_msc *msc, t_cmd *cmd)
 {
-	t_env	*known_var;
 	int		i;
 
 	i = 1;
@@ -30,13 +29,20 @@ void	builtin_export_head(t_msc *msc, t_cmd *cmd)
 		if (check_export_syntax(cmd->full_cmd[i])
 			|| !ft_strchr(cmd->full_cmd[i], '='))
 			return ;
-		known_var = check_if_known_var(msc, cmd->full_cmd[i]);
-		if (known_var == NULL)
-			export_new(msc, cmd->full_cmd[i]);
-		else
-			export_known(msc, cmd->full_cmd[i], known_var);
+		export_core(msc, cmd->full_cmd[i]);
 		i++;
 	}
+}
+
+void	export_core(t_msc *msc, char *str)
+{
+	t_env	*known_var;
+
+	known_var = check_if_known_var(msc, str);
+	if (known_var == NULL)
+		export_new(msc, str);
+	else
+		export_known(msc, str, known_var);
 }
 
 void	export_new(t_msc *msc, char *str)

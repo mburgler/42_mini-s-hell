@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 17:45:07 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/06 00:14:14 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,6 +256,7 @@ void	builtin_env(t_msc *msc);
 
 //builtin_export.c
 void	builtin_export_head(t_msc *msc, t_cmd *cmd);
+void	export_core(t_msc *msc, char *str);
 void	export_new(t_msc *msc, char *str);
 void	export_known(t_msc *msc, char *str, t_env *node);
 t_env	*check_if_known_var(t_msc *msc, char *str);
@@ -263,11 +264,19 @@ int	check_export_syntax(char *str);
 
 //builtin_unset.c
 void	builtin_unset_head(t_msc *msc, t_cmd *cmd);
+void	unset_core(t_msc *msc, char *str);
 void	unset_indiv_node(t_msc *msc, t_env *node);
 
 //builtin_echo_head.c
 void	builtin_echo_head(t_cmd *cmd);
 int	shift_to_print(char **str);
 int	no_n(char *str);
+
+//builtin_pwd.c
+void	builtin_pwd_head(void);
+
+//builtin_cd.c
+void	builtin_cd_head(t_cmd *cmd);
+char	*set_path(t_cmd *cmd);
 
 #endif

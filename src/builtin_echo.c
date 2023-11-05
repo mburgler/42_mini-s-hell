@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 16:06:21 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 17:49:21 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:53:56 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	builtin_echo_head(t_cmd *cmd)
 			i++;
 		}
 	}
+	g_sig_status = 0;
 }
 
 int	shift_to_print(char **str)
