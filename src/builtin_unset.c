@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 13:13:39 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 03:15:50 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/05 14:59:46 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	builtin_unset_head(t_msc *msc, t_cmd *cmd)
 		while (tmp)
 		{
 			if (!ft_strcmp(tmp->key, cmd->full_cmd[i]))
+			{
 				unset_indiv_node(msc, tmp);
+				break ;
+			}
 			tmp = tmp->next;
 		}
 		i++;
@@ -49,6 +52,7 @@ void	unset_indiv_node(t_msc *msc, t_env *node)
 		tmp = tmp->next;
 	tmp->next = node->next;
 	free(node->key);
+
 	free(node->value);
 	free(node);
 }

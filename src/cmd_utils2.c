@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:47:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/01 19:55:12 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/05 14:33:12 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ void	printcmds(t_cmd *cmds)
 		printf("fd_in_type: %d\n", cmds->fd_in_type);
 		printf("fd_out: %d\n", cmds->fd_out);
 		printf("fd_out_type: %d\n", cmds->fd_out_type);
+		printf("--------------------\n");
 		cmds = cmds->next;
 	}
 }
