@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/04 21:29:42 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/05 01:45:04 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,5 +253,13 @@ int		exec_builtin(t_cmd *cmd, t_env *env);
 //BUILTINS
 //builtin_env.c
 void	builtin_env(t_msc *msc);
+
+//builtin_export.c
+void	export_head(t_msc *msc, t_cmd *cmd);
+void	export_new(t_msc *msc, char *str);
+void	export_known(t_msc *msc, char *str, t_env *node);
+t_env	*check_if_known_var(t_msc *msc, char *str);
+int	check_export_syntax(char *str);
+
 
 #endif

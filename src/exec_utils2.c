@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:38:26 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/04 21:13:25 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/05 01:43:04 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	exec_builtin(t_cmd *cmd, t_env *env)
 	if (ft_strcmp(cmd->cmd, "pwd") == 0)
 		printf("*output of pwd cmd goes here*\n");
 	if (ft_strcmp(cmd->cmd, "export") == 0)
-		printf("*output of export cmd goes here*\n");
+		export_head(cmd->msc, cmd);
 	if (ft_strcmp(cmd->cmd, "unset") == 0)
 		printf("*output of unset cmd goes here*\n");
 	if (ft_strcmp(cmd->cmd, "env") == 0)

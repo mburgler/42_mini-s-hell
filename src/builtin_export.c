@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 13:13:35 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/04 21:47:05 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/05 01:59:51 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	export_head(t_msc *msc, t_cmd *cmd)
 	g_sig_status = 0;
 	if (!cmd->full_cmd || !cmd->full_cmd[1])
 	{
-		ft_printf("Honestly, we don't care.\n\n");
-		ft_printf("Lots of love,\nAlex and Matteo\n");
+		ft_printf("\nHonestly, we don't care about that, neither should you.");
+		ft_printf("\n\nLots of love,\nAlex and Matteo\n\n");
 		return ;
 	}
 	while (cmd->full_cmd[i])
 	{
-		if (check_export_syntax(msc, cmd->full_cmd[i])
+		if (check_export_syntax(cmd->full_cmd[i])
 			|| !ft_strchr(cmd->full_cmd[i], '='))
 			return ;
 		known_var = check_if_known_var(msc, cmd->full_cmd[i]);
@@ -79,15 +79,14 @@ t_env	*check_if_known_var(t_msc *msc, char *str)
 	tmp = msc->dup_env;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->key, str,
-			(ft_strchr_i(str, '=') + 1)) == 0)
+		if (ft_strncmp(tmp->key, str, ft_strchr_i(str, '=')) == 0)
 			return (tmp);
 		tmp = tmp->next;
 	}
 	return (NULL);
 }
 
-int	check_export_syntax(t_msc *msc, char *str)
+int	check_export_syntax(char *str)
 {
 	int	i;
 
