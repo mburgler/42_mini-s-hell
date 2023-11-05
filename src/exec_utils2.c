@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:38:26 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/05 01:43:04 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/05 03:14:15 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ int	exec_builtin(t_cmd *cmd, t_env *env)
 	if (ft_strcmp(cmd->cmd, "pwd") == 0)
 		printf("*output of pwd cmd goes here*\n");
 	if (ft_strcmp(cmd->cmd, "export") == 0)
-		export_head(cmd->msc, cmd);
+		builtin_export_head(cmd->msc, cmd);
 	if (ft_strcmp(cmd->cmd, "unset") == 0)
-		printf("*output of unset cmd goes here*\n");
+		builtin_unset_head(cmd->msc, cmd);
 	if (ft_strcmp(cmd->cmd, "env") == 0)
 		builtin_env(cmd->msc);
 	return (1);

@@ -6,13 +6,13 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 13:13:35 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 01:59:51 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/05 02:46:42 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	export_head(t_msc *msc, t_cmd *cmd)
+void	builtin_export_head(t_msc *msc, t_cmd *cmd)
 {
 	t_env	*known_var;
 	int		i;
@@ -112,11 +112,8 @@ int	check_export_syntax(char *str)
 	return (0);
 }
 
-//DONE valid input regarding characters -> exitcode 1
+//DONE
 // += ; might clash
-// space in expanded variable might conflict with expander of ls -la;
-// especially for the case of double export
-// = at beginning is invalid identifier with exitcode 1
 /*
 bash-3.2$ export TEST="hallo wie gehts"
 bash-3.2$ echo $TEST
