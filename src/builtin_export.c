@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 13:13:35 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 15:22:10 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/05 15:30:54 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	export_known(t_msc *msc, char *str, t_env *node)
 	if (!node->value)
 		free_msc_and_exit(msc, "malloc error");
 	free(tmp);
+	g_sig_status = 0;
 }
 
 t_env	*check_if_known_var(t_msc *msc, char *str)
