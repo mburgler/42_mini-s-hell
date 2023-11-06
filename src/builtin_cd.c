@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 16:07:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/06 00:37:07 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:34:44 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ char	*set_path(t_cmd *cmd)
 //if pwd is unset, then old pwd becomes unset after one turn of cd
 //get_cwd is used everywhere else
 // cd - goes back to OLDPWD
-// . and ..
 //malloc protetion
 
 //if home unset
