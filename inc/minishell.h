@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 02:44:11 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/07 23:16:55 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ char	*ft_getenv(char *searchterm, t_msc *msc);
 void	ft_envadd_back(t_env **lst, t_env *new);
 t_env	*ft_envlast(t_env *lst);
 void	ft_envclear(t_env **lst);
-int	ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
 
 //signals.c
 void	handle_sigint(int sig);
@@ -132,7 +132,7 @@ void	handle_sigint(int sig);
 void	exp_head(t_msc *msc);
 void	exp_logic_new(t_msc *msc, t_list *tmp);
 void	exp_sub(t_list *tmp, int i, int aA0_end, t_msc *msc);
-void	exp_dol_qmark(t_msc *msc, t_list* tmp, int i);
+void	exp_dol_qmark(t_msc *msc, t_list *tmp, int i);
 void	exp_tilde(t_msc *msc, t_list *tmp);
 int		ft_shift_to_dollar(char *str, int reboot);
 int		get_quote_status(char *str, int dol_i);
@@ -230,10 +230,17 @@ t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp);
 int		handle_heredoc(t_cmd *cmd, int i);
 
 //exec_funcs.c
+// void	set_cmd_and_option(t_cmd *cmds);
+// int		executor(t_cmd *cmd, t_env *env, int cmd_type);
+// void	parent(t_cmd *cmd, int *p_fds, t_env *env, pid_t pid);
+// void	child(t_cmd *cmd, int *p_fds, t_env *env);
+// void	make_pipeline(t_msc *msc);
+
+//exec_test.c
 void	set_cmd_and_option(t_cmd *cmds);
-void	executor(t_cmd *cmd, t_env *env, int cmd_type);
-void	parent(t_cmd *cmd, int *p_fds, t_env *env, pid_t pid);
-void	child(t_cmd *cmd, int *p_fds, t_env *env);
+int		executor(t_cmd *cmd, t_env *env, int cmd_type);
+int		wait_and_analyze(pid_t pid);
+int		process_cmd(t_cmd *cmd, t_env *env, int *cur_fds, int *prev_fds);
 void	make_pipeline(t_msc *msc);
 
 //exec_utils1.c
@@ -250,6 +257,10 @@ char	**get_dirs(t_env *env);
 char	*find_cmd_path(char *const cmd[], t_env *env);
 int		exec_builtin(t_cmd *cmd, t_env *env);
 
+//set_fds.c
+void	connect_fds(int c_fd0, int c_fd1, int *p_fd0, int *p_fd1);
+int		close_all(t_cmd *cmd, int *cur_fds, int *prev_fds);
+int		set_file_desc(t_cmd *cmd, int *cur_fds, int *prev_fds);
 
 //BUILTINS
 //builtin_env.c
@@ -260,7 +271,7 @@ void	export_head(t_msc *msc, t_cmd *cmd);
 void	export_new(t_msc *msc, char *str);
 void	export_known(t_msc *msc, char *str, t_env *node);
 t_env	*check_if_known_var(t_msc *msc, char *str);
-int	check_export_syntax(char *str);
+int		check_export_syntax(char *str);
 
 
 #endif

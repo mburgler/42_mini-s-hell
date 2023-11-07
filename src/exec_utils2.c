@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:38:26 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/05 02:44:56 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:03:29 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,5 @@ int	exec_builtin(t_cmd *cmd, t_env *env)
 		printf("*output of unset cmd goes here*\n");
 	if (ft_strcmp(cmd->cmd, "env") == 0)
 		builtin_env(cmd->msc);
-	return (0);
+	exit(0);
 }
