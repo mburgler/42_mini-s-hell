@@ -16,3 +16,17 @@
 - RESPLIT when tmp->exp = 1 for the echo > test in VAr cases or the s -la cases
 	- pay attention that all nodes get to know their exp status so that no in files get created
 */
+
+/*
+(5.11.2023)
+- echo -n -nnnnnnn not "-n "
+- cd
+- pwd
+*/
+
+WAS FEHL
+- builtins
+- signals
+- clear - readline
+- strg + 
+- close fd, delete .tmp files

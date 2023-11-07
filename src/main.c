@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 15:54:09 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/07 23:52:44 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	handle_input(t_msc *msc)
 	}
 	if (g_sig_status != 131)
 	{
-		g_sig_status = 0;
 		input_lexer(msc);
 	}
 }

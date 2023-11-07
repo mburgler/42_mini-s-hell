@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 14:14:20 by mburgler          #+#    #+#             */
-/*   Updated: 2022/10/09 22:34:22 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/06 00:19:16 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*ft_strdup(const char *s)
 	char	*pointer;
 	int		len;
 
+	if (!s)
+		return(NULL);
 	i = 0;
 	len = ft_strlen(s) + 1;
 	pointer = malloc(sizeof(char) * len);

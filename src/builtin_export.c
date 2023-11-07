@@ -6,15 +6,14 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 13:13:35 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 01:59:51 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/05 23:47:46 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	export_head(t_msc *msc, t_cmd *cmd)
+void	builtin_export_head(t_msc *msc, t_cmd *cmd)
 {
-	t_env	*known_var;
 	int		i;
 
 	i = 1;
@@ -30,13 +29,20 @@ void	export_head(t_msc *msc, t_cmd *cmd)
 		if (check_export_syntax(cmd->full_cmd[i])
 			|| !ft_strchr(cmd->full_cmd[i], '='))
 			return ;
-		known_var = check_if_known_var(msc, cmd->full_cmd[i]);
-		if (known_var == NULL)
-			export_new(msc, cmd->full_cmd[i]);
-		else
-			export_known(msc, cmd->full_cmd[i], known_var);
+		export_core(msc, cmd->full_cmd[i]);
 		i++;
 	}
+}
+
+void	export_core(t_msc *msc, char *str)
+{
+	t_env	*known_var;
+
+	known_var = check_if_known_var(msc, str);
+	if (known_var == NULL)
+		export_new(msc, str);
+	else
+		export_known(msc, str, known_var);
 }
 
 void	export_new(t_msc *msc, char *str)
@@ -61,25 +67,39 @@ void	export_new(t_msc *msc, char *str)
 
 void	export_known(t_msc *msc, char *str, t_env *node)
 {
-	int	i_split;
+	int		i_split;
+	char	*tmp;
 
 	i_split = ft_strchr_i(str, '=');
 	if (i_split == -1)
 		return ;
-	free (node->value);
-	node->value = ft_substr(str, i_split + 1, ft_strlen(str) - i_split);
+	tmp = node->value;
+	if (str[i_split - 1] == '+')
+	{
+		node->value = ft_strjoin(node->value, str + i_split + 1);
+	}
+	else
+		node->value = ft_substr(str, i_split + 1, ft_strlen(str) - i_split);
 	if (!node->value)
 		free_msc_and_exit(msc, "malloc error");
+	free(tmp);
+	g_sig_status = 0;
 }
 
 t_env	*check_if_known_var(t_msc *msc, char *str)
 {
 	t_env	*tmp;
+	char 	c;
+	int		i;
 
+	i = 0;
+	while (str[i] && str[i] != '+' && str[i] != '=')
+		i++;
+	c = str[i];
 	tmp = msc->dup_env;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->key, str, ft_strchr_i(str, '=')) == 0)
+		if (ft_strncmp(tmp->key, str, ft_strchr_i(str, c)) == 0)
 			return (tmp);
 		tmp = tmp->next;
 	}
@@ -91,7 +111,7 @@ int	check_export_syntax(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && str[i] != '=')
+	while (str[i] && str[i] != '=' && str[i] != '+')
 	{
 		if ((!ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_'))
 		{
@@ -102,7 +122,8 @@ int	check_export_syntax(char *str)
 		}
 		i++;
 	}
-	if (ft_isdigit(str[0]) || str[0] == '=')
+	if ((str[i] == '+' && str[i + 1] != '=') || ft_isdigit(str[0])
+		|| str[0] == '=' || str[0] == '+')
 	{
 		ft_printf("minishell: export: `%s': not a valid identifier\n",
 			str);
@@ -112,11 +133,8 @@ int	check_export_syntax(char *str)
 	return (0);
 }
 
-//DONE valid input regarding characters -> exitcode 1
+//DONE
 // += ; might clash
-// space in expanded variable might conflict with expander of ls -la;
-// especially for the case of double export
-// = at beginning is invalid identifier with exitcode 1
 /*
 bash-3.2$ export TEST="hallo wie gehts"
 bash-3.2$ echo $TEST

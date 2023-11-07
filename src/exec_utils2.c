@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:38:26 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/07 21:03:29 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/07 23:52:16 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,20 @@ char	*find_cmd_path(char *const cmd[], t_env *env)
 //calls the required function depending on the builtin
 int	exec_builtin(t_cmd *cmd, t_env *env)
 {
-	if (!cmd || !env)
+	if (!cmd) // MATTEO AUSKOMMENTIERT weil muss funtktionieren für export, unset und env|| !env)
 		return (-1);
 	if (ft_strcmp(cmd->cmd, "echo") == 0)
-		printf("*output of echo cmd goes here*\n");
+		builtin_echo_head(cmd);
 	if (ft_strcmp(cmd->cmd, "cd") == 0)
-		printf("*output of cd cmd goes here*\n");
+		builtin_cd_head(cmd);
 	if (ft_strcmp(cmd->cmd, "pwd") == 0)
-		printf("*output of pwd cmd goes here*\n");
+		builtin_pwd_head();
 	if (ft_strcmp(cmd->cmd, "export") == 0)
-		export_head(cmd->msc, cmd);
+		builtin_export_head(cmd->msc, cmd);
 	if (ft_strcmp(cmd->cmd, "unset") == 0)
-		printf("*output of unset cmd goes here*\n");
+		builtin_unset_head(cmd->msc, cmd);
 	if (ft_strcmp(cmd->cmd, "env") == 0)
 		builtin_env(cmd->msc);
+	(void)env; // MATTEO hinzugefügt zum compilen
 	exit(0);
 }

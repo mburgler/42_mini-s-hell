@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 21:04:43 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/11 16:34:29 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/05 22:32:27 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,18 @@ int	ft_trimascii(char *str)
 	int	i;
 
 	i = 0;
-	while((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z')
+	while ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z')
 		 || (str[i] >= '0' && str[i] <= '9'))
 		i++;
-	return(i);
+	return (i);
 }
 
 int	ft_is_whitespace(char *pos, int i)
 {
-	if(!pos[i] || pos[i] == ' ' || pos[i] == 9 || pos[i] == 10 || 
+	if ( !pos[i] || pos[i] == ' ' || pos[i] == 9 || pos[i] == 10 || 
 		pos[i] == 11 || pos[i] == 12 || pos[i] == 13)
-		return(i);
-	return(-1);
+		return (i);
+	return (-1);
 }
 
 int	ft_is_whitespace_str(char *str)
@@ -91,14 +91,14 @@ int	ft_is_whitespace_str(char *str)
 	int i;
 
 	i = 0;
-	if(!str)
-		return(-1);
-	while(str[i])
+	if (!str)
+		return (-1);
+	while (str[i])
 	{
-		if(str[i] == ' ' && str[i] == 9 && str[i] == 10 && 
+		if (str[i] == ' ' && str[i] == 9 && str[i] == 10 && 
 			str[i] == 11 && str[i] == 12 && str[i] == 13)
-			return(i);
+			return (i);
 		i++;
 	}
-	return(-1);
+	return (-1);
 }
