@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 16:07:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/06 13:34:44 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/06 23:56:52 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,19 @@ void	builtin_cd_head(t_cmd *cmd)
 		free(go_to);
 		return ;
 	}
+	free(go_to);
 	if (ft_getenv("PWD", cmd->msc))
 	{
+		go_to = getcwd(NULL, 0);
 		to_free = ft_strjoin("OLDPWD=", ft_getenv("PWD", cmd->msc));
 		export_core(cmd->msc, to_free);
 		to_free = ft_strjoin_free("PWD=", go_to, to_free, NULL);
 		export_core(cmd->msc, to_free);
-		free(to_free);
+		free_two(to_free, go_to);
 	}
 	else
 		unset_core(cmd->msc, "OLDPWD");
 	g_sig_status = 0;
-	free(go_to);
 }
 
 char	*set_path(t_cmd *cmd)
