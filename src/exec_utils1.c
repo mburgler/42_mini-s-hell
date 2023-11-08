@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 05:24:27 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/04 21:35:30 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/05 02:30:56 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	**assemble_env(t_env *env)
 		i++;
 		tmp = tmp->next;
 	}
-	ret = malloc(sizeof(char *) * (i + 1));
+	ret = malloc(sizeof(char *) * (i + 1)); //add int variable to the t_env list to save lines here
 	if (!ret)
 		return (NULL);
 	i = 0;
@@ -98,6 +98,7 @@ char	**assemble_env(t_env *env)
 		ret[i] = get_key_and_value(env->key, env->value);
 		if (!ret[i])
 			return (del_split(ret, i));
+		i++;
 		env = env->next;
 	}
 	ret[i] = NULL;
@@ -111,12 +112,15 @@ char	*get_key_and_value(const char *key, const char *value)
 	char	*first_part;
 	char	*ret;
 
-	if (!key || !value)
+	if (!key)
 		return (NULL);
 	first_part = ft_strjoin(key, "=");
 	if (!first_part)
 		return (NULL);
-	ret = ft_strjoin(first_part, value);
+	if (value)
+		ret = ft_strjoin(first_part, value);
+	if (!value)
+		ret = ft_strdup(first_part);
 	if (!ret)
 	{
 		free(first_part);

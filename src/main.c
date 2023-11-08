@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 15:54:45 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/07 23:52:44 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_msc	*init_msc(char **env)
 
 void	handle_input(t_msc *msc)
 {
-	if (ft_strncmp(msc->input, "exit\0", 5) == 0)
+	if (ft_strcmp(msc->input, "exit") == 0)
 	{
 		free_all(msc);
 		exit(0);

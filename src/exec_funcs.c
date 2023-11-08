@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 20:03:57 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/04 21:27:42 by abektimi         ###   ########.fr       */
+/*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
+/*   Updated: 2023/11/07 23:49:23 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,17 @@ void	set_cmd_and_option(t_cmd *cmds)
 	}
 }
 
-//supposed to execute commands the way they've been formulated in
-//the functions prep_parent() and prep_child()
-	//???SHOULD MINISHELL QUIT OR CONTINUE WHEN NO PATH IS FOUND???
-	//???SHOULD MINISHELL QUIT OR CONTINUE WHEN NO EXE IS FOUND???
-void	executor(t_cmd *cmd, t_env *env, int cmd_type)
+int	executor(t_cmd *cmd, t_env *env, int cmd_type)
 {
 	char	*path;
 	char	**cur_cmd;
 	char	**cur_env;
 
+	if (!cmd || !env)
+		return (-1);
 	if (cmd_type == 1)
-		if (exec_builtin(cmd, env) == -1)
-			free_msc_and_exit(cmd->msc, "INSERT MSG FOR EXEC_BUILTIN = -1\n");
+		return (exec_builtin(cmd, env));
+	printf("\nEXECUTOR REACHED\n");
 	cur_cmd = assemble_cmd(cmd);
 	cur_env = assemble_env(env);
 	path = find_cmd_path(cur_cmd, env);
@@ -71,67 +69,66 @@ void	executor(t_cmd *cmd, t_env *env, int cmd_type)
 	}
 	if (execve(path, cur_cmd, cur_env) == -1)
 	{
-		free(path);
-		free_2d_arr(cur_cmd);
-		free_2d_arr(cur_env);
-		free_msc_and_errno(cmd->msc, "Error in executor(): ");
+		free_exec_temps(path, NULL, cur_cmd, cur_env);
+		return (-1);
 	}
+	return (0);
 }
 
-//preps the parameters of the parent process for passing on to executer()
-void	prep_parent(t_cmd *cmd, int *p_fds, t_env *env, pid_t pid)
+int	wait_and_analyze(pid_t pid)
 {
 	int	status;
-	int	terminated_pid;
 
-	if (close(p_fds[1]) == -1)
-		free_msc_and_errno(cmd->msc, "Error in prep_parent(): ");
-	if (dup2(cmd->next->fd_out, 1) == -1 || dup2(p_fds[0], 0) == -1)
-		free_msc_and_errno(cmd->msc, "Error in prep_parent(): ");
-	executor(cmd, env, is_builtin(cmd->cmd));
-	terminated_pid = waitpid(pid, &status, WUNTRACED);
-	if (terminated_pid == -1)
-		free_msc_and_errno(cmd->msc, "Error in waitpid(): ");
-	if (terminated_pid >= 0)
+	printf("\nANALYSIS REACHED\n");
+	waitpid(pid, &status, WUNTRACED);
+	printf("\nCHILD PROCESS DONE\n");
+	if (!WIFEXITED(status))
 	{
-		//INSERT PROPER EXIT STATUS HANDLING BELOW
-		printf("*Exit status handling goes here*\n");
+		if (WIFSIGNALED(status))
+			printf("\nCHILD TERMINATED BY SIGNAL\n");
+		else if (WIFSTOPPED(status))
+			printf("\nCHILD STOPPED BY SIGNAL\n");
 	}
+	return (0);
 }
 
-//preps the parameters of the child process for passing on to executer()
-void	prep_child(t_cmd *cmd, int *p_fds, t_env *env)
+int	process_cmd(t_cmd *cmd, t_env *env, int *cur_fds, int *prev_fds)
 {
-	if (close(p_fds[0]) == -1)
-		free_msc_and_errno(cmd->msc, "Error in prep_child(): ");
-	if (dup2(cmd->prev->fd_in, 0) == -1 || dup2(p_fds[1], 1) == -1)
-		free_msc_and_errno(cmd->msc, "Error in prep_child(): ");
-	executor(cmd, env, is_builtin(cmd->cmd));
-	exit(0);
+	if (cmd->prev == NULL && cmd->next == NULL)
+	{
+		if (close(cur_fds[0]) == -1 || close(cur_fds[1]) == -1)
+			return (-1);
+		return (executor(cmd, env, is_builtin(cmd->cmd)));
+	}
+	set_file_desc(cmd, cur_fds, prev_fds);
+	return (executor(cmd, env, is_builtin(cmd->cmd)));
 }
 
-//This function is supposed to create a pipeline consisting of the cmds
-//formulated in the list msc->cmd and its nodes
 void	make_pipeline(t_msc *msc)
 {
-	int		p_fds[2];
+	int		prev_fds[2];
+	int		cur_fds[2];
 	pid_t	pid;
 	t_cmd	*tmp;
 
-	if (!msc->cmd)
+	if (!msc || !msc->cmd)
 		return ;
 	tmp = msc->cmd;
-	while (tmp->next)
+	while (tmp)
 	{
-		if (pipe(p_fds) == -1)
+		printf("\nTEST\n");
+		if (tmp->prev != NULL)
+			connect_fds(cur_fds[0], cur_fds[1], &prev_fds[0], &prev_fds[1]);
+		if (pipe(cur_fds) == -1)
 			free_msc_and_errno(msc, "Error in make_pipeline(): ");
 		pid = fork();
 		if (pid == -1)
 			free_msc_and_errno(msc, "Error in make_pipeline(): ");
 		else if (pid == 0)
-			prep_child(tmp->next, p_fds, msc->dup_env);
+			process_cmd(tmp, msc->dup_env, cur_fds, prev_fds);
 		else if (pid > 0)
-			prep_parent(tmp, p_fds, msc->dup_env, pid);
+			wait_and_analyze(pid);
+		close_all(tmp, cur_fds, prev_fds);
 		tmp = tmp->next;
 	}
 }
