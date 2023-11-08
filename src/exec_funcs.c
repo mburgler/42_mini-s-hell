@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/07 23:49:23 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/08 19:22:46 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	executor(t_cmd *cmd, t_env *env, int cmd_type)
 		return (-1);
 	if (cmd_type == 1)
 		return (exec_builtin(cmd, env));
-	printf("\nEXECUTOR REACHED\n");
 	cur_cmd = assemble_cmd(cmd);
 	cur_env = assemble_env(env);
 	path = find_cmd_path(cur_cmd, env);
@@ -75,13 +74,33 @@ int	executor(t_cmd *cmd, t_env *env, int cmd_type)
 	return (0);
 }
 
+// int	wait_and_analyze(t_msc *msc, pid_t *pids)
+// {
+// 	int	status;
+// 	int	i;
+
+// 	i = 0;
+// 	while (i < nb_of_processes(msc->cmd))
+// 	{
+// 		waitpid(pids[i], &status, WUNTRACED);
+// 		if (!WIFEXITED(status))
+// 		{
+// 			if (WIFSIGNALED(status))
+// 				printf("\nCHILD TERMINATED BY SIGNAL\n");
+// 			else if (WIFSTOPPED(status))
+// 				printf("\nCHILD STOPPED BY SIGNAL\n");
+// 		}
+// 		i++;
+// 	}
+// 	free(pids);
+// 	return (0);
+// }
+
 int	wait_and_analyze(pid_t pid)
 {
 	int	status;
 
-	printf("\nANALYSIS REACHED\n");
 	waitpid(pid, &status, WUNTRACED);
-	printf("\nCHILD PROCESS DONE\n");
 	if (!WIFEXITED(status))
 	{
 		if (WIFSIGNALED(status))
@@ -92,43 +111,46 @@ int	wait_and_analyze(pid_t pid)
 	return (0);
 }
 
-int	process_cmd(t_cmd *cmd, t_env *env, int *cur_fds, int *prev_fds)
+int	process_cmd(t_cmd *cmd, t_env *env, int *p_fds, int *prev_output)
 {
 	if (cmd->prev == NULL && cmd->next == NULL)
 	{
-		if (close(cur_fds[0]) == -1 || close(cur_fds[1]) == -1)
+		if (close(p_fds[0]) == -1 || close(p_fds[1]) == -1)
 			return (-1);
 		return (executor(cmd, env, is_builtin(cmd->cmd)));
 	}
-	set_file_desc(cmd, cur_fds, prev_fds);
+	set_file_desc(cmd, p_fds, prev_output);
 	return (executor(cmd, env, is_builtin(cmd->cmd)));
 }
 
 void	make_pipeline(t_msc *msc)
 {
-	int		prev_fds[2];
-	int		cur_fds[2];
-	pid_t	pid;
+	int		i;
+	int		p_fds[2];
+	int		prev_output;
+	pid_t	*pids;
 	t_cmd	*tmp;
 
 	if (!msc || !msc->cmd)
 		return ;
 	tmp = msc->cmd;
+	pids = malloc(sizeof(pid_t) * nb_of_processes(tmp));
+	if (!pids)
+		free_msc_and_errno(msc, "Error in make_pipeline(): ");
+	i = 0;
+	prev_output = 0;
 	while (tmp)
 	{
-		printf("\nTEST\n");
-		if (tmp->prev != NULL)
-			connect_fds(cur_fds[0], cur_fds[1], &prev_fds[0], &prev_fds[1]);
-		if (pipe(cur_fds) == -1)
+		if (pipe(p_fds) == -1)
 			free_msc_and_errno(msc, "Error in make_pipeline(): ");
-		pid = fork();
-		if (pid == -1)
+		pids[i] = fork();
+		if (pids[i] == -1)
 			free_msc_and_errno(msc, "Error in make_pipeline(): ");
-		else if (pid == 0)
-			process_cmd(tmp, msc->dup_env, cur_fds, prev_fds);
-		else if (pid > 0)
-			wait_and_analyze(pid);
-		close_all(tmp, cur_fds, prev_fds);
+		else if (pids[i] == 0)
+			process_cmd(tmp, msc->dup_env, p_fds, &prev_output);
+		else if (pids[i] > 0)
+			main_process(msc, pids[i++], p_fds, &prev_output);
 		tmp = tmp->next;
 	}
+	free(pids);
 }
