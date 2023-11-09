@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/09 15:15:57 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:04:26 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_env
 	struct s_env	*next;
 	char			*key;
 	char			*value;
-	struct s_msc 	*msc;
+	struct s_msc	*msc;
 
 }				t_env;
 
@@ -230,17 +230,10 @@ t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp);
 int		handle_heredoc(t_cmd *cmd, int i);
 
 //exec_funcs.c
-// void	set_cmd_and_option(t_cmd *cmds);
-// int		executor(t_cmd *cmd, t_env *env, int cmd_type);
-// void	parent(t_cmd *cmd, int *p_fds, t_env *env, pid_t pid);
-// void	child(t_cmd *cmd, int *p_fds, t_env *env);
-// void	make_pipeline(t_msc *msc);
-
-//exec_test.c
 void	set_cmd_and_option(t_cmd *cmds);
 int		executor(t_cmd *cmd, t_env *env, int cmd_type);
 int		wait_and_analyze(pid_t pid);
-int		process_cmd(t_cmd *cmd, t_env *env, int *cur_fds, int *prev_fds);
+int		process_cmd(t_cmd *cmd, t_env *env, int *p_fds, int *prev_output);
 void	make_pipeline(t_msc *msc);
 
 //exec_utils1.c
@@ -256,11 +249,11 @@ void	*free_exec_temps(char *del1, char *del2, char **del3, char **del4);
 char	**get_dirs(t_env *env);
 char	*find_cmd_path(char *const cmd[], t_env *env);
 int		exec_builtin(t_cmd *cmd, t_env *env);
+int		nb_of_processes(t_cmd *cmd);
 
 //set_fds.c
-void	connect_fds(int c_fd0, int c_fd1, int *p_fd0, int *p_fd1);
-int		close_all(t_cmd *cmd, int *cur_fds, int *prev_fds);
-int		set_file_desc(t_cmd *cmd, int *cur_fds, int *prev_fds);
+int		set_file_desc(t_cmd *cmd, int *p_fds, int *prev_output);
+int		main_process(t_msc *msc, pid_t pid, int *p_fds, int *prev_output);
 
 //BUILTINS
 //builtin_env.c
@@ -286,8 +279,8 @@ void	unset_indiv_node(t_msc *msc, t_env *node);
 
 //builtin_echo_head.c
 void	builtin_echo_head(t_cmd *cmd);
-int	shift_to_print(char **str);
-int	no_n(char *str);
+int		shift_to_print(char **str);
+int		no_n(char *str);
 
 //builtin_pwd.c
 void	builtin_pwd_head(void);

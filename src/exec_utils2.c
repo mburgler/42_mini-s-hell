@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:38:26 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/07 23:52:16 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/08 16:46:51 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,19 @@ int	exec_builtin(t_cmd *cmd, t_env *env)
 		builtin_env(cmd->msc);
 	(void)env; // MATTEO hinzugefügt zum compilen
 	exit(0);
+}
+
+int	nb_of_processes(t_cmd *cmd)
+{
+	int	i;
+
+	if (!cmd)
+		return (0);
+	i = 0;
+	while (cmd)
+	{
+		i++;
+		cmd = cmd->next;
+	}
+	return (i);
 }
