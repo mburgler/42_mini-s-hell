@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/09 19:00:59 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/09 20:31:04 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,9 +266,8 @@ void	export_core(t_msc *msc, char *str);
 void	export_new(t_msc *msc, char *str);
 void	export_known(t_msc *msc, char *str, t_env *node);
 t_env	*check_if_known_var(t_msc *msc, char *str);
-
-int		check_export_syntax(char *str);
-char	*remove_plus(char *str);
+int	check_export_syntax(char *str);
+char *remove_plus(char *str);
 
 int		check_export_syntax(char *str);
 //builtin_unset.c
