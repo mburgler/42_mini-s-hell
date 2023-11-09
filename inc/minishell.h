@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/09 16:04:26 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:06:30 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,12 +265,8 @@ void	export_core(t_msc *msc, char *str);
 void	export_new(t_msc *msc, char *str);
 void	export_known(t_msc *msc, char *str, t_env *node);
 t_env	*check_if_known_var(t_msc *msc, char *str);
-<<<<<<< HEAD
 int	check_export_syntax(char *str);
 char *remove_plus(char *str);
-=======
-int		check_export_syntax(char *str);
->>>>>>> 6c5e3cc7a143f56226ab7ee20d51b1181b0c4d3f
 
 //builtin_unset.c
 void	builtin_unset_head(t_msc *msc, t_cmd *cmd);
