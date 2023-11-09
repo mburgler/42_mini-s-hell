@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/08 19:22:46 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/09 20:06:53 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,15 +111,16 @@ int	wait_and_analyze(pid_t pid)
 	return (0);
 }
 
-int	process_cmd(t_cmd *cmd, t_env *env, int *p_fds, int *prev_output)
+int	process_cmd(t_cmd *cmd, t_env *env, int *p_fds, int *pr_op)
 {
 	if (cmd->prev == NULL && cmd->next == NULL)
 	{
-		if (close(p_fds[0]) == -1 || close(p_fds[1]) == -1)
+		if (close(p_fds[0]) == -1 || close(p_fds[1]) == -1
+			|| set_redir(cmd, p_fds, pr_op))
 			return (-1);
 		return (executor(cmd, env, is_builtin(cmd->cmd)));
 	}
-	set_file_desc(cmd, p_fds, prev_output);
+	set_file_desc(cmd, p_fds, pr_op);
 	return (executor(cmd, env, is_builtin(cmd->cmd)));
 }
 

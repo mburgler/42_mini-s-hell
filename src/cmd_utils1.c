@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:25:32 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/08 19:13:25 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/08 19:28:23 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	ft_cmdclear(t_cmd **lst)
 		return ;
 	while (lst && *lst)
 	{
-		printf("\n\nAAAHHHHHHHH\n\n");
 		tmp = (*lst)->next;
 		if ((*lst)->cmd)
 			free((*lst)->cmd);

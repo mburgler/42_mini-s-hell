@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:47:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/08 19:04:07 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:52:54 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	nb_of_cmds(t_list *lst)
 			ret++;
 		lst = lst->next;
 	}
-	printf("\nNB OF CMDS = %d\n", ret);
 	return (ret);
 }
 
