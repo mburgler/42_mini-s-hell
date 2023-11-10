@@ -6,7 +6,7 @@
 #    By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/21 10:55:14 by mburgler          #+#    #+#              #
-#    Updated: 2023/11/10 17:52:36 by mburgler         ###   ########.fr        #
+#    Updated: 2023/11/10 19:02:10 by mburgler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -140,18 +140,18 @@ fclean:     clean
 re:         fclean all
 
 leak:	   all
-			if [ ! -e leaks.supp ·]; then \
-				printf "{" >leaks.supp; \
-				printf"\n\tignore_libreadline_errors" >> leaks.supp; \
-				printf "\n\tMemcheck:Leak" >> leaks.supp; \
-				printf "\n\t..." >> leaks.supp; \
-				printf "\n\tobj:*/libreadline.so.*" >> leaks.supp; \
-				printf "\n}" >> leaks.supp; \
-				printf "FILE FOR LEAK SURPESSION CREATED\n"; \
-			fi
-			valgrind --leak-check=full --tool=memcheck \
-				--track-origin=yes --show-leak-kinds=all \
-				--suppressions=leaks.supp --track-fds=yes ./minishell
+	if [ ! -e leaks.supp ]; then \
+		printf "{" > leaks.supp; \
+		printf "\n\tignore_libreadline_errors" >> leaks.supp; \
+		printf "\n\tMemcheck:Leak" >> leaks.supp; \
+		printf "\n\t..." >> leaks.supp; \
+		printf "\n\tobj:*/libreadline.so.*" >> leaks.supp; \
+		printf "\n}" >> leaks.supp; \
+		printf "FILE FOR LEAK SURPESSION CREATED\n"; \
+	fi
+	valgrind --leak-check=full --tool=memcheck \
+		--track-origins=yes --show-leak-kinds=all \
+		--suppressions=leaks.supp --track-fds=yes ./minishell
 				
 				
 				
