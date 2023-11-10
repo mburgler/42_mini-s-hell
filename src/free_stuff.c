@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_stuff.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:54:00 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/08 19:23:51 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:45:00 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-// void	free_null(void **ptr)
-// {
-// 	if (ptr != NULL && *ptr != NULL)
-// 	{
-// 		free(*ptr);
-// 		*ptr = NULL;
-// 	}
-// }
 
 void	ft_free_arr(char **strs)
 {
@@ -62,12 +53,5 @@ void	free_all(t_msc *msc)
 		free(msc->input);
 	if (msc->dup_env)
 		ft_envclear(&msc->dup_env);
-	// free_null((void **)&msc->env_cwd);
-	//if (msc->env_cwd)
-	//	free(msc->env_cwd);
-	//don't free msc->env_home, it's a pointer to an environment variable
-	//free_null((void **)&msc->prompt_cwd);
-	//free_null((void **)&msc->prompt);
-	// free_null((void **)&msc);
 	free(msc);
 }

@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 14:50:24 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/23 14:22:45 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:55:53 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,19 @@ int	op_no_quotes(char *tmp, int op_pos)
 
 	i = 0;
 	quote_status = 0;
-	while(i <= op_pos)
+	while (i <= op_pos)
 	{
-		if(tmp[i] == '\"' && quote_status == 0)
+		if (tmp[i] == '\"' && quote_status == 0)
 			quote_status = 2;
-		else if(tmp[i] == '\'' && quote_status == 0)
+		else if (tmp[i] == '\'' && quote_status == 0)
 			quote_status = 1;
-		else if(tmp[i] == '\"' && quote_status == 2)
+		else if (tmp[i] == '\"' && quote_status == 2)
 			quote_status = 0;
-		else if(tmp[i] == '\'' && quote_status == 1)
+		else if (tmp[i] == '\'' && quote_status == 1)
 			quote_status = 0;
 		i++;
 	}
-	if(quote_status != 0)
+	if (quote_status != 0)
 		return (0);
 	else
 		return (1);

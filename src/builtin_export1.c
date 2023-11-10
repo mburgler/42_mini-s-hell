@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*   builtin_export1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 13:13:35 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/08 17:50:17 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:35:43 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	export_core(t_msc *msc, char *str)
 	if (known_var == NULL)
 	{
 		tmp = remove_plus(str);
-		if(!tmp)
+		if (!tmp)
 			free_msc_and_exit(msc, "malloc error");
 		export_new(msc, tmp);
 		free(tmp);
@@ -54,7 +54,7 @@ void	export_core(t_msc *msc, char *str)
 		export_known(msc, str, known_var);
 }
 
-char *remove_plus(char *str)
+char	*remove_plus(char *str)
 {
 	int		i;
 	char	*ret;
@@ -125,64 +125,3 @@ void	export_known(t_msc *msc, char *str, t_env *node)
 		free_msc_and_exit(msc, "malloc error");
 	free(tmp);
 }
-
-t_env	*check_if_known_var(t_msc *msc, char *str)
-{
-	t_env	*tmp;
-	char 	c;
-	int		i;
-
-	i = 0;
-	while (str[i] && str[i] != '+' && str[i] != '=')
-		i++;
-	c = str[i];
-	tmp = msc->dup_env;
-	while (tmp)
-	{
-		if (ft_strncmp(tmp->key, str, ft_strchr_i(str, c)) == 0
-			&& !tmp->key[ft_strchr_i(str, c)])
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
-int	check_export_syntax(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != '=' && str[i] != '+')
-	{
-		if ((!ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_'))
-		{
-			ft_printf("minishell: export: `%s': not a valid identifier\n",
-				str);
-			g_sig_status = 1;
-			return (1);
-		}
-		i++;
-	}
-	if ((str[i] == '+' && str[i + 1] != '=') || ft_isdigit(str[0])
-		|| str[0] == '=' || str[0] == '+')
-	{
-		ft_printf("minishell: export: `%s': not a valid identifier\n",
-			str);
-		g_sig_status = 1;
-		return (1);
-	}
-	return (0);
-}
-
-//DONE
-// += ; might clash
-/*
-bash-3.2$ export TEST="hallo wie gehts"
-bash-3.2$ echo $TEST
-hallo wie gehts
-bash-3.2$ export TEST=$TEST$TEST$TEST
-bash-3.2$ echo $TEST
-hallo wie gehtshallo wie gehtshallo wie gehts
--> funktioniert beim expanden. 
-LÖSUNG: Regel beim Re-split: nur wenn davor kein export war (achtung falls davor nichts gibt)
-*/

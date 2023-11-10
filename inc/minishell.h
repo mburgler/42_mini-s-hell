@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/09 20:31:04 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:58:15 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,11 +156,6 @@ int		ft_lst_insert(t_list *node, char *s, t_msc *msc);
 void	kill_quotes(t_msc *msc);
 void	kill_quote_str(t_msc *msc, t_list *tmp, char q);
 int		jump_quotes(char *s, int i);
-
-//pars_func.c
-void	pars_head(t_msc *msc);
-int		pars_list(t_msc *msc);
-void	pars_init_cmd(t_msc *msc);
 
 //list_utils1.c
 t_list	*ft_lstnew(t_msc *ms, const char *s, int i);
