@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/10 16:42:36 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/11 17:06:18 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	exp_head(t_msc *msc)
 		ft_shift_to_dollar(tmp->str, 1);
 		tmp = tmp->next;
 	}
+	exp_retokenize(msc);
+	reset_lex_index(msc->lex);
 }
 
 void	exp_logic_new(t_msc *msc, t_list *tmp)

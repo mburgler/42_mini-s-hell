@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/10 16:57:38 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/11 16:58:18 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	tokenize_op(t_msc *msc)
     tmp = msc->lex;
 	while (tmp && tmp->str)
 	{
-		if(tmp->exp == 0)
+		if (tmp->exp == 0)
 		{
 			tokenize_individual_op(msc, tmp, '|');
 			tokenize_individual_op(msc, tmp, '>');
@@ -30,6 +30,7 @@ void	tokenize_op(t_msc *msc)
 		tmp = tmp->next;
 	}
 	rejoin_tokens(msc);
+	reset_lex_index(msc->lex);
 }
 
 void	rejoin_tokens(t_msc *msc)
@@ -112,6 +113,7 @@ int	ft_lst_insert(t_list *node, char *s, t_msc *msc)
 	new_node->prev = node;
 	new_node->msc = msc;
 	new_node->quote_status = node->quote_status;
+	new_node->exp = node->exp;
 	next_node = node->next;
 	if (next_node)
 	{

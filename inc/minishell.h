@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/10 16:58:15 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/11 17:02:47 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,13 +137,15 @@ void	exp_tilde(t_msc *msc, t_list *tmp);
 int		ft_shift_to_dollar(char *str, int reboot);
 int		get_quote_status(char *str, int dol_i);
 
-//exp_utils.c
+//exp_util1.c && exp_util2.c
 char	*ft_strjoin_free(char *s1, char *s2, char *to_free, char *to_free2);
 char	*free_two(char *to_free, char *to_free2);
 int		ft_strchr_i(const char *s, int c);
 int		ft_trimascii(char *str);
 int		ft_is_whitespace(char *pos, int i);
 int		ft_is_whitespace_str(char *str);
+void	exp_retokenize(t_msc *msc);
+void	exp_retokenize_inner(int i, t_list *tmp, t_msc *msc);
 
 //op_func.c
 void	tokenize_op(t_msc *msc);
