@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/02 03:54:49 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/11 16:58:18 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	tokenize_op(t_msc *msc)
     tmp = msc->lex;
 	while (tmp && tmp->str)
 	{
-		if(tmp->exp == 0)
+		if (tmp->exp == 0)
 		{
 			tokenize_individual_op(msc, tmp, '|');
 			tokenize_individual_op(msc, tmp, '>');
@@ -30,6 +30,7 @@ void	tokenize_op(t_msc *msc)
 		tmp = tmp->next;
 	}
 	rejoin_tokens(msc);
+	reset_lex_index(msc->lex);
 }
 
 void	rejoin_tokens(t_msc *msc)
@@ -38,7 +39,7 @@ void	rejoin_tokens(t_msc *msc)
 	t_list	*tf;
 	char	*buff;
 
-    tmp = msc->lex;
+	tmp = msc->lex;
 	while (tmp && tmp->str && tmp->next)
 	{
 		tf = tmp->next;
@@ -112,6 +113,7 @@ int	ft_lst_insert(t_list *node, char *s, t_msc *msc)
 	new_node->prev = node;
 	new_node->msc = msc;
 	new_node->quote_status = node->quote_status;
+	new_node->exp = node->exp;
 	next_node = node->next;
 	if (next_node)
 	{
@@ -121,28 +123,3 @@ int	ft_lst_insert(t_list *node, char *s, t_msc *msc)
 	node->next = new_node;
 	return (1);
 }
-
-//ARCHIVE
-//
-//main body of tokenize_individual_op
-//
-// if(tmp->str[i] == op && i > 0)
-// {
-// 	buff = tmp->str;
-// 	if(!ft_lst_insert(tmp, ft_substr(buff, i, ft_strlen(buff) - i), msc))
-// 		malloc_error_free_exit(msc, NULL, NULL);
-// 	tmp->str = ft_substr(buff, 0, i);
-// 	if(!tmp->str)
-// 		malloc_error_free_exit(msc, NULL, NULL);
-// 	free(buff);
-// }
-// else if(tmp->str[i] == op && tmp->str[i + 1] && i == 0)
-// {
-// 	buff = tmp->str;
-// 	if(!ft_lst_insert(tmp, ft_substr(buff, 1, ft_strlen(buff) - 1), msc))
-// 		malloc_error_free_exit(msc, NULL, NULL);
-// 	tmp->str = ft_substr(buff, 0, 1);
-// 	if(!tmp->str)
-// 		malloc_error_free_exit(msc, NULL, NULL);
-// 	free(buff);
-// }

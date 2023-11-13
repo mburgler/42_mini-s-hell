@@ -6,7 +6,7 @@
 #    By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/21 10:55:14 by mburgler          #+#    #+#              #
-#    Updated: 2023/11/11 17:29:56 by abektimi         ###   ########.fr        #
+#    Updated: 2023/11/13 17:05:57 by abektimi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,6 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
                     MY_LIB/ft_printf/ft_printf.c \
                     MY_LIB/get_next_line/get_next_line_bonus.c \
                     MY_LIB/get_next_line/get_next_line_utils_bonus.c \
-                    src/parsing.c \
                     src/free_stuff.c \
 					src/error_handling.c \
                     src/env_dup.c \
@@ -80,9 +79,9 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
                     src/main.c \
                     src/list_utils1.c \
 					src/exp_func.c \
-					src/exp_utils.c \
+					src/exp_utils1.c \
+					src/exp_utils2.c \
 					src/op_func.c \
-					src/pars_func.c \
                     src/lex_funcs.c \
                     src/lex_split.c \
                     src/lex_utils1.c \
@@ -98,7 +97,8 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
                     src/exec_utils2.c \
                     src/exec_utils3.c \
                     src/builtin_env.c \
-					src/builtin_export.c \
+					src/builtin_export1.c \
+					src/builtin_export2.c \
 					src/builtin_echo.c \
 					src/builtin_pwd.c \
 					src/builtin_cd.c \
@@ -141,4 +141,20 @@ fclean:     clean
 
 re:         fclean all
 
+leak:	   all
+	if [ ! -e leaks.supp ]; then \
+		printf "{" > leaks.supp; \
+		printf "\n\tignore_libreadline_errors" >> leaks.supp; \
+		printf "\n\tMemcheck:Leak" >> leaks.supp; \
+		printf "\n\t..." >> leaks.supp; \
+		printf "\n\tobj:*/libreadline.so.*" >> leaks.supp; \
+		printf "\n}" >> leaks.supp; \
+		printf "FILE FOR LEAK SURPESSION CREATED\n"; \
+	fi
+	valgrind --leak-check=full --tool=memcheck \
+		--track-origins=yes --show-leak-kinds=all \
+		--suppressions=leaks.supp --track-fds=yes ./minishell
+				
+				
+				
 .PHONY:     all clean fclean re

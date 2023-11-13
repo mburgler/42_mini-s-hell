@@ -6,19 +6,13 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/02 03:56:43 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:46:56 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 /*
-1. Iterate over the two-dimensional array
-2. Whenever a redirection is found, check the type of redirection and retrieve a file descriptor containing the info we need as the infile
-3. Check that the file descriptor that has been opened is valid (!= -1) and continue
-4. If a pipe is found, add a new node to the list of commands
-5. In all other cases add whatever words are found to the argument list (``argv``) we call ``full_cmd``
-
 echo "Hallo" > datei.txt
 > datei.txt echo "Hallo"
 echo > datei.txt "Hallo"
@@ -53,11 +47,12 @@ no whitespaces between < <
 // - $mburgler for minishell $ $$"$USER"
 //- kill op and adjacent file
 //	- DONE $"$" doesnt show anything
-// - DONE echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $  <<" results in syntax error: consecutive operators
+// - DONE echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $  <<"
+//results in syntax error: consecutive operators
 
 int	set_in_out_file(t_cmd *cmd)
 {
-	int i;
+	int		i;
 	t_list	*tmp;
 
 	i = 0;
@@ -111,7 +106,7 @@ void	ft_infile(t_cmd *cmd, int i, int type)
 	if (cmd->fd_in > 0)
 	{
 		close(cmd->fd_in);
-		if(cmd->fd_in_type == HEREDOC)
+		if (cmd->fd_in_type == HEREDOC)
 		{
 			unlink(cmd->heredoc_name);
 			free(cmd->heredoc_name);
@@ -134,9 +129,9 @@ void	ft_infile(t_cmd *cmd, int i, int type)
 
 int	handle_heredoc(t_cmd *cmd, int i)
 {
-	char *nmb_itoa;
-	char *buff;
-	int	fd;
+	char	*nmb_itoa;
+	char	*buff;
+	int		fd;
 
 	nmb_itoa = ft_itoa(cmd->index);
 	cmd->heredoc_name = ft_strjoin(".tmp_heredoc", nmb_itoa);
@@ -144,22 +139,22 @@ int	handle_heredoc(t_cmd *cmd, int i)
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	free(nmb_itoa);
 	cmd->fd_in_type = HEREDOC;
-	if(fd == -1)
+	if (fd == -1)
 		return(fd);
 	buff = NULL;
-	while(1)
+	while (1)
 	{
 		buff = readline("minidoc> ");
 		buff = ft_strjoin_free(buff, "\n", buff, NULL);
-		if(!ft_strncmp(cmd->full_cmd[i], buff, ft_strlen(cmd->full_cmd[i])))
+		if (!ft_strncmp(cmd->full_cmd[i], buff, ft_strlen(cmd->full_cmd[i])))
 		{
 			free(buff);
-			break;
+			break ;
 		}
 		write(fd, buff, ft_strlen(buff));
 		free(buff);
 	}
-	return(fd);
+	return (fd);
 }
 
 void	kill_in_out_file(t_cmd *cmd)

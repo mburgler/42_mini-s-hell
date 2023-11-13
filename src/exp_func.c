@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 19:11:09 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/11 17:06:18 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ void	exp_head(t_msc *msc)
 		ft_shift_to_dollar(tmp->str, 1);
 		tmp = tmp->next;
 	}
-	//exp_retokenize(msc);
+	exp_retokenize(msc);
+	reset_lex_index(msc->lex);
 }
 
 void	exp_logic_new(t_msc *msc, t_list *tmp)
 {
 	int	i;
-	int	aA0_end;
+	int	a0_end;
 
 	i = 0;
 	while (tmp->str[i])
@@ -54,8 +55,8 @@ void	exp_logic_new(t_msc *msc, t_list *tmp)
 		else
 		{
 			tmp->exp = 1;
-			aA0_end = ft_trimascii(tmp->str + i + 1);
-			exp_sub(tmp, i, aA0_end, msc);
+			a0_end = ft_trimascii(tmp->str + i + 1);
+			exp_sub(tmp, i, a0_end, msc);
 		}
 	}
 }
@@ -100,7 +101,7 @@ void	exp_sub(t_list *tmp, int i, int aA0_end, t_msc *msc)
 		malloc_error_free_exit(msc, NULL, NULL);
 }
 
-void	exp_dol_qmark(t_msc *msc, t_list* tmp, int i)
+void	exp_dol_qmark(t_msc *msc, t_list *tmp, int i)
 {
 	char	*to_free;
 	char	*code;
@@ -149,53 +150,4 @@ void	exp_tilde(t_msc *msc, t_list *tmp)
 		tmp->str = ft_strjoin_free("~", tmp->str + 1, tf, NULL);
 	if (!tmp->str)
 		malloc_error_free_exit(msc, tf, NULL);
-}
-
-int	ft_shift_to_dollar(char *str, int reboot)
-{
-	static int	i;
-
-	if (reboot == 1)
-	{
-		i = 0;
-		return (-42);
-	}
-	while (str[i])
-	{
-		if (str[i] == '$' && str[i + 1] != '$' && str[i + 1] != '\"')
-		{
-			if (ft_is_whitespace(str, i + 1) == -1)
-			{
-				i++;
-				return (i - 1);
-			}
-		}
-		i++;
-	}
-	return (-1);
-}
-
-int	get_quote_status(char *str, int dol_i)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && i < dol_i)
-	{
-		if (str[i] == '\"')
-			return (2);
-		if (str[i] == '\'')
-		{
-			i++;
-			while (str[i] && i < dol_i)
-			{
-				if (str[i] == '\'')
-					return (0);
-				i++;
-			}
-			return (1);
-		}
-		i++;
-	}
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 16:07:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/06 23:56:52 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:32:31 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	builtin_cd_head(t_cmd *cmd)
 	char	*to_free;
 
 	go_to = set_path(cmd);
-	printf("### DEBUG go_to: %s ###\n", go_to);
 	if (!go_to || chdir(go_to) == -1)
 	{
 		ft_printf("minishell: cd: %s: %s\n", go_to, strerror(errno));

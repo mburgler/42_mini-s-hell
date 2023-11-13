@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 16:06:21 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/05 17:53:56 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:33:17 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	shift_to_print(char **str)
 	i = 1;
 	while (str[i])
 	{
-		if (str[i][0] != '-' || str[i][1] != 'n'|| no_n(str[i] + 1))
+		if (str[i][0] != '-' || str[i][1] != 'n' || no_n(str[i] + 1))
 			break ;
 		else
 			i++;

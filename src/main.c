@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/07 23:52:44 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:56:28 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,8 @@ t_msc	*init_msc(char **env)
 	msc->loop = true;
 	msc->input = NULL;
 	dup_env_head(msc, env);
-	//msc->env_user = getenv("USER"); //KILL
-	//msc->env_path = getenv("PATH"); //KILL
-	//msc->env_cwd = getcwd(NULL, 0); //KILL & reference in free_stuff.c
-	msc->env_home = getenv("HOME"); //Dont kill - special case tilde
-	// msc ->prompt_cwd = NULL;
-	// msc->prompt = NULL;
-	return(msc);
+	msc->env_home = getenv("HOME");
+	return (msc);
 }
 
 void	handle_input(t_msc *msc)
