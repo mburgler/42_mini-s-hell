@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 22:09:10 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/09 19:56:21 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/11 13:52:34 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,5 @@ int	set_redir(t_cmd *cmd, int *p_fds, int *pr_op)
 	if (cmd->fd_out != 1)
 		if (dup2(cmd->fd_out, 1) == -1)
 			return (-1);
-	return (0);
-}
-
-//saves a copy of the previous command's output for later use by subsequent
-//commands, and then calls wait_and_analyze()
-int	main_process(t_msc *msc, pid_t pid, int *p_fds, int *pr_op)
-{
-	(void)msc;
-	if (close(p_fds[1]) == -1)
-		return (-1);
-	*pr_op = p_fds[0];
-	wait_and_analyze(pid);
 	return (0);
 }

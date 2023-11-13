@@ -6,47 +6,11 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/09 20:06:53 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/11 22:35:59 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-//sets the cmd and option variables in each node of the list of type t_cmd
-/*
-NOTE TO SELF on ft_strdup: no need to remove whitespaces, because commands
-such as wc, ls, and so on will reject flags if the respective string contains
-anything other than the relevant characters upon calling execve()
-(e.g: '   -l  ' is invalid input for wc)
-*/
-void	set_cmd_and_option(t_cmd *cmds)
-{
-	int		i;
-	char	**cmd_and_opt;
-
-	if (!cmds)
-		return ;
-	while (cmds)
-	{
-		cmd_and_opt = ft_split(cmds->full_cmd[0], ' ');
-		i = 0;
-		while (cmd_and_opt && cmd_and_opt[i] != NULL)
-			i++;
-		if (i == 1)
-		{
-			cmds->cmd = ft_strdup(cmd_and_opt[0]);
-			if (cmds->full_cmd[1] != NULL && is_option(cmds->full_cmd[1]))
-				cmds->option = ft_strdup(cmds->full_cmd[1]);
-		}
-		else if (i == 2)
-		{
-			cmds->cmd = ft_strdup(cmd_and_opt[0]);
-			cmds->option = ft_strdup(cmd_and_opt[1]);
-		}
-		free_2d_arr(cmd_and_opt);
-		cmds = cmds->next;
-	}
-}
 
 int	executor(t_cmd *cmd, t_env *env, int cmd_type)
 {
@@ -58,12 +22,13 @@ int	executor(t_cmd *cmd, t_env *env, int cmd_type)
 		return (-1);
 	if (cmd_type == 1)
 		return (exec_builtin(cmd, env));
-	cur_cmd = assemble_cmd(cmd);
-	cur_env = assemble_env(env);
-	path = find_cmd_path(cur_cmd, env);
-	if (!path || !cur_cmd || !cur_env)
+	path = NULL;
+	cur_cmd = NULL;
+	cur_env = NULL;
+	set_exec_temps(&cmd, &path, &cur_cmd, &cur_env);
+	if (!cur_cmd || !cur_env || !path)
 	{
-		free_exec_temps(path, NULL, cur_cmd, cur_env);
+		free_exec_temps(path, NULL, NULL, cur_env);
 		free_msc_and_errno(cmd->msc, "Error in executor(): ");
 	}
 	if (execve(path, cur_cmd, cur_env) == -1)
@@ -73,28 +38,6 @@ int	executor(t_cmd *cmd, t_env *env, int cmd_type)
 	}
 	return (0);
 }
-
-// int	wait_and_analyze(t_msc *msc, pid_t *pids)
-// {
-// 	int	status;
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < nb_of_processes(msc->cmd))
-// 	{
-// 		waitpid(pids[i], &status, WUNTRACED);
-// 		if (!WIFEXITED(status))
-// 		{
-// 			if (WIFSIGNALED(status))
-// 				printf("\nCHILD TERMINATED BY SIGNAL\n");
-// 			else if (WIFSTOPPED(status))
-// 				printf("\nCHILD STOPPED BY SIGNAL\n");
-// 		}
-// 		i++;
-// 	}
-// 	free(pids);
-// 	return (0);
-// }
 
 int	wait_and_analyze(pid_t pid)
 {
@@ -111,6 +54,20 @@ int	wait_and_analyze(pid_t pid)
 	return (0);
 }
 
+//saves a copy of the previous command's output for later use by subsequent
+//commands, and then calls wait_and_analyze()
+int	main_process(t_msc *msc, pid_t pid, int *p_fds, int *pr_op)
+{
+	(void)msc;
+	if (close(p_fds[1]) == -1)
+		return (-1);
+	*pr_op = p_fds[0];
+	wait_and_analyze(pid);
+	return (0);
+}
+
+//calls the executor() function inside a child process after
+//setting up the file descriptors accordingly
 int	process_cmd(t_cmd *cmd, t_env *env, int *p_fds, int *pr_op)
 {
 	if (cmd->prev == NULL && cmd->next == NULL)
@@ -124,6 +81,9 @@ int	process_cmd(t_cmd *cmd, t_env *env, int *p_fds, int *pr_op)
 	return (executor(cmd, env, is_builtin(cmd->cmd)));
 }
 
+//first part of the minishell executor; it creates child processes for all
+//the commands of a pipeline which require one, and uses
+//the pipe() syscall to establish inter-process communication
 void	make_pipeline(t_msc *msc)
 {
 	int		i;
@@ -135,6 +95,11 @@ void	make_pipeline(t_msc *msc)
 	if (!msc || !msc->cmd)
 		return ;
 	tmp = msc->cmd;
+	if (tmp->prev == NULL && tmp->next == NULL && is_builtin(tmp->cmd))
+	{
+		exec_single_builtin(tmp, msc->dup_env);
+		return ;
+	}
 	pids = malloc(sizeof(pid_t) * nb_of_processes(tmp));
 	if (!pids)
 		free_msc_and_errno(msc, "Error in make_pipeline(): ");
@@ -150,8 +115,9 @@ void	make_pipeline(t_msc *msc)
 		else if (pids[i] == 0)
 			process_cmd(tmp, msc->dup_env, p_fds, &prev_output);
 		else if (pids[i] > 0)
-			main_process(msc, pids[i++], p_fds, &prev_output);
+			main_process(msc, pids[i], p_fds, &prev_output);
 		tmp = tmp->next;
+		i++;
 	}
 	free(pids);
 }

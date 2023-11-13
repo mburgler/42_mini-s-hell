@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 05:24:27 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/05 02:30:56 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:24:41 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,29 +45,63 @@ int	is_builtin(const char *str)
 
 //constructs an array of strings containing the cmd and option values of
 //t_cmd *cmd for later use by execve() in the eexecutor() function
+// char	**assemble_cmd(t_cmd *cmd)
+// {
+// 	int		i;
+// 	char	**ret;
+
+// 	if (cmd->cmd == NULL)
+// 		return (NULL);
+// 	i = 1;
+// 	if (cmd->cmd != NULL && cmd->option != NULL)
+// 		i++;
+// 	ret = malloc(sizeof(char *) * (i + 1));
+// 	if (!ret)
+// 		return (NULL);
+// 	if (i == 1)
+// 	{
+// 		ret[0] = ft_strdup(cmd->cmd);
+// 		ret[1] = NULL;
+// 	}
+// 	else if (i == 2)
+// 	{
+// 		ret[0] = ft_strdup(cmd->cmd);
+// 		ret[1] = ft_strdup(cmd->option);
+// 		ret[2] = NULL;
+// 	}
+// 	return (ret);
+// }
+
 char	**assemble_cmd(t_cmd *cmd)
 {
 	int		i;
+	int		j;
 	char	**ret;
 
 	if (cmd->cmd == NULL)
 		return (NULL);
-	i = 1;
-	if (cmd->cmd != NULL && cmd->option != NULL)
-		i++;
-	ret = malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	if (cmd->option != NULL)
+		while (cmd->option[i] != NULL)
+			i++;
+	ret = malloc(sizeof(char *) * (i + 1 + 1));
 	if (!ret)
 		return (NULL);
-	if (i == 1)
+	if (i == 0)
 	{
 		ret[0] = ft_strdup(cmd->cmd);
 		ret[1] = NULL;
 	}
-	else if (i == 2)
+	if (i > 0)
 	{
 		ret[0] = ft_strdup(cmd->cmd);
-		ret[1] = ft_strdup(cmd->option);
-		ret[2] = NULL;
+		j = 1;
+		while (cmd->option[j - 1])
+		{
+			ret[j] = ft_strdup(cmd->option[j - 1]);
+			j++;
+		}
+		ret[j] = NULL;
 	}
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/09 20:31:04 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/11 21:42:01 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_list
 typedef struct s_cmd
 {
 	char			*cmd;
-	char			*option;
+	char			**option;
 	char			**full_cmd;
 	int				pid;
 	int				index;
@@ -229,10 +229,15 @@ void	kill_in_out_file(t_cmd *cmd);
 t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp);
 int		handle_heredoc(t_cmd *cmd, int i);
 
+//exec_prep.c
+void	set_c_and_o(t_cmd *cmds);
+void	alloc_c_and_o(t_cmd **cmd, int n, char **cmd_and_opt);
+void	isolate_cmd(t_cmd **cmd);
+
 //exec_funcs.c
-void	set_cmd_and_option(t_cmd *cmds);
 int		executor(t_cmd *cmd, t_env *env, int cmd_type);
 int		wait_and_analyze(pid_t pid);
+int		main_process(t_msc *msc, pid_t pid, int *p_fds, int *pr_op);
 int		process_cmd(t_cmd *cmd, t_env *env, int *p_fds, int *prev_output);
 void	make_pipeline(t_msc *msc);
 
@@ -242,7 +247,6 @@ int		is_builtin(const char *str);
 char	**assemble_cmd(t_cmd *cmd);
 char	**assemble_env(t_env *env);
 char	*get_key_and_value(const char *key, const char *value);
-void	print_env(char **env);
 
 //exec_utils2.c
 void	*free_exec_temps(char *del1, char *del2, char **del3, char **del4);
@@ -251,10 +255,13 @@ char	*find_cmd_path(char *const cmd[], t_env *env);
 int		exec_builtin(t_cmd *cmd, t_env *env);
 int		nb_of_processes(t_cmd *cmd);
 
+//exec_utils3.c
+void	set_exec_temps(t_cmd **cmd, char **path, char ***c_cmd, char ***c_env);
+int		exec_single_builtin(t_cmd *cmd, t_env *env);
+
 //set_fds.c
 int		set_file_desc(t_cmd *cmd, int *p_fds, int *pr_op);
 int		set_redir(t_cmd *cmd, int *p_fds, int *pr_op);
-int		main_process(t_msc *msc, pid_t pid, int *p_fds, int *pr_op);
 
 //BUILTINS
 //builtin_env.c
@@ -266,8 +273,8 @@ void	export_core(t_msc *msc, char *str);
 void	export_new(t_msc *msc, char *str);
 void	export_known(t_msc *msc, char *str, t_env *node);
 t_env	*check_if_known_var(t_msc *msc, char *str);
-int	check_export_syntax(char *str);
-char *remove_plus(char *str);
+int		check_export_syntax(char *str);
+char	*remove_plus(char *str);
 
 int		check_export_syntax(char *str);
 //builtin_unset.c
