@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/11 17:06:18 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/11 17:32:50 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	exp_logic_new(t_msc *msc, t_list *tmp)
 	}
 }
 
-void	exp_sub(t_list *tmp, int i, int aA0_end, t_msc *msc)
+void	exp_sub(t_list *tmp, int i, int a0, t_msc *msc)
 {
 	char	*env;
 	char	*beg;
@@ -69,7 +69,7 @@ void	exp_sub(t_list *tmp, int i, int aA0_end, t_msc *msc)
 	char	*placeholder;
 
 	placeholder = tmp->str;
-	env = ft_substr(tmp->str, i + 1, aA0_end);
+	env = ft_substr(tmp->str, i + 1, a0);
 	if (!env)
 		malloc_error_free_exit(msc, NULL, NULL);
 	if (i > 0)
@@ -78,10 +78,10 @@ void	exp_sub(t_list *tmp, int i, int aA0_end, t_msc *msc)
 		beg = ft_strdup("");
 	if (!beg)
 		malloc_error_free_exit(msc, env, NULL);
-	if (tmp->str[i + aA0_end + 1] == '\0')
+	if (tmp->str[i + a0 + 1] == '\0')
 		end = ft_strdup("");
 	else
-		end = ft_substr(tmp->str, i + aA0_end + 1, ft_strlen(tmp->str) - aA0_end - i);
+		end = ft_substr(tmp->str, i + a0 + 1, ft_strlen(tmp->str) - a0 - i);
 	if (!end)
 		malloc_error_free_exit(msc, beg, env);
 	free(placeholder);
