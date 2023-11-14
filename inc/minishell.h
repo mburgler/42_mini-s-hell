@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/14 17:23:43 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:27:36 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	handle_sigint(int sig);
 //exp_func.c
 void	exp_head(t_msc *msc);
 void	exp_logic_new(t_msc *msc, t_list *tmp);
-void	exp_sub(t_list *tmp, int i, int aA0_end, t_msc *msc);
+void	exp_sub(t_list *tmp, int i, int a0, t_msc *msc);
 void	exp_dol_qmark(t_msc *msc, t_list *tmp, int i);
 void	exp_tilde(t_msc *msc, t_list *tmp);
 int		ft_shift_to_dollar(char *str, int reboot);
