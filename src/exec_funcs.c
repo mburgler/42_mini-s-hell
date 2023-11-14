@@ -6,12 +6,14 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/13 17:07:10 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:24:03 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+//creates the variables which must be passed as parameters to execve() and
+//processes commands that way, if the command is not a builtin
 int	executor(t_cmd *cmd, t_env *env, int cmd_type)
 {
 	char	*path;
@@ -21,7 +23,7 @@ int	executor(t_cmd *cmd, t_env *env, int cmd_type)
 	if (!cmd || !env)
 		return (-1);
 	if (cmd_type == 1)
-		return (exec_builtin(cmd, env));
+		return (exec_builtin(cmd));
 	path = NULL;
 	cur_cmd = NULL;
 	cur_env = NULL;
@@ -39,18 +41,29 @@ int	executor(t_cmd *cmd, t_env *env, int cmd_type)
 	return (0);
 }
 
-int	wait_and_analyze(pid_t pid)
+//waits for a specified child process to end and analyzes its exit status
+int	wait_and_analyze(t_msc *msc, pid_t pid)
 {
-	int	status;
+	int		status;
+	pid_t	term_pid;
 
-	waitpid(pid, &status, WUNTRACED);
-	if (!WIFEXITED(status))
+	term_pid = waitpid(pid, &status, WUNTRACED);
+	if (term_pid == -1)
+		free_msc_and_errno(msc, "Error in wait_and_analyze(): ");
+	if (WIFEXITED(status))
+		g_sig_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
 	{
-		if (WIFSIGNALED(status))
-			printf("\nCHILD TERMINATED BY SIGNAL\n");
-		else if (WIFSTOPPED(status))
-			printf("\nCHILD STOPPED BY SIGNAL\n");
+		if (WCOREDUMP(status))
+		{
+			perror("Segmentation fault (core dumped)\n");
+			g_sig_status = 139;
+		}
+		else
+			g_sig_status = WTERMSIG(status);
 	}
+	else if (WIFSTOPPED(status))
+		g_sig_status = WSTOPSIG(status);
 	return (0);
 }
 
@@ -62,7 +75,7 @@ int	main_process(t_msc *msc, pid_t pid, int *p_fds, int *pr_op)
 	if (close(p_fds[1]) == -1)
 		return (-1);
 	*pr_op = p_fds[0];
-	wait_and_analyze(pid);
+	wait_and_analyze(msc, pid);
 	return (0);
 }
 
@@ -84,40 +97,31 @@ int	process_cmd(t_cmd *cmd, t_env *env, int *p_fds, int *pr_op)
 //first part of the minishell executor; it creates child processes for all
 //the commands of a pipeline which require one, and uses
 //the pipe() syscall to establish inter-process communication
-void	make_pipeline(t_msc *msc)
+int	make_pipeline(t_msc *msc)
 {
-	int		i;
 	int		p_fds[2];
 	int		prev_output;
-	pid_t	*pids;
+	pid_t	pid;
 	t_cmd	*tmp;
 
 	if (!msc || !msc->cmd)
-		return ;
+		return (-1);
 	tmp = msc->cmd;
 	if (tmp->prev == NULL && tmp->next == NULL && is_builtin(tmp->cmd))
-	{
-		exec_single_builtin(tmp, msc->dup_env);
-		return ;
-	}
-	pids = malloc(sizeof(pid_t) * nb_of_processes(tmp));
-	if (!pids)
-		free_msc_and_errno(msc, "Error in make_pipeline(): ");
-	i = 0;
+		return (exec_single_builtin(tmp));
 	prev_output = 0;
 	while (tmp)
 	{
 		if (pipe(p_fds) == -1)
 			free_msc_and_errno(msc, "Error in make_pipeline(): ");
-		pids[i] = fork();
-		if (pids[i] == -1)
+		pid = fork();
+		if (pid == -1)
 			free_msc_and_errno(msc, "Error in make_pipeline(): ");
-		else if (pids[i] == 0)
+		else if (pid == 0)
 			process_cmd(tmp, msc->dup_env, p_fds, &prev_output);
-		else if (pids[i] > 0)
-			main_process(msc, pids[i], p_fds, &prev_output);
+		else if (pid > 0)
+			main_process(msc, pid, p_fds, &prev_output);
 		tmp = tmp->next;
-		i++;
 	}
-	free(pids);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/13 17:06:14 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:23:43 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ t_env	*ft_envlast(t_env *lst);
 void	ft_envclear(t_env **lst);
 int		ft_strcmp(const char *s1, const char *s2);
 
-//signals.c
+//signal.c
 void	handle_sigint(int sig);
 
 //exp_func.c
@@ -228,33 +228,32 @@ int		handle_heredoc(t_cmd *cmd, int i);
 
 //exec_prep.c
 void	set_c_and_o(t_cmd *cmds);
-void	alloc_c_and_o(t_cmd **cmd, int n, char **cmd_and_opt);
 void	isolate_cmd(t_cmd **cmd);
 
 //exec_funcs.c
 int		executor(t_cmd *cmd, t_env *env, int cmd_type);
-int		wait_and_analyze(pid_t pid);
+int		wait_and_analyze(t_msc *msc, pid_t pid);
 int		main_process(t_msc *msc, pid_t pid, int *p_fds, int *pr_op);
 int		process_cmd(t_cmd *cmd, t_env *env, int *p_fds, int *prev_output);
-void	make_pipeline(t_msc *msc);
+int		make_pipeline(t_msc *msc);
 
 //exec_utils1.c
-int		is_option(const char *str);
 int		is_builtin(const char *str);
 char	**assemble_cmd(t_cmd *cmd);
 char	**assemble_env(t_env *env);
+int		nb_of_env_vars(t_env *env);
 char	*get_key_and_value(const char *key, const char *value);
 
 //exec_utils2.c
 void	*free_exec_temps(char *del1, char *del2, char **del3, char **del4);
 char	**get_dirs(t_env *env);
 char	*find_cmd_path(char *const cmd[], t_env *env);
-int		exec_builtin(t_cmd *cmd, t_env *env);
+int		exec_builtin(t_cmd *cmd);
 int		nb_of_processes(t_cmd *cmd);
 
 //exec_utils3.c
 void	set_exec_temps(t_cmd **cmd, char **path, char ***c_cmd, char ***c_env);
-int		exec_single_builtin(t_cmd *cmd, t_env *env);
+int		exec_single_builtin(t_cmd *cmd);
 
 //set_fds.c
 int		set_file_desc(t_cmd *cmd, int *p_fds, int *pr_op);
@@ -290,5 +289,9 @@ void	builtin_pwd_head(void);
 //builtin_cd.c
 void	builtin_cd_head(t_cmd *cmd);
 char	*set_path(t_cmd *cmd);
+
+//builtin_exit.c
+int		num_only(const char *str);
+void	builtin_exit_head(t_cmd *cmd);
 
 #endif

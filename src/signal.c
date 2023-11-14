@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:02:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/10 16:59:32 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:13:24 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
 #include "../inc/minishell.h"
 
-void handle_sigint(int sig) 
+void	handle_sigint(int sig)
 {
 	(void)sig;
 	g_sig_status = 130;

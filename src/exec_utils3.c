@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 17:26:23 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/11 22:36:10 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:21:19 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 //sets the content of the three variables needed by the executor() function
 void	set_exec_temps(t_cmd **cmd, char **path, char ***c_cmd, char ***c_env)
 {
+	if (!(*cmd))
+		return ;
 	if (access((*cmd)->cmd, F_OK | X_OK) == 0)
 	{
 		*path = ft_strdup((*cmd)->cmd);
@@ -30,9 +32,8 @@ void	set_exec_temps(t_cmd **cmd, char **path, char ***c_cmd, char ***c_env)
 }
 
 //executes a builtin when its a standalone command
-int	exec_single_builtin(t_cmd *cmd, t_env *env)
+int	exec_single_builtin(t_cmd *cmd)
 {
-	(void)env;
 	if (!cmd)
 		return (-1);
 	if (ft_strcmp(cmd->cmd, "echo") == 0)
@@ -47,5 +48,7 @@ int	exec_single_builtin(t_cmd *cmd, t_env *env)
 		builtin_unset_head(cmd->msc, cmd);
 	if (ft_strcmp(cmd->cmd, "env") == 0)
 		builtin_env(cmd->msc);
+	if (ft_strcmp(cmd->cmd, "exit") == 0)
+		builtin_exit_head(cmd);
 	return (0);
 }

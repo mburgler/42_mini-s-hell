@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:38:26 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/13 17:07:33 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:20:32 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*find_cmd_path(char *const cmd[], t_env *env)
 }
 
 //calls the required function depending on the builtin
-int	exec_builtin(t_cmd *cmd, t_env *env)
+int	exec_builtin(t_cmd *cmd)
 {
 	if (!cmd) // MATTEO AUSKOMMENTIERT weil muss funtktionieren für export, unset und env|| !env)
 		return (-1);
@@ -91,7 +91,8 @@ int	exec_builtin(t_cmd *cmd, t_env *env)
 		builtin_unset_head(cmd->msc, cmd);
 	if (ft_strcmp(cmd->cmd, "env") == 0)
 		builtin_env(cmd->msc);
-	(void)env; // MATTEO hinzugefügt zum compilen
+	if (ft_strcmp(cmd->cmd, "exit") == 0)
+		builtin_exit_head(cmd);
 	exit(0);
 }
 

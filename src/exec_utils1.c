@@ -6,24 +6,11 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 05:24:27 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/11 15:24:41 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:17:33 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-//checks if a string passed to it qualifies as an optional flag for a shell cmd
-int	is_option(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0' && isws(str[i]))
-		i++;
-	if (str[i] == '-')
-		return (1);
-	return (0);
-}
 
 //checks if a command is a builtin as per the minishell subject
 int	is_builtin(const char *str)
@@ -40,70 +27,23 @@ int	is_builtin(const char *str)
 		return (1);
 	else if (ft_strncmp(str, "env", ft_strlen(str)) == 0)
 		return (1);
+	else if (ft_strncmp(str, "exit", ft_strlen(str)) == 0)
+		return (1);
 	return (0);
 }
 
-//constructs an array of strings containing the cmd and option values of
-//t_cmd *cmd for later use by execve() in the eexecutor() function
-// char	**assemble_cmd(t_cmd *cmd)
-// {
-// 	int		i;
-// 	char	**ret;
-
-// 	if (cmd->cmd == NULL)
-// 		return (NULL);
-// 	i = 1;
-// 	if (cmd->cmd != NULL && cmd->option != NULL)
-// 		i++;
-// 	ret = malloc(sizeof(char *) * (i + 1));
-// 	if (!ret)
-// 		return (NULL);
-// 	if (i == 1)
-// 	{
-// 		ret[0] = ft_strdup(cmd->cmd);
-// 		ret[1] = NULL;
-// 	}
-// 	else if (i == 2)
-// 	{
-// 		ret[0] = ft_strdup(cmd->cmd);
-// 		ret[1] = ft_strdup(cmd->option);
-// 		ret[2] = NULL;
-// 	}
-// 	return (ret);
-// }
-
+//applies necessary changes to the full_cmd variable of a given 
+//node of type t_cmd before passing full_cmd to execve()
 char	**assemble_cmd(t_cmd *cmd)
 {
-	int		i;
-	int		j;
-	char	**ret;
-
-	if (cmd->cmd == NULL)
+	if (!cmd || !cmd->full_cmd)
 		return (NULL);
-	i = 0;
-	if (cmd->option != NULL)
-		while (cmd->option[i] != NULL)
-			i++;
-	ret = malloc(sizeof(char *) * (i + 1 + 1));
-	if (!ret)
-		return (NULL);
-	if (i == 0)
-	{
-		ret[0] = ft_strdup(cmd->cmd);
-		ret[1] = NULL;
-	}
-	if (i > 0)
-	{
-		ret[0] = ft_strdup(cmd->cmd);
-		j = 1;
-		while (cmd->option[j - 1])
-		{
-			ret[j] = ft_strdup(cmd->option[j - 1]);
-			j++;
-		}
-		ret[j] = NULL;
-	}
-	return (ret);
+	free(cmd->full_cmd[0]);
+	cmd->full_cmd[0] = NULL;
+	cmd->full_cmd[0] = ft_strdup(cmd->cmd);
+	if (!cmd->full_cmd[0])
+		free_msc_and_errno(cmd->msc, "Error in assemble_cmd(): ");
+	return (cmd->full_cmd);
 }
 
 //constructs an array of strings containing the env variables saved in
@@ -118,12 +58,7 @@ char	**assemble_env(t_env *env)
 		return (NULL);
 	i = 0;
 	tmp = env;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	ret = malloc(sizeof(char *) * (i + 1)); //add int variable to the t_env list to save lines here
+	ret = malloc(sizeof(char *) * (nb_of_env_vars(tmp) + 1));
 	if (!ret)
 		return (NULL);
 	i = 0;
@@ -137,6 +72,21 @@ char	**assemble_env(t_env *env)
 	}
 	ret[i] = NULL;
 	return (ret);
+}
+
+//counts the number of elements in the t_env list used by minishell
+int	nb_of_env_vars(t_env *env)
+{
+	int	i;
+
+	if (!env)
+		return (0);
+	while (env)
+	{
+		i++;
+		env = env->next;
+	}
+	return (i);
 }
 
 //returns a string containing an env variable's name 

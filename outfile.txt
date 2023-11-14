@@ -1,0 +1,20 @@
+total 1040
+drwxrwxr-x 9 alex alex   4096 Nov 14 17:16 ./
+drwxr-xr-x 5 alex alex   4096 Aug 15 17:18 ../
+drwxrwxr-x 8 alex alex   4096 Nov 13 17:07 .git/
+-rwxrwxr-x 1 alex alex    595 Sep 21 17:44 git_auto_commit.sh*
+drwxrwxr-x 2 alex alex   4096 Nov 13 17:05 inc/
+drwxrwxr-x 2 alex alex   4096 Okt 19 21:16 #KNOWLEDGE_HUB#/
+-rw-rw-r-- 1 alex alex     74 Nov 13 17:05 leaks.supp
+-rw-rw-r-- 1 alex alex   6315 Nov 14 14:18 Makefile
+-rwxrwxr-x 1 alex alex 170344 Nov 14 17:15 minishell*
+-rw-rw-r-- 1 alex alex 804695 Aug 15 17:18 minishell.pdf
+drwxrwxr-x 6 alex alex   4096 Aug 15 17:18 MY_LIB/
+drwxrwxr-x 2 alex alex   4096 Sep 20 19:19 old/
+-rw-rw-r-- 1 alex alex   5082 Okt  1 16:29 old_expander
+-rw-r--r-- 1 alex alex      0 Nov 14 17:16 outfile.txt
+-rwxrwxr-x 1 alex alex  16016 Nov  8 14:26 prog*
+-rw-rw-r-- 1 alex alex   2476 Sep 29 15:08 README
+drwxrwxr-x 2 alex alex   4096 Nov 14 17:15 src/
+drwxrwxr-x 2 alex alex   4096 Okt 10 19:55 .vscode/
+-rw-rw-r-- 1 alex alex    702 Nov  7 23:50 z_tickets

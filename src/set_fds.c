@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 22:09:10 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/11 13:52:34 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/13 22:04:23 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,16 @@ int	set_redir(t_cmd *cmd, int *p_fds, int *pr_op)
 	(void)p_fds;
 	(void)pr_op;
 	if (cmd->fd_in != 0)
+	{
 		if (dup2(cmd->fd_in, 0) == -1)
 			return (-1);
+		//FOR DEBUGGING: try closing fd_in if a child process leaks
+	}
 	if (cmd->fd_out != 1)
+	{
 		if (dup2(cmd->fd_out, 1) == -1)
 			return (-1);
+		//FOR DEBUGGING: try closing fd_out if a child process leaks
+	}
 	return (0);
 }
