@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 14:49:43 by abektimi          #+#    #+#             */
-/*   Updated: 2023/10/21 17:06:09 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/10 03:19:34 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	*del_split(char **words, int i)
 			i--;
 		}
 		free(words);
+		words = NULL;
 	}
 	return (NULL);
 }
