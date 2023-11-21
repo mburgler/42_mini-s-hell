@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_stuff.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:54:00 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/10 16:45:00 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:34:07 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_free_arr(char **strs)
 			free(strs[i]);
 		i++;
 	}
-	// free_null((void **)&strs);
 	free(strs);
 }
 
@@ -54,4 +53,11 @@ void	free_all(t_msc *msc)
 	if (msc->dup_env)
 		ft_envclear(&msc->dup_env);
 	free(msc);
+}
+
+void	free_msc_and_exit_success(t_msc *msc)
+{
+	if (msc)
+		free_all(msc);
+	exit(0);
 }

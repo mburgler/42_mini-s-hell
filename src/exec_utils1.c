@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 05:24:27 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/14 14:17:33 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/18 17:17:21 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,28 @@ int	is_builtin(const char *str)
 //node of type t_cmd before passing full_cmd to execve()
 char	**assemble_cmd(t_cmd *cmd)
 {
+	int		i;
+	char	**ret;
+
 	if (!cmd || !cmd->full_cmd)
 		return (NULL);
 	free(cmd->full_cmd[0]);
 	cmd->full_cmd[0] = NULL;
 	cmd->full_cmd[0] = ft_strdup(cmd->cmd);
 	if (!cmd->full_cmd[0])
-		free_msc_and_errno(cmd->msc, "Error in assemble_cmd(): ");
+		return (NULL);
+	i = 0;
+	while (cmd->full_cmd[i])
+		i++;
+	if (i == 1 && cmd->fd_in_type == HEREDOC)
+	{
+		ret = malloc(sizeof(char *) * 3);
+		ret[0] = ft_strdup(cmd->cmd);
+		ret[1] = ft_strdup(cmd->heredoc_name);
+		ret[2] = NULL;
+		free_2d_arr(cmd->full_cmd);
+		cmd->full_cmd = ret;
+	}
 	return (cmd->full_cmd);
 }
 

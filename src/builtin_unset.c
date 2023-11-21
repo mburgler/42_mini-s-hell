@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 13:13:39 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/06 00:07:02 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:33:18 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	unset_indiv_node(t_msc *msc, t_env *node)
 		tmp = tmp->next;
 	tmp->next = node->next;
 	free(node->key);
-
 	free(node->value);
 	free(node);
 }

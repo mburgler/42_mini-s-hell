@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_dup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:40:53 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/04 14:23:47 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:44:04 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_env	*ft_dup_envnew(char *str, t_msc *msc)
 		ret->value = ft_substr(str, i_split + 1, ft_strlen(str) - i_split);
 		if (!ret->value)
 			dup_env_error(msc, ret);
-	}	
+	}
 	ret->next = NULL;
 	ret->msc = msc;
 	return (ret);

@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 17:26:23 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/14 14:21:19 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/21 20:34:35 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,51 @@ int	exec_single_builtin(t_cmd *cmd)
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 		builtin_exit_head(cmd);
 	return (0);
+}
+
+int	is_no_op_builtin(const char *cmd)
+{
+	if (!cmd)
+		return (0);
+	if (ft_strcmp(cmd, "cd") == 0)
+		return (1);
+	if (ft_strcmp(cmd, "pwd") == 0)
+		return (1);
+	if (ft_strcmp(cmd, "export") == 0)
+		return (1);
+	if (ft_strcmp(cmd, "unset") == 0)
+		return (1);
+	if (ft_strcmp(cmd, "exit") == 0)
+		return (1);
+	return (0);
+}
+
+int	exec_no_op_builtin(t_cmd *cmd)
+{
+	if (!cmd)
+		return (-1);
+	if (ft_strcmp(cmd->cmd, "cd") == 0)
+		builtin_cd_head(cmd);
+	if (ft_strcmp(cmd->cmd, "pwd") == 0)
+		builtin_pwd_head();
+	if (ft_strcmp(cmd->cmd, "export") == 0)
+		builtin_export_head(cmd->msc, cmd);
+	if (ft_strcmp(cmd->cmd, "unset") == 0)
+		builtin_unset_head(cmd->msc, cmd);
+	if (ft_strcmp(cmd->cmd, "exit") == 0)
+		builtin_exit_head(cmd);
+	return (0);
+}
+
+//sets the g_sig_status variable to the corresponding exit status in
+//the case that WIFSIGNALED(status) is true
+void	set_sig_exit_status(int wstatus)
+{
+	if (!WCOREDUMP(wstatus))
+		g_sig_status = WTERMSIG(wstatus);
+	else
+	{
+		g_sig_status = 139;
+		write(2, "CHILD PROCESS encountered segmentation fault\n", 45);
+	}
 }

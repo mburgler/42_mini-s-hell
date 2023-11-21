@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:47:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/10 05:48:51 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/20 21:34:33 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ void	printcmds(t_cmd *cmds)
 		}
 		printf("cmd: %s\n", cmds->cmd);
 		//printf("option: %s\n", cmds->option);
-		ft_print2d(cmds->option);
+		//ft_print2d(cmds->option);
 		printf("pid: %d\n", cmds->pid);
 		printf("fd_in: %d\n", cmds->fd_in);
 		printf("fd_in_type: %d\n", cmds->fd_in_type);

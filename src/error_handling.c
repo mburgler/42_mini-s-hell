@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 18:00:02 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/01 02:20:14 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/14 21:26:12 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,16 @@ void	free_msc_and_exit(t_msc *msc, char *msg)
 
 void	free_msc_and_errno(t_msc *msc, char *msg)
 {
-	char	*err_msg;
-	char	*full_msg;
-
-	err_msg = ft_strjoin(strerror(errno), "\n");
-	full_msg = ft_strjoin(msg, err_msg);
-	perror(full_msg);
-	free(err_msg);
-	free(full_msg);
+	perror(msg);
+	strerror(errno);
 	if (msc)
 		free_all(msc);
+	exit(1);
+}
+
+void	exit_child_and_errno(char *msg)
+{
+	perror(msg);
+	strerror(errno);
 	exit(1);
 }

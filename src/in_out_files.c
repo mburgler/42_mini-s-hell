@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_out_files.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/10 16:46:56 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:48:55 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,14 @@ void	ft_outfile(t_cmd *cmd, int i, int type)
 		close(cmd->fd_out);
 	if (type == OP_REDIR)
 	{
-		cmd->fd_out = open(cmd->full_cmd[i], O_CREAT | O_RDWR | O_TRUNC, 
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		cmd->fd_out = open(cmd->full_cmd[i], O_CREAT | O_RDWR | O_TRUNC,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		cmd->fd_out_type = OP_REDIR;
 	}
 	else if (type == APPEND)
 	{
-		cmd->fd_out = open(cmd->full_cmd[i], O_CREAT | O_WRONLY | O_APPEND, 
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		cmd->fd_out = open(cmd->full_cmd[i], O_CREAT | O_WRONLY | O_APPEND,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		cmd->fd_out_type = APPEND;
 	}
 	if (cmd->fd_out == -1)
@@ -135,12 +135,12 @@ int	handle_heredoc(t_cmd *cmd, int i)
 
 	nmb_itoa = ft_itoa(cmd->index);
 	cmd->heredoc_name = ft_strjoin(".tmp_heredoc", nmb_itoa);
-	fd = open(cmd->heredoc_name, O_CREAT | O_RDWR, 
+	fd = open(cmd->heredoc_name, O_CREAT | O_RDWR,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	free(nmb_itoa);
 	cmd->fd_in_type = HEREDOC;
 	if (fd == -1)
-		return(fd);
+		return (fd);
 	buff = NULL;
 	while (1)
 	{
@@ -186,7 +186,7 @@ void	kill_in_out_file(t_cmd *cmd)
 
 t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (cmd->prev == NULL)

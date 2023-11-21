@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:38:26 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/14 14:20:32 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:30:51 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,25 @@
 void	*free_exec_temps(char *del1, char *del2, char **del3, char **del4)
 {
 	if (del1 != NULL)
+	{
 		free(del1);
+		del1 = NULL;
+	}
 	if (del2 != NULL)
+	{
 		free(del2);
+		del2 = NULL;
+	}
 	if (del3 != NULL)
+	{
 		free_2d_arr(del3);
+		del3 = NULL;
+	}
 	if (del4 != NULL)
+	{
 		free_2d_arr(del4);
+		del4 = NULL;
+	}
 	return (NULL);
 }
 
@@ -77,7 +89,7 @@ char	*find_cmd_path(char *const cmd[], t_env *env)
 //calls the required function depending on the builtin
 int	exec_builtin(t_cmd *cmd)
 {
-	if (!cmd) // MATTEO AUSKOMMENTIERT weil muss funtktionieren für export, unset und env|| !env)
+	if (!cmd)
 		return (-1);
 	if (ft_strcmp(cmd->cmd, "echo") == 0)
 		builtin_echo_head(cmd);

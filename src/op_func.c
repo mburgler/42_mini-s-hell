@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_func.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/11 16:58:18 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:54:00 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	tokenize_op(t_msc *msc)
 {
 	t_list	*tmp;
 
-    tmp = msc->lex;
+	tmp = msc->lex;
 	while (tmp && tmp->str)
 	{
 		if (tmp->exp == 0)
@@ -44,7 +44,7 @@ void	rejoin_tokens(t_msc *msc)
 	{
 		tf = tmp->next;
 		if (((tmp->str[0] == '>' && tf->str[0] == '>') || (tmp->str[0] == '<'
-			&& tf->str[0] == '<')) && !tmp->str[1] && tmp->exp == 0)
+					&& tf->str[0] == '<')) && !tmp->str[1] && tmp->exp == 0)
 		{
 			buff = tmp->str;
 			tmp->str = ft_strjoin(tmp->str, tmp->next->str);
