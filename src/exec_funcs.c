@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/21 20:39:08 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:45:02 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,6 @@ int	make_pipeline(t_msc *msc)
 		i++;
 	}
 	wait_and_analyze(msc, pid);
+	free(pid);
 	return (0);
 }

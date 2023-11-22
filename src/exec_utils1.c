@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 05:24:27 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/18 17:17:21 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:48:52 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	nb_of_env_vars(t_env *env)
 {
 	int	i;
 
+	i = 0;
 	if (!env)
 		return (0);
 	while (env)

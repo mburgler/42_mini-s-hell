@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/14 17:48:55 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:41:03 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,7 @@ void	ft_outfile(t_cmd *cmd, int i, int type)
 	if (cmd->fd_out == -1)
 	{
 		g_sig_status = 1;
-		printf("ERROR w/ output redirection\n");
-		//BEKTI BITTE MACHEN
+		free_msc_and_errno(cmd->msc, "Error in ft_outfile()");
 	}
 }
 
@@ -122,8 +121,7 @@ void	ft_infile(t_cmd *cmd, int i, int type)
 	if (cmd->fd_in == -1)
 	{
 		g_sig_status = 1;
-		printf("ERROR w/ input redirection\n");
-		//BEKTI BITTE MACHEN
+		free_msc_and_errno(cmd->msc, "Error in ft_infile()");
 	}
 }
 

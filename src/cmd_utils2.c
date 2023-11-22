@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:47:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/20 21:34:33 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:49:05 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,33 +133,33 @@ int	nb_of_estr(char **arr)
 }
 
 //ONLY MEANT FOR TESTING PURPOSES
-void	printcmds(t_cmd *cmds)
-{
-	int	i;
+// void	printcmds(t_cmd *cmds)
+// {
+// 	int	i;
 
-	if (!cmds)
-	{
-		printf("\n\nCouldn't print stuff\n\n");
-		return ;
-	}
-	while (cmds)
-	{
-		i = 0;
-		printf("\nNode %d:\n\n", cmds->index);
-		while (cmds->full_cmd && cmds->full_cmd[i] != NULL)
-		{
-			printf("\n%s\n", cmds->full_cmd[i]);
-			i++;
-		}
-		printf("cmd: %s\n", cmds->cmd);
-		//printf("option: %s\n", cmds->option);
-		//ft_print2d(cmds->option);
-		printf("pid: %d\n", cmds->pid);
-		printf("fd_in: %d\n", cmds->fd_in);
-		printf("fd_in_type: %d\n", cmds->fd_in_type);
-		printf("fd_out: %d\n", cmds->fd_out);
-		printf("fd_out_type: %d\n", cmds->fd_out_type);
-		printf("--------------------\n");
-		cmds = cmds->next;
-	}
-}
+// 	if (!cmds)
+// 	{
+// 		printf("\n\nCouldn't print stuff\n\n");
+// 		return ;
+// 	}
+// 	while (cmds)
+// 	{
+// 		i = 0;
+// 		printf("\nNode %d:\n\n", cmds->index);
+// 		while (cmds->full_cmd && cmds->full_cmd[i] != NULL)
+// 		{
+// 			printf("\n%s\n", cmds->full_cmd[i]);
+// 			i++;
+// 		}
+// 		printf("cmd: %s\n", cmds->cmd);
+// 		//printf("option: %s\n", cmds->option);
+// 		//ft_print2d(cmds->option);
+// 		printf("pid: %d\n", cmds->pid);
+// 		printf("fd_in: %d\n", cmds->fd_in);
+// 		printf("fd_in_type: %d\n", cmds->fd_in_type);
+// 		printf("fd_out: %d\n", cmds->fd_out);
+// 		printf("fd_out_type: %d\n", cmds->fd_out_type);
+// 		printf("--------------------\n");
+// 		cmds = cmds->next;
+// 	}
+// }
