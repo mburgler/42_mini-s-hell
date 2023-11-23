@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 18:00:02 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/14 21:26:12 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/23 19:46:48 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,14 @@ void	exit_child_and_errno(char *msg)
 	perror(msg);
 	strerror(errno);
 	exit(1);
+}
+
+void	exit_child_eacces(t_cmd *cmd, char *path, char **c_cmd, char **c_env)
+{
+	free_exec_temps(path, NULL, c_cmd, c_env);
+	free_all(cmd->msc);
+	perror("Error in executor()");
+	strerror(EACCES);
+	g_sig_status = 126;
+	exit(g_sig_status);
 }

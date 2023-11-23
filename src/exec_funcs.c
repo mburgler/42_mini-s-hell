@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/22 18:45:02 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/23 19:50:59 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,14 @@ int	executor(t_cmd *cmd, t_env *env, int cmd_type)
 	set_exec_temps(&cmd, &path, &cur_cmd, &cur_env);
 	if (execve(path, cur_cmd, cur_env) == -1)
 	{
+		if (!path || !cur_cmd)
+			g_sig_status = 127;
 		free_exec_temps(path, NULL, cur_cmd, cur_env);
 		perror("Error in executor()");
 		strerror(errno);
-		exit(1);
+		if (errno == EACCES)
+			g_sig_status = 126;
+		exit(g_sig_status);
 	}
 	return (0);
 }

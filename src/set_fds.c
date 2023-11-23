@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 22:09:10 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/21 20:23:47 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:41:26 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,8 @@ int	set_file_desc(t_cmd *cmd, int *p_fds, int *pr_op)
 		close(cmd->fd_out);
 	}
 	if (*pr_op != 0)
-	{
-		if (dup2(*pr_op, STDIN_FILENO) == -1)
+		if (set_prev_output(pr_op) == -1)
 			return (-1);
-		close(*pr_op);
-	}
 	return (0);
 }
 
@@ -55,4 +52,14 @@ void	close_all(t_cmd *cmds)
 		close(cmds->p_fds[1]);
 		cmds = cmds->next;
 	}
+}
+
+int	set_prev_output(int *pr_op)
+{
+	if (!pr_op)
+		return (-1);
+	if (dup2(*pr_op, STDIN_FILENO) == -1)
+		return (-1);
+	close(*pr_op);
+	return (0);
 }

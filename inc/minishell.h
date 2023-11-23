@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/21 20:34:51 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/23 19:47:06 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	malloc_error_free_exit(t_msc *msc, char *to_free, char *to_free2);
 void	free_msc_and_exit(t_msc *msc, char *msg);
 void	free_msc_and_errno(t_msc *msc, char *msg);
 void	exit_child_and_errno(char *msg);
+void	exit_child_eacces(t_cmd *cmd, char *path, char **c_cmd, char **c_env);
 
 //main.c
 t_msc	*init_msc(char **env);
@@ -265,6 +266,7 @@ void	set_sig_exit_status(int wstatus);
 //set_fds.c
 int		set_file_desc(t_cmd *cmd, int *p_fds, int *pr_op);
 void	close_all(t_cmd *cmds);
+int		set_prev_output(int *pr_op);
 
 //BUILTINS
 //builtin_env.c
