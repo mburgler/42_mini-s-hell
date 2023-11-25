@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/11/25 16:22:52 by mburgler         ###   ########.fr       */
-=======
-/*   Updated: 2023/11/23 19:47:06 by abektimi         ###   ########.fr       */
->>>>>>> 5f5c34bb22b22be80c5f2c4cda21bfed6eaa7222
+/*   Updated: 2023/11/25 16:38:58 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
