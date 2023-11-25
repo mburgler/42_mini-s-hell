@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/25 19:10:21 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/25 19:16:39 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	exp_head(t_msc *msc)
 	}
 	exp_retokenize(msc);
 	reset_lex_index(msc->lex);
+	ft_printlist(msc->lex);
 }
 
 void	exp_logic_new(t_msc *msc, t_list *tmp)
@@ -56,32 +57,32 @@ void	exp_logic_new(t_msc *msc, t_list *tmp)
 		{
 			tmp->exp = 1;
 			a0_end = ft_trimascii(tmp->str + i + 1);
-			exp_sub(tmp, i, a0_end, msc);
+			exp_sub(tmp->str, i, a0_end, msc);
 		}
 	}
 }
 
-void	exp_sub(t_list *tmp, int i, int a0, t_msc *msc)
+void	exp_sub(char *str, int i, int a0, t_msc *msc)
 {
 	char	*env;
 	char	*beg;
 	char	*end;
 	char	*placeholder;
 
-	placeholder = tmp->str;
-	env = ft_substr(tmp->str, i + 1, a0);
+	placeholder = str;
+	env = ft_substr(str, i + 1, a0);
 	if (!env)
 		malloc_error_free_exit(msc, NULL, NULL);
 	if (i > 0)
-		beg = ft_substr(tmp->str, 0, i);
+		beg = ft_substr(str, 0, i);
 	else
 		beg = ft_strdup("");
 	if (!beg)
 		malloc_error_free_exit(msc, env, NULL);
-	if (tmp->str[i + a0 + 1] == '\0')
+	if (str[i + a0 + 1] == '\0')
 		end = ft_strdup("");
 	else
-		end = ft_substr(tmp->str, i + a0 + 1, ft_strlen(tmp->str) - a0 - i);
+		end = ft_substr(str, i + a0 + 1, ft_strlen(str) - a0 - i);
 	if (!end)
 		malloc_error_free_exit(msc, beg, env);
 	free(placeholder);
@@ -93,11 +94,11 @@ void	exp_sub(t_list *tmp, int i, int a0, t_msc *msc)
 	if (!placeholder)
 		malloc_error_free_exit(msc, beg, end);
 	free(env);
-	tmp->str = ft_strjoin_free(beg, placeholder, beg, placeholder);
-	if (!tmp->str)
+	str = ft_strjoin_free(beg, placeholder, beg, placeholder);
+	if (!str)
 		malloc_error_free_exit(msc, end, NULL);
-	tmp->str = ft_strjoin_free(tmp->str, end, tmp->str, end);
-	if (!tmp->str)
+	str = ft_strjoin_free(str, end, str, end);
+	if (!str)
 		malloc_error_free_exit(msc, NULL, NULL);
 }
 

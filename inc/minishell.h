@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/25 18:15:07 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/25 19:12:06 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void	quit_child(int sig);
 //exp_func.c
 void	exp_head(t_msc *msc);
 void	exp_logic_new(t_msc *msc, t_list *tmp);
-void	exp_sub(t_list *tmp, int i, int a0, t_msc *msc);
+void	exp_sub(char *str, int i, int a0, t_msc *msc);
 void	exp_dol_qmark(t_msc *msc, t_list *tmp, int i);
 void	exp_tilde(t_msc *msc, t_list *tmp);
 int		ft_shift_to_dollar(char *str, int reboot);
