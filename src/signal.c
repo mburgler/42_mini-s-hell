@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:02:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/21 17:53:54 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/25 16:51:12 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	handle_sigint(int sig)
 	(void)sig;
 	g_sig_status = 130;
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	rl_replace_line("", 0);
+	//rl_replace_line("", 0);
 	rl_on_new_line();
 }
 

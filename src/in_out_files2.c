@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.c                                            :+:      :+:    :+:   */
+/*   in_out_files2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/08 15:23:46 by mburgler          #+#    #+#             */
-/*   Updated: 2023/08/08 15:24:51 by mburgler         ###   ########.fr       */
+/*   Created: 2023/11/25 18:06:04 by mburgler          #+#    #+#             */
+/*   Updated: 2023/11/25 18:06:40 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	debug_print_list(t_list *list)
+t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp)
 {
-	while (list)
+	int	i;
+
+	i = 0;
+	if (cmd->prev == NULL)
+		return (tmp);
+	else
 	{
-		printf("%s\n", list->str);
-		list = list->next;
+		while (cmd->index != i)
+		{
+			while (tmp->token_status != IS_PIPE)
+			{
+				tmp = tmp->next;
+			}
+			tmp = tmp->next;
+			i++;
+		}
 	}
+	return (tmp);
 }

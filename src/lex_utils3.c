@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_utils3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 14:50:24 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/21 18:31:06 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/25 19:02:17 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	consec_ops(t_msc *msc)
 	{
 		cur = tmp->token_status;
 		nxt = tmp->next->token_status;
-		if ((cur >= IS_PIPE && cur <= HEREDOC)
-			&& (nxt >= IS_PIPE && nxt <= HEREDOC))
+		if (((cur >= IP_REDIR && cur <= HEREDOC) && (nxt >= IP_REDIR
+					&& nxt <= HEREDOC)) || (cur == IS_PIPE && nxt == IS_PIPE))
 		{
 			g_sig_status = 258;
 			return (1);

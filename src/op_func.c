@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_func.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 00:31:09 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/14 17:54:00 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/25 17:56:19 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	tokenize_individual_op(t_msc *msc, t_list *tmp, char op)
 
 	i = 0;
 	while (tmp->str[i] && tmp->str[i] != op
-		&& (tmp->str[i] != '\"' || tmp->str[i] != '\"'))
+		&& (tmp->str[i] != '\'' && tmp->str[i] != '\"'))
 		i++;
 	i = jump_quotes(tmp->str, i);
 	while (tmp->str[i] && tmp->str[i] != op)

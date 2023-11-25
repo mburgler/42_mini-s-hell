@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/25 16:38:58 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/25 18:15:07 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,7 @@ typedef struct s_msc
 	t_cmd	*cmd;
 	bool	loop;
 	char	*input;
-	//char	*env_user;
-	//char	*env_path;
-	//char	*env_cwd;
 	char	*env_home;
-	// char	*prompt_cwd;
-	// char	*prompt;
 	t_env	*dup_env;
 }				t_msc;
 
@@ -198,7 +193,6 @@ void	set_token_flag(t_list *lst);
 int		is_operator(const char *s);
 int		is_operator_str(const char *s);
 void	reset_lex_index(t_list *lst);
-int		no_pipes(t_list *lst);
 
 //lex_utils3.c
 int		check_whs_betw_op(t_msc *msc, char op);
@@ -218,7 +212,6 @@ char	**lex_split(char *s);
 t_cmd	*ft_cmdnew(t_msc *ms, int i);
 void	ft_cmdadd_back(t_cmd **lst, t_cmd *new);
 t_cmd	*ft_cmdlast(t_cmd *lst);
-void	ft_cmdclear(t_cmd **lst);
 t_cmd	*init_cmd(t_msc *msc, int nb);
 
 //cmd_utils2.c
@@ -227,6 +220,11 @@ char	**cmd_setter(t_list *lst);
 char	**get_full_cmd(t_list *lst, int start, int end);
 char	**shorten_arr(char **ret, int len);
 int		nb_of_estr(char **arr);
+
+//cmd_utils3.c
+void	ft_cmdclear(t_cmd **lst);
+void	kill_heredoc(t_cmd **lst);
+int		no_pipes(t_list *lst);
 void	printcmds(t_cmd *cmds); //ONLY FOR TESTING PURPOSES
 
 //in_out_files.c
@@ -234,8 +232,10 @@ int		set_in_out_file(t_cmd *cmd);
 void	ft_outfile(t_cmd *cmd, int i, int type);
 void	ft_infile(t_cmd *cmd, int i, int type);
 void	kill_in_out_file(t_cmd *cmd);
-t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp);
 int		handle_heredoc(t_cmd *cmd, int i);
+
+//in_out_files_utils.c
+t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp);
 
 //exec_prep.c
 void	set_c_and_o(t_cmd *cmds);

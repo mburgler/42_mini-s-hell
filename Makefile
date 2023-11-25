@@ -6,7 +6,7 @@
 #    By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/21 10:55:14 by mburgler          #+#    #+#              #
-#    Updated: 2023/11/25 16:37:57 by mburgler         ###   ########.fr        #
+#    Updated: 2023/11/25 18:13:17 by mburgler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,9 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
 					src/kill_quotes.c \
                     src/cmd_utils1.c \
                     src/cmd_utils2.c \
+					src/cmd_utils3.c \
                     src/in_out_files.c \
+					src/in_out_files2.c \
                     src/exec_funcs.c \
                     src/exec_prep.c \
                     src/exec_utils1.c \
