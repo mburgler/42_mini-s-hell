@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:40:53 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/04 14:23:47 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/25 16:08:32 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	dup_env_head(t_msc *msc, char **org_env)
 		tmp = ft_dup_envnew(org_env[i], msc);
 		ft_envadd_back(&msc->dup_env, tmp);
 	}
+	sh_lvl(msc);
 }
 
 t_env	*ft_dup_envnew(char *str, t_msc *msc)

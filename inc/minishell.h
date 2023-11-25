@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/14 10:18:02 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/25 16:22:52 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,12 +118,17 @@ void	dup_env_head(t_msc *msc, char **org_env);
 t_env	*ft_dup_envnew(char *str, t_msc *msc);
 void	dup_env_error(t_msc *msc, t_env *current_node);
 char	*ft_getenv(char *searchterm, t_msc *msc);
-
 //env_utils.c
 void	ft_envadd_back(t_env **lst, t_env *new);
 t_env	*ft_envlast(t_env *lst);
 void	ft_envclear(t_env **lst);
 int		ft_strcmp(const char *s1, const char *s2);
+
+//env_utils2.c
+void	sh_lvl(t_msc *msc);
+int		sh_lvl_irregular(t_msc *msc, t_env *tmp);
+int		sh_lvl_alph(t_msc *msc, t_env *tmp);
+int		sh_lvl_overflow(const char *str);
 
 //signals.c
 void	handle_sigint(int sig);
