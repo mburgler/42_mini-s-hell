@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/11/25 16:22:52 by mburgler         ###   ########.fr       */
+=======
+/*   Updated: 2023/11/23 19:47:06 by abektimi         ###   ########.fr       */
+>>>>>>> 5f5c34bb22b22be80c5f2c4cda21bfed6eaa7222
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +68,7 @@ typedef struct s_cmd
 	int				fd_in_type;
 	int				fd_out;
 	int				fd_out_type;
+	int				p_fds[2];
 	char			*heredoc_name;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
@@ -98,19 +103,22 @@ typedef struct s_msc
 extern int	g_sig_status;
 
 //free_stuff.c
-void	free_null(void **ptr);
 void	ft_free_arr(char **strs);
 void	free_structs_and_input(t_msc *msc);
 void	free_all(t_msc *msc);
+void	free_msc_and_exit_success(t_msc *msc);
 
 //error_handling.c
 void	malloc_error_free_exit(t_msc *msc, char *to_free, char *to_free2);
 void	free_msc_and_exit(t_msc *msc, char *msg);
 void	free_msc_and_errno(t_msc *msc, char *msg);
+void	exit_child_and_errno(char *msg);
+void	exit_child_eacces(t_cmd *cmd, char *path, char **c_cmd, char **c_env);
 
 //main.c
 t_msc	*init_msc(char **env);
 void	handle_input(t_msc *msc);
+int		no_chars(const char *str);
 void	ft_print2d(char **strs); //ONLY FOR TESTING; DELETE FROM FINAL VERSION
 
 //env_dup.c
@@ -131,7 +139,9 @@ int		sh_lvl_alph(t_msc *msc, t_env *tmp);
 int		sh_lvl_overflow(const char *str);
 
 //signals.c
+//signal.c
 void	handle_sigint(int sig);
+void	quit_child(int sig);
 
 //exp_func.c
 void	exp_head(t_msc *msc);
@@ -233,37 +243,40 @@ int		handle_heredoc(t_cmd *cmd, int i);
 
 //exec_prep.c
 void	set_c_and_o(t_cmd *cmds);
-void	alloc_c_and_o(t_cmd **cmd, int n, char **cmd_and_opt);
 void	isolate_cmd(t_cmd **cmd);
 
 //exec_funcs.c
 int		executor(t_cmd *cmd, t_env *env, int cmd_type);
-int		wait_and_analyze(pid_t pid);
-int		main_process(t_msc *msc, pid_t pid, int *p_fds, int *pr_op);
-int		process_cmd(t_cmd *cmd, t_env *env, int *p_fds, int *prev_output);
-void	make_pipeline(t_msc *msc);
+int		wait_and_analyze(t_msc *msc, pid_t *pid);
+int		main_process(t_cmd *cmd, int *pr_op);
+int		process_cmd(t_cmd *cmd, t_env *env, int *prev_output);
+int		make_pipeline(t_msc *msc);
 
 //exec_utils1.c
-int		is_option(const char *str);
 int		is_builtin(const char *str);
 char	**assemble_cmd(t_cmd *cmd);
 char	**assemble_env(t_env *env);
+int		nb_of_env_vars(t_env *env);
 char	*get_key_and_value(const char *key, const char *value);
 
 //exec_utils2.c
 void	*free_exec_temps(char *del1, char *del2, char **del3, char **del4);
 char	**get_dirs(t_env *env);
 char	*find_cmd_path(char *const cmd[], t_env *env);
-int		exec_builtin(t_cmd *cmd, t_env *env);
+int		exec_builtin(t_cmd *cmd);
 int		nb_of_processes(t_cmd *cmd);
 
 //exec_utils3.c
 void	set_exec_temps(t_cmd **cmd, char **path, char ***c_cmd, char ***c_env);
-int		exec_single_builtin(t_cmd *cmd, t_env *env);
+int		exec_single_builtin(t_cmd *cmd);
+int		is_no_op_builtin(const char *cmd);
+int		exec_no_op_builtin(t_cmd *cmd);
+void	set_sig_exit_status(int wstatus);
 
 //set_fds.c
 int		set_file_desc(t_cmd *cmd, int *p_fds, int *pr_op);
-int		set_redir(t_cmd *cmd, int *p_fds, int *pr_op);
+void	close_all(t_cmd *cmds);
+int		set_prev_output(int *pr_op);
 
 //BUILTINS
 //builtin_env.c
@@ -295,5 +308,9 @@ void	builtin_pwd_head(void);
 //builtin_cd.c
 void	builtin_cd_head(t_cmd *cmd);
 char	*set_path(t_cmd *cmd);
+
+//builtin_exit.c
+int		num_only(const char *str);
+void	builtin_exit_head(t_cmd *cmd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:40:53 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/25 16:08:32 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/25 16:37:12 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_env	*ft_dup_envnew(char *str, t_msc *msc)
 		ret->value = ft_substr(str, i_split + 1, ft_strlen(str) - i_split);
 		if (!ret->value)
 			dup_env_error(msc, ret);
-	}	
+	}
 	ret->next = NULL;
 	ret->msc = msc;
 	return (ret);

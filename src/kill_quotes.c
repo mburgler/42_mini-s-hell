@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   kill_quotes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:06:02 by mburgler          #+#    #+#             */
-/*   Updated: 2023/10/23 20:35:04 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:50:31 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	kill_quote_str(t_msc *msc, t_list *tmp, char q)
 {
 	char	*buff;
 	char	*to_free;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;

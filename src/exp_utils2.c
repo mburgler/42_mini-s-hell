@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 16:41:39 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/11 17:07:13 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:46:14 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int	ft_is_whitespace_str(char *str)
 		return (-1);
 	while (str[i])
 	{
-		if (str[i] == ' ' || str[i] == 9 || str[i] == 10 ||
-			str[i] == 11 || str[i] == 12 || str[i] == 13)
+		if (str[i] == ' ' || str[i] == 9 || str[i] == 10
+			|| str[i] == 11 || str[i] == 12 || str[i] == 13)
 			return (i);
 		i++;
 	}

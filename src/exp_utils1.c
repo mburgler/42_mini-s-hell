@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_utils1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 21:04:43 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/10 16:43:12 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:45:48 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_strjoin_free(char *s1, char *s2, char *to_free, char *to_free2)
 	{
 		res[i] = s1[i];
 		i++;
-	}	
+	}
 	while (s2[j])
 	{
 		res[i + j] = s2[j];
@@ -80,8 +80,8 @@ int	ft_trimascii(char *str)
 
 int	ft_is_whitespace(char *pos, int i)
 {
-	if (!pos[i] || pos[i] == ' ' || pos[i] == 9 || pos[i] == 10 ||
-		pos[i] == 11 || pos[i] == 12 || pos[i] == 13)
+	if (!pos[i] || pos[i] == ' ' || pos[i] == 9 || pos[i] == 10
+		|| pos[i] == 11 || pos[i] == 12 || pos[i] == 13)
 		return (i);
 	return (-1);
 }

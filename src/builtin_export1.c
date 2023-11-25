@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 13:13:35 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/10 16:35:43 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:32:12 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	export_new(t_msc *msc, char *str)
 	t_env	*tmp;
 
 	tmp = ft_dup_envnew(str, msc);
-
 	if (!msc->dup_env)
 	{
 		msc->dup_env = tmp;
@@ -113,7 +112,7 @@ void	export_known(t_msc *msc, char *str, t_env *node)
 		node->value = ft_strjoin(node->value, str + i_split + 1);
 	else if (str[i_split - 1] == '+' && (int)ft_strlen(str) == i_split + 1)
 		return ;
-	else if((int)ft_strlen(str) > i_split + 1)
+	else if ((int)ft_strlen(str) > i_split + 1)
 		node->value = ft_substr(str, i_split + 1, ft_strlen(str) - i_split);
 	else
 	{

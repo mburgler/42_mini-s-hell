@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/10 16:56:28 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/20 19:30:54 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,22 @@ void	handle_input(t_msc *msc)
 	}
 }
 
+int	no_chars(const char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (1);
+	while (str[i] != '\0')
+	{
+		if (!isws(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_msc	*msc;
@@ -57,7 +73,9 @@ int	main(int argc, char **argv, char **env)
 		signal(SIGINT, handle_sigint);
 		signal(SIGQUIT, SIG_IGN);
 		msc->input = readline("minishell $ ");
-		if (ft_strlen(msc->input) == 0)
+		if (msc->input == NULL)
+			free_msc_and_exit_success(msc);
+		else if (ft_strlen(msc->input) == 0 || no_chars(msc->input))
 			continue ;
 		else
 			handle_input(msc);

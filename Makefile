@@ -6,7 +6,11 @@
 #    By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/21 10:55:14 by mburgler          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2023/11/25 16:09:37 by mburgler         ###   ########.fr        #
+=======
+#    Updated: 2023/11/14 14:18:20 by abektimi         ###   ########.fr        #
+>>>>>>> 5f5c34bb22b22be80c5f2c4cda21bfed6eaa7222
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,6 +108,7 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
 					src/builtin_pwd.c \
 					src/builtin_cd.c \
 					src/builtin_unset.c \
+                    src/builtin_exit.c \
                     src/set_fds.c
 
 OBJS        := $(SRCS:.c=.o)

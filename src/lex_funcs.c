@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/11 15:19:41 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/20 21:35:18 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	input_lexer(t_msc *msc)
 		return ;
 	msc->cmd = init_cmd(msc, nb_of_cmds(msc->lex));
 	set_c_and_o(msc->cmd);
-	// printcmds(msc->cmd);
 	make_pipeline(msc);
 }
 

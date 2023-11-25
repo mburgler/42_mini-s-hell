@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_utils3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 14:50:24 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/10 16:55:53 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/21 18:31:06 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	consec_ops(t_msc *msc)
 	{
 		cur = tmp->token_status;
 		nxt = tmp->next->token_status;
-		if ((cur >= IS_PIPE && cur <= HEREDOC) 
+		if ((cur >= IS_PIPE && cur <= HEREDOC)
 			&& (nxt >= IS_PIPE && nxt <= HEREDOC))
 		{
 			g_sig_status = 258;
@@ -46,8 +46,8 @@ int	consec_ops(t_msc *msc)
 
 int	check_whs_betw_op(t_msc *msc, char op)
 {
-	int i;
-	char *tmp;
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	tmp = msc->input;
@@ -59,7 +59,7 @@ int	check_whs_betw_op(t_msc *msc, char op)
 			i++;
 		i++;
 		while (tmp[i] && (tmp[i] == ' ' || tmp[i] == 9 || tmp[i] == 10
-			|| tmp[i] == 11 || tmp[i] == 12 || tmp[i] == 13))
+				|| tmp[i] == 11 || tmp[i] == 12 || tmp[i] == 13))
 			i++;
 		if (tmp[i] && tmp[i] == op && tmp[i - 1] != op && op_no_quotes(tmp, i))
 			return (1);
@@ -69,8 +69,8 @@ int	check_whs_betw_op(t_msc *msc, char op)
 
 int	op_no_quotes(char *tmp, int op_pos)
 {
-	int i;
-	int quote_status;
+	int	i;
+	int	quote_status;
 
 	i = 0;
 	quote_status = 0;
