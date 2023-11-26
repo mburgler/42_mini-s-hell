@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 18:25:49 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/02 03:56:18 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/25 18:14:28 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,17 +117,4 @@ void	reset_lex_index(t_list *lst)
 		i++;
 		lst = lst->next;
 	}
-}
-
-int	no_pipes(t_list *lst)
-{
-	if (!lst)
-		return (1);
-	while (lst)
-	{
-		if (lst->token_status == IS_PIPE)
-			return (0);
-		lst = lst->next;
-	}
-	return (1);
 }

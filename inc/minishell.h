@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/23 19:47:06 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/25 19:12:06 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,7 @@ typedef struct s_msc
 	t_cmd	*cmd;
 	bool	loop;
 	char	*input;
-	//char	*env_user;
-	//char	*env_path;
-	//char	*env_cwd;
 	char	*env_home;
-	// char	*prompt_cwd;
-	// char	*prompt;
 	t_env	*dup_env;
 }				t_msc;
 
@@ -122,13 +117,19 @@ void	dup_env_head(t_msc *msc, char **org_env);
 t_env	*ft_dup_envnew(char *str, t_msc *msc);
 void	dup_env_error(t_msc *msc, t_env *current_node);
 char	*ft_getenv(char *searchterm, t_msc *msc);
-
 //env_utils.c
 void	ft_envadd_back(t_env **lst, t_env *new);
 t_env	*ft_envlast(t_env *lst);
 void	ft_envclear(t_env **lst);
 int		ft_strcmp(const char *s1, const char *s2);
 
+//env_utils2.c
+void	sh_lvl(t_msc *msc);
+int		sh_lvl_irregular(t_msc *msc, t_env *tmp);
+int		sh_lvl_alph(t_msc *msc, t_env *tmp);
+int		sh_lvl_overflow(const char *str);
+
+//signals.c
 //signal.c
 void	handle_sigint(int sig);
 void	quit_child(int sig);
@@ -136,7 +137,7 @@ void	quit_child(int sig);
 //exp_func.c
 void	exp_head(t_msc *msc);
 void	exp_logic_new(t_msc *msc, t_list *tmp);
-void	exp_sub(t_list *tmp, int i, int a0, t_msc *msc);
+void	exp_sub(char *str, int i, int a0, t_msc *msc);
 void	exp_dol_qmark(t_msc *msc, t_list *tmp, int i);
 void	exp_tilde(t_msc *msc, t_list *tmp);
 int		ft_shift_to_dollar(char *str, int reboot);
@@ -192,7 +193,6 @@ void	set_token_flag(t_list *lst);
 int		is_operator(const char *s);
 int		is_operator_str(const char *s);
 void	reset_lex_index(t_list *lst);
-int		no_pipes(t_list *lst);
 
 //lex_utils3.c
 int		check_whs_betw_op(t_msc *msc, char op);
@@ -212,7 +212,6 @@ char	**lex_split(char *s);
 t_cmd	*ft_cmdnew(t_msc *ms, int i);
 void	ft_cmdadd_back(t_cmd **lst, t_cmd *new);
 t_cmd	*ft_cmdlast(t_cmd *lst);
-void	ft_cmdclear(t_cmd **lst);
 t_cmd	*init_cmd(t_msc *msc, int nb);
 
 //cmd_utils2.c
@@ -221,6 +220,11 @@ char	**cmd_setter(t_list *lst);
 char	**get_full_cmd(t_list *lst, int start, int end);
 char	**shorten_arr(char **ret, int len);
 int		nb_of_estr(char **arr);
+
+//cmd_utils3.c
+void	ft_cmdclear(t_cmd **lst);
+void	kill_heredoc(t_cmd **lst);
+int		no_pipes(t_list *lst);
 void	printcmds(t_cmd *cmds); //ONLY FOR TESTING PURPOSES
 
 //in_out_files.c
@@ -228,8 +232,10 @@ int		set_in_out_file(t_cmd *cmd);
 void	ft_outfile(t_cmd *cmd, int i, int type);
 void	ft_infile(t_cmd *cmd, int i, int type);
 void	kill_in_out_file(t_cmd *cmd);
-t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp);
 int		handle_heredoc(t_cmd *cmd, int i);
+
+//in_out_files_utils.c
+t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp);
 
 //exec_prep.c
 void	set_c_and_o(t_cmd *cmds);

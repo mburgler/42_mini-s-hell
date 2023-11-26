@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+         #
+#    By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/21 10:55:14 by mburgler          #+#    #+#              #
-#    Updated: 2023/11/14 14:18:20 by abektimi         ###   ########.fr        #
+#    Updated: 2023/11/25 18:13:17 by mburgler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
 					src/error_handling.c \
                     src/env_dup.c \
 					src/env_utils.c \
+					src/env_utils2.c \
                     src/signal.c \
                     src/main.c \
                     src/list_utils1.c \
@@ -90,7 +91,9 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
 					src/kill_quotes.c \
                     src/cmd_utils1.c \
                     src/cmd_utils2.c \
+					src/cmd_utils3.c \
                     src/in_out_files.c \
+					src/in_out_files2.c \
                     src/exec_funcs.c \
                     src/exec_prep.c \
                     src/exec_utils1.c \

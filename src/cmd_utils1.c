@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:25:32 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/08 19:28:23 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/25 18:12:10 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,38 +65,6 @@ t_cmd	*ft_cmdlast(t_cmd *lst)
 			lst = lst->next;
 	}
 	return (lst);
-}
-
-//frees all nodes of a cmd list 'lst'
-void	ft_cmdclear(t_cmd **lst)
-{
-	t_cmd	*tmp;
-
-	if (!lst || !(*lst))
-		return ;
-	while (lst && *lst)
-	{
-		tmp = (*lst)->next;
-		if ((*lst)->cmd)
-			free((*lst)->cmd);
-		if ((*lst)->option)
-			free((*lst)->option);
-		if ((*lst)->full_cmd)
-			free_2d_arr((*lst)->full_cmd);
-		if ((*lst)->fd_out > 1)
-			close((*lst)->fd_out);
-		if ((*lst)->fd_in > 0)
-		{
-			close((*lst)->fd_in);
-			if ((*lst)->fd_in_type == HEREDOC)
-			{
-				unlink((*lst)->heredoc_name);
-				free((*lst)->heredoc_name);
-			}
-		}
-		free(*lst);
-		*lst = tmp;
-	}
 }
 
 //creates and initializes a cmd list with the required number of nodes

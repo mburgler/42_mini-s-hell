@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_out_files.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/22 19:41:03 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/25 18:06:32 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ int	handle_heredoc(t_cmd *cmd, int i)
 	cmd->fd_in_type = HEREDOC;
 	if (fd == -1)
 		return (fd);
-	buff = NULL;
 	while (1)
 	{
 		buff = readline("minidoc> ");
@@ -180,26 +179,4 @@ void	kill_in_out_file(t_cmd *cmd)
 	cmd->full_cmd = shorten_arr(cmd->full_cmd, i);
 	if (cmd->full_cmd == NULL)
 		free_msc_and_exit(cmd->msc, "Memory allocation error: malloc\n");
-}
-
-t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp)
-{
-	int	i;
-
-	i = 0;
-	if (cmd->prev == NULL)
-		return (tmp);
-	else
-	{
-		while (cmd->index != i)
-		{
-			while (tmp->token_status != IS_PIPE)
-			{
-				tmp = tmp->next;
-			}
-			tmp = tmp->next;
-			i++;
-		}
-	}
-	return (tmp);
 }

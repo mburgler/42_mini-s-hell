@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_dup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:40:53 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/14 17:44:04 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/25 16:37:12 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	dup_env_head(t_msc *msc, char **org_env)
 		tmp = ft_dup_envnew(org_env[i], msc);
 		ft_envadd_back(&msc->dup_env, tmp);
 	}
+	sh_lvl(msc);
 }
 
 t_env	*ft_dup_envnew(char *str, t_msc *msc)
