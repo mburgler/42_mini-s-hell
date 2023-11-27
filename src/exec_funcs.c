@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/27 14:42:08 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:49:57 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,10 @@ int	make_pipeline(t_msc *msc)
 		if (pid[i] == -1)
 			free_msc_and_errno(msc, "Error in make_pipeline()");
 		else if (pid[i] == 0)
+		{
+			free(pid);
 			process_cmd(tmp, msc->dup_env, &prev_output);
+		}
 		else if (pid[i] > 0)
 			main_process(tmp, &prev_output);
 		tmp = tmp->next;

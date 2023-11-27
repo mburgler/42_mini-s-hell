@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/25 18:06:32 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 11:49:35 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int	handle_heredoc(t_cmd *cmd, int i)
 	while (1)
 	{
 		buff = readline("minidoc> ");
-		buff = ft_strjoin_free(buff, "\n", buff, NULL);
+		buff = bootstrap_exp_heredoc(buff, cmd->msc);
 		if (!ft_strncmp(cmd->full_cmd[i], buff, ft_strlen(cmd->full_cmd[i])))
 		{
 			free(buff);
@@ -152,31 +152,4 @@ int	handle_heredoc(t_cmd *cmd, int i)
 		free(buff);
 	}
 	return (fd);
-}
-
-void	kill_in_out_file(t_cmd *cmd)
-{
-	int		i;
-	t_list	*tmp;
-
-	i = 0;
-	tmp = shift_lex_for_cmd(cmd, cmd->msc->lex);
-	while (cmd->full_cmd[i])
-	{
-		if ((cmd->full_cmd[i][0] == '>' || cmd->full_cmd[i][0] == '<')
-			&& tmp->quote_status == 0 && tmp->exp == 0)
-		{
-			free(cmd->full_cmd[i]);
-			cmd->full_cmd[i] = NULL;
-			cmd->full_cmd[i] = ft_strdup("");
-			free(cmd->full_cmd[i + 1]);
-			cmd->full_cmd[i + 1] = NULL;
-			cmd->full_cmd[i + 1] = ft_strdup("");
-		}
-		i++;
-		tmp = tmp->next;
-	}
-	cmd->full_cmd = shorten_arr(cmd->full_cmd, i);
-	if (cmd->full_cmd == NULL)
-		free_msc_and_exit(cmd->msc, "Memory allocation error: malloc\n");
 }

@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 14:50:24 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/25 19:02:17 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:37:04 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	check_whs_betw_op(t_msc *msc, char op)
 	{
 		while (tmp[i] != op && tmp[i])
 			i++;
-		i++;
+		if(tmp[i])
+			i++;
 		while (tmp[i] && (tmp[i] == ' ' || tmp[i] == 9 || tmp[i] == 10
 				|| tmp[i] == 11 || tmp[i] == 12 || tmp[i] == 13))
 			i++;
