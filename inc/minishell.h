@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 10:07:01 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 11:50:24 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,9 +136,9 @@ void	quit_child(int sig);
 
 //exp_func.c
 void	exp_head(t_msc *msc);
-void	exp_logic_new(t_msc *msc, t_list *tmp);
-void	exp_sub(t_list *tmp, int i, int a0, t_msc *msc);
-void	exp_dol_qmark(t_msc *msc, t_list *tmp, int i);
+char 	*exp_logic_new(t_msc *msc, char *str, t_list *tmp);
+char	*exp_sub(char *str, int i, int a0, t_msc *msc);
+char	*exp_dol_qmark(t_msc *msc, char *str, int i);
 void	exp_tilde(t_msc *msc, t_list *tmp);
 int		ft_shift_to_dollar(char *str, int reboot);
 int		get_quote_status(char *str, int dol_i);
@@ -234,8 +234,11 @@ void	ft_infile(t_cmd *cmd, int i, int type);
 void	kill_in_out_file(t_cmd *cmd);
 int		handle_heredoc(t_cmd *cmd, int i);
 
-//in_out_files_utils.c
+//in_out_files2.c
 t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp);
+char	*bootstrap_exp_heredoc(char *buff, t_msc *msc);
+char	*kill_quote_heredoc(t_msc *msc, char *str);
+void	kill_in_out_file(t_cmd *cmd);
 
 //exec_prep.c
 void	set_c_and_o(t_cmd *cmds);

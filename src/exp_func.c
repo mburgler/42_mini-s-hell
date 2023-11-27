@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 10:18:22 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 12:21:22 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exp_head(t_msc *msc)
 			continue ;
 		}
 		if (ft_strchr(tmp->str, '$'))
-			exp_logic_new(msc, tmp);
+			tmp->str = exp_logic_new(msc, tmp->str, tmp);
 		ft_shift_to_dollar(tmp->str, 1);
 		tmp = tmp->next;
 	}
@@ -37,51 +37,56 @@ void	exp_head(t_msc *msc)
 	reset_lex_index(msc->lex);
 }
 
-void	exp_logic_new(t_msc *msc, t_list *tmp)
+char	*exp_logic_new(t_msc *msc, char *str, t_list *tmp)
 {
 	int	i;
 	int	a0_end;
 
 	i = 0;
-	while (tmp->str[i])
+	while (str[i])
 	{
-		i = ft_shift_to_dollar(tmp->str, 0);
+		i = ft_shift_to_dollar(str, 0);
 		if (i == -1)
-			return ;
-		if (get_quote_status(tmp->str, i) == 1)
+		{
+			return (str);
+		}
+		if (get_quote_status(str, i) == 1)
 			continue ;
-		if (tmp->str[i + 1] == '?')
-			exp_dol_qmark(msc, tmp, i);
+		if (str[i + 1] == '?')
+			str = exp_dol_qmark(msc, str, i);
 		else
 		{
-			tmp->exp = 1;
-			a0_end = ft_trimascii(tmp->str + i + 1);
-			exp_sub(tmp, i, a0_end, msc);
+			if (tmp)
+				tmp->exp = 1;
+			a0_end = ft_trimascii(str + i + 1);
+			str = exp_sub(str, i, a0_end, msc);
 		}
 	}
+	free_msc_and_exit(msc, "expander error");
+	return (NULL);
 }
 
-void	exp_sub(t_list *tmp, int i, int a0, t_msc *msc)
+char	*exp_sub(char *str, int i, int a0, t_msc *msc)
 {
 	char	*env;
 	char	*beg;
 	char	*end;
 	char	*placeholder;
 
-	placeholder = tmp->str;
-	env = ft_substr(tmp->str, i + 1, a0);
+	placeholder = str;
+	env = ft_substr(str, i + 1, a0);
 	if (!env)
 		malloc_error_free_exit(msc, NULL, NULL);
 	if (i > 0)
-		beg = ft_substr(tmp->str, 0, i);
+		beg = ft_substr(str, 0, i);
 	else
 		beg = ft_strdup("");
 	if (!beg)
 		malloc_error_free_exit(msc, env, NULL);
-	if (tmp->str[i + a0 + 1] == '\0')
+	if (str[i + a0 + 1] == '\0')
 		end = ft_strdup("");
 	else
-		end = ft_substr(tmp->str, i + a0 + 1, ft_strlen(tmp->str) - a0 - i);
+		end = ft_substr(str, i + a0 + 1, ft_strlen(str) - a0 - i);
 	if (!end)
 		malloc_error_free_exit(msc, beg, env);
 	free(placeholder);
@@ -93,39 +98,41 @@ void	exp_sub(t_list *tmp, int i, int a0, t_msc *msc)
 	if (!placeholder)
 		malloc_error_free_exit(msc, beg, end);
 	free(env);
-	tmp->str = ft_strjoin_free(beg, placeholder, beg, placeholder);
-	if (!tmp->str)
+	str = ft_strjoin_free(beg, placeholder, beg, placeholder);
+	if (!str)
 		malloc_error_free_exit(msc, end, NULL);
-	tmp->str = ft_strjoin_free(tmp->str, end, tmp->str, end);
-	if (!tmp->str)
+	str = ft_strjoin_free(str, end, str, end);
+	if (!str)
 		malloc_error_free_exit(msc, NULL, NULL);
+	return (str);
 }
 
-void	exp_dol_qmark(t_msc *msc, t_list *tmp, int i)
+char	*exp_dol_qmark(t_msc *msc, char *str, int i)
 {
 	char	*to_free;
 	char	*code;
 	char	*ph;
 
-	to_free = tmp->str;
+	to_free = str;
 	code = ft_itoa(g_sig_status);
 	if (!code)
 		malloc_error_free_exit(msc, NULL, NULL);
 	if (i > 0)
-		ph = ft_substr(tmp->str, 0, i);
+		ph = ft_substr(str, 0, i);
 	else
 		ph = ft_strdup("");
 	if (!ph)
 		malloc_error_free_exit(msc, code, NULL);
-	tmp->str = ft_strjoin_free(ph, code, ph, code);
+	str = ft_strjoin_free(ph, code, ph, code);
 	if (to_free[i + 2] == '\0')
 		ph = ft_strdup("");
 	else
 		ph = ft_substr(to_free, i + 2, ft_strlen(to_free) - i - 2);
 	if (!ph)
 		malloc_error_free_exit(msc, to_free, NULL);
-	tmp->str = ft_strjoin_free(tmp->str, ph, tmp->str, ph);
+	str = ft_strjoin_free(str, ph, str, ph);
 	free(to_free);
+	return(str);
 }
 
 void	exp_tilde(t_msc *msc, t_list *tmp)
