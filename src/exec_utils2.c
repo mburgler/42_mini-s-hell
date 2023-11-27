@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:38:26 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/14 18:30:51 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:34:47 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	exec_builtin(t_cmd *cmd)
 		builtin_env(cmd->msc);
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 		builtin_exit_head(cmd);
+	free_all(cmd->msc);
 	exit(0);
 }
 

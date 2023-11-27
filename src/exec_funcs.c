@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/23 19:50:59 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:44:36 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,10 @@ int	make_pipeline(t_msc *msc)
 		if (pid[i] == -1)
 			free_msc_and_errno(msc, "Error in make_pipeline()");
 		else if (pid[i] == 0)
+		{
+			free(pid);
 			process_cmd(tmp, msc->dup_env, &prev_output);
+		}
 		else if (pid[i] > 0)
 			main_process(tmp, &prev_output);
 		tmp = tmp->next;
