@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 20:34:42 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:39:33 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ typedef struct s_msc
 	bool	loop;
 	char	*input;
 	char	*env_home;
+	int		stop_file_error;
+	char	*str_file_error;
 	t_env	*dup_env;
 }				t_msc;
 
@@ -106,6 +108,7 @@ void	ft_free_arr(char **strs);
 void	free_structs_and_input(t_msc *msc);
 void	free_all(t_msc *msc);
 void	free_msc_and_exit_success(t_msc *msc);
+void	main_free(t_msc *msc);
 
 //error_handling.c
 void	malloc_error_free_exit(t_msc *msc, char *to_free, char *to_free2);
@@ -251,6 +254,7 @@ t_list	*shift_lex_for_cmd(t_cmd *cmd, t_list *tmp);
 char	*bootstrap_exp_heredoc(char *buff, t_msc *msc);
 char	*kill_quote_heredoc(t_msc *msc, char *str);
 void	kill_in_out_file(t_cmd *cmd);
+int		heredoc_break_loop(char *buff, t_cmd *cmd, int i);
 
 //exec_prep.c
 void	set_c_and_o(t_cmd *cmds);

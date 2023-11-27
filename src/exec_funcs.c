@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/27 20:36:08 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:40:07 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,17 @@ int	make_pipeline(t_msc *msc)
 	int		prev_output;
 	pid_t	*pid;
 	t_cmd	*tmp;
+	char	*buff;
 
 	if (!msc || !msc->cmd)
 		return (-1);
+	if (msc->stop_file_error != 0)
+	{
+		buff = ft_strdup(msc->input);
+		free_structs_and_input(msc);
+		msc->input = buff;
+		return (1);
+	}
 	tmp = msc->cmd;
 	if (tmp->prev == NULL && tmp->next == NULL && is_no_op_builtin(tmp->cmd))
 		return (exec_no_op_builtin(tmp));

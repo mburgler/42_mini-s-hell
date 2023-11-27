@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:54:00 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 20:12:54 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:40:25 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,26 @@ void	free_msc_and_exit_success(t_msc *msc)
 	if (msc)
 		free_all(msc);
 	exit(0);
+}
+
+void	main_free(t_msc *msc)
+{
+	if (msc->stop_file_error != 0)
+	{
+		free(msc->input);
+		if (msc->str_file_error)
+		{
+			if (msc->stop_file_error == 1)
+			{
+				write(2, "permission denied/non existing: ", 32);
+				write(2, msc->str_file_error, ft_strlen(msc->str_file_error));
+				write(2, "\n", 1);
+			}
+			free(msc->str_file_error);
+			msc->str_file_error = NULL;
+		}
+	}
+	else
+		free_structs_and_input(msc);
+	msc->stop_file_error = 0;
 }
