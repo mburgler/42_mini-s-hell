@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/27 15:36:39 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:36:08 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,16 @@ int	executor(t_cmd *cmd, t_env *env, int cmd_type)
 	cur_cmd = NULL;
 	cur_env = NULL;
 	set_exec_temps(&cmd, &path, &cur_cmd, &cur_env);
+	signal(SIGQUIT, quit_child);
 	if (execve(path, cur_cmd, cur_env) == -1)
 	{
 		if (!path || !cur_cmd)
 			g_sig_status = 127;
-		free_exec_temps(path, NULL, cur_cmd, cur_env);
-		perror("Error in executor()");
-		strerror(errno);
-		if (errno == EACCES)
-			g_sig_status = 126;
+		free_exec_temps(path, NULL, NULL, cur_env);
+		perror_and_or_set_eacces();
+		close(cmd->p_fds[0]);
+		close(cmd->p_fds[1]);
+		free_all(cmd->msc);
 		exit(g_sig_status);
 	}
 	return (0);
@@ -62,7 +63,7 @@ int	wait_and_analyze(t_msc *msc, pid_t *pid)
 		else if (WIFSIGNALED(status))
 			set_sig_exit_status(status);
 		else if (WIFSTOPPED(status))
-			g_sig_status = WSTOPSIG(status);
+			g_sig_status = 128 + WSTOPSIG(status);
 		i++;
 	}
 	return (0);
@@ -86,10 +87,11 @@ int	process_cmd(t_cmd *cmd, t_env *env, int *pr_op)
 	{
 		close(cmd->p_fds[0]);
 		close(cmd->p_fds[1]);
-		if (cmd->fd_in > STDIN_FILENO)
+		if (cmd->fd_in != STDIN_FILENO)
 			close(cmd->fd_in);
-		if (cmd->fd_out > STDOUT_FILENO)
+		if (cmd->fd_out != STDOUT_FILENO)
 			close(cmd->fd_out);
+		free_all(cmd->msc);
 		exit(0);
 	}
 	if (set_file_desc(cmd, cmd->p_fds, pr_op) == -1)

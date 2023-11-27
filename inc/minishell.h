@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 15:56:38 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:34:42 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ int		sh_lvl_overflow(const char *str);
 //signal.c
 void	handle_sigint(int sig);
 void	quit_child(int sig);
+void	perror_and_or_set_eacces(void);
 
 //exp_func.c
 void	exp_head(t_msc *msc);
@@ -184,7 +185,7 @@ void	ft_lstclear(t_list **lst);
 t_list	*init_lst(t_msc *msc, char **input);
 
 //lex_funcs.c
-void	free_2d_arr(char **arr);
+void	free_2d_arr(char ***arr);
 int		check_syntax(t_msc *msc);
 void	input_lexer(t_msc *msc);
 void	ft_printlist(t_list *lst); //ONLY FOR TESTING; DELETE FROM FINAL VERSION
@@ -264,6 +265,7 @@ int		make_pipeline(t_msc *msc);
 
 //exec_extras.c
 void	fork_loop(t_msc *msc, t_cmd *tmp, int *prev_output, pid_t **pid);
+char	**append_heredoc_name(t_cmd **cmd);
 
 //exec_utils1.c
 int		is_builtin(const char *str);

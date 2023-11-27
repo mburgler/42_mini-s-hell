@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 17:26:23 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/23 19:41:44 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:42:50 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	exec_no_op_builtin(t_cmd *cmd)
 void	set_sig_exit_status(int wstatus)
 {
 	if (!WCOREDUMP(wstatus))
-		g_sig_status = WTERMSIG(wstatus);
+		g_sig_status = 128 + WTERMSIG(wstatus);
 	else
 	{
 		g_sig_status = 139;

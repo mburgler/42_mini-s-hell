@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:38:26 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/27 14:34:47 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:18:57 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	*free_exec_temps(char *del1, char *del2, char **del3, char **del4)
 	}
 	if (del3 != NULL)
 	{
-		free_2d_arr(del3);
+		free_2d_arr(&del3);
 		del3 = NULL;
 	}
 	if (del4 != NULL)
 	{
-		free_2d_arr(del4);
+		free_2d_arr(&del4);
 		del4 = NULL;
 	}
 	return (NULL);
@@ -75,14 +75,14 @@ char	*find_cmd_path(char *const cmd[], t_env *env)
 		if (!path || !full_path)
 			return (free_exec_temps(path, full_path, dirs, NULL));
 		free(path);
-		if (access(full_path, F_OK | X_OK) == 0)
+		if (access(full_path, F_OK | X_OK) == 0 || (dirs[i + 1] == NULL))
 		{
-			free_2d_arr(dirs);
+			free_2d_arr(&dirs);
 			return (full_path);
 		}
 		free(full_path);
 	}
-	free_2d_arr(dirs);
+	free_2d_arr(&dirs);
 	return (NULL);
 }
 

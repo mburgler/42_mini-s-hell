@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:15:34 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/19 18:46:49 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:27:21 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	builtin_exit_head(t_cmd *cmd)
 	while (cmd->full_cmd[i] != NULL)
 		i++;
 	if (i == 1)
-		exit(0);
+		exit(g_sig_status);
 	else if (i > 2)
 		exit(127);
 	else if (i == 2)

@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:21:59 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/27 15:49:45 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 18:55:27 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	fork_loop(t_msc *msc, t_cmd *tmp, int *prev_output, pid_t **pid)
 			free_msc_and_errno(msc, "Error in make_pipeline()");
 		else if ((*pid)[i] == 0)
 		{
+			tmp->pid = (*pid)[i];
 			free((*pid));
 			process_cmd(tmp, msc->dup_env, prev_output);
 		}
@@ -39,4 +40,35 @@ void	fork_loop(t_msc *msc, t_cmd *tmp, int *prev_output, pid_t **pid)
 		tmp = tmp->next;
 		i++;
 	}
+}
+
+//needed to shorten assemble_cmd()
+//replaces the given cmd node's full_cmd array with a new one where
+//the heredoc_name is added to the list of arguments
+char	**append_heredoc_name(t_cmd **cmd)
+{
+	int		i;
+	int		j;
+	char	**ret;
+
+	if (!cmd || !(*cmd))
+		return (NULL);
+	i = 0;
+	while ((*cmd)->full_cmd[i] != NULL)
+		i++;
+	ret = ft_calloc((i + 2), sizeof(char *));
+	if (!ret)
+		return (NULL);
+	j = -1;
+	while (++j < i)
+	{
+		ret[j] = ft_strdup((*cmd)->full_cmd[j]);
+		if (!ret[j])
+			return (del_split(ret, j));
+	}
+	ret[j] = ft_strdup((*cmd)->heredoc_name);
+	if (!ret[j])
+		return (del_split(ret, j));
+	ret[++j] = NULL;
+	return (ret);
 }

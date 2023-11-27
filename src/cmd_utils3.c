@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:12:13 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/25 18:14:44 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:15:32 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_cmdclear(t_cmd **lst)
 		if ((*lst)->option)
 			free((*lst)->option);
 		if ((*lst)->full_cmd)
-			free_2d_arr((*lst)->full_cmd);
+			free_2d_arr(&((*lst)->full_cmd));
 		if ((*lst)->fd_out > 1)
 			close((*lst)->fd_out);
 		if ((*lst)->fd_in > 0)

@@ -6,27 +6,27 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/20 21:35:18 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:25:24 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //deletes the 2D array created by lex_split()
-void	free_2d_arr(char **arr)
+void	free_2d_arr(char ***arr)
 {
 	int	i;
 
 	i = -1;
-	if (arr)
+	if (arr && (*arr))
 	{
-		while (arr[++i])
+		while ((*arr)[++i])
 		{
-			free(arr[i]);
-			arr[i] = NULL;
+			free((*arr)[i]);
+			(*arr)[i] = NULL;
 		}
-		free(arr);
-		arr = NULL;
+		free((*arr));
+		(*arr) = NULL;
 	}
 }
 
@@ -61,7 +61,7 @@ void	input_lexer(t_msc *msc)
 		return ;
 	tmp = lex_split(msc->input);
 	msc->lex = init_lst(msc, tmp);
-	free_2d_arr(tmp);
+	free_2d_arr(&tmp);
 	if (!msc->lex)
 		free_msc_and_exit(msc, "Memory allocation error: malloc\n");
 	exp_head(msc);

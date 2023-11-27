@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:21:20 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/20 21:26:24 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:14:12 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ void	ft_lstclear(t_list **lst)
 	{
 		tmp = (*lst)->next;
 		if ((*lst)->str)
+		{
 			free((*lst)->str);
+			(*lst)->str = NULL;
+		}
 		free(*lst);
 		*lst = tmp;
 	}
