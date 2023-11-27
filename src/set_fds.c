@@ -6,11 +6,25 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 22:09:10 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/27 14:47:53 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:53:41 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+//needed to shorten set_file_desc()
+//closes pipe file descriptors inside single child processes
+int	close_single_fds(t_cmd *cmd)
+{
+	if (!cmd)
+		return (-1);
+	if (!cmd->next && cmd->p_fds[0] != -1 && cmd->p_fds[1] != -1)
+	{
+		close(cmd->p_fds[0]);
+		close(cmd->p_fds[1]);
+	}
+	return (0);
+}
 
 //sets up the necessary file descriptors so that child processes can
 //read from/write to the correct fd
@@ -38,11 +52,8 @@ int	set_file_desc(t_cmd *cmd, int *p_fds, int *pr_op)
 	if (*pr_op != 0)
 		if (set_prev_output(pr_op) == -1)
 			return (-1);
-	if (!cmd->next && cmd->p_fds[0] != -1 && cmd->p_fds[1] != -1)
-	{
-		close(cmd->p_fds[0]);
-		close(cmd->p_fds[1]);
-	}
+	if (close_single_fds(cmd) == -1)
+		return (-1);
 	return (0);
 }
 

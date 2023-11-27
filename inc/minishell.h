@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 14:51:25 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:55:30 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	dup_env_head(t_msc *msc, char **org_env);
 t_env	*ft_dup_envnew(char *str, t_msc *msc);
 void	dup_env_error(t_msc *msc, t_env *current_node);
 char	*ft_getenv(char *searchterm, t_msc *msc);
+
 //env_utils.c
 void	ft_envadd_back(t_env **lst, t_env *new);
 t_env	*ft_envlast(t_env *lst);
@@ -251,6 +252,9 @@ int		main_process(t_cmd *cmd, int *pr_op);
 int		process_cmd(t_cmd *cmd, t_env *env, int *prev_output);
 int		make_pipeline(t_msc *msc);
 
+//exec_extras.c
+void	fork_loop(t_msc *msc, t_cmd *tmp, int *prev_output, pid_t **pid);
+
 //exec_utils1.c
 int		is_builtin(const char *str);
 char	**assemble_cmd(t_cmd *cmd);
@@ -273,6 +277,7 @@ int		exec_no_op_builtin(t_cmd *cmd);
 void	set_sig_exit_status(int wstatus);
 
 //set_fds.c
+int		close_single_fds(t_cmd *cmd);
 int		set_file_desc(t_cmd *cmd, int *p_fds, int *pr_op);
 void	close_all(t_cmd *cmds);
 int		set_prev_output(int *pr_op);

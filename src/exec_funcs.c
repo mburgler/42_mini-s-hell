@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/27 14:49:57 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:36:39 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int	make_pipeline(t_msc *msc)
 	int		prev_output;
 	pid_t	*pid;
 	t_cmd	*tmp;
-	int		i;
 
 	if (!msc || !msc->cmd)
 		return (-1);
@@ -116,24 +115,7 @@ int	make_pipeline(t_msc *msc)
 	pid = malloc(sizeof(pid_t) * nb_of_processes(tmp));
 	if (!pid)
 		return (-1);
-	i = 0;
-	while (tmp)
-	{
-		if (pipe(tmp->p_fds) == -1)
-			free_msc_and_errno(msc, "Error in make_pipeline()");
-		pid[i] = fork();
-		if (pid[i] == -1)
-			free_msc_and_errno(msc, "Error in make_pipeline()");
-		else if (pid[i] == 0)
-		{
-			free(pid);
-			process_cmd(tmp, msc->dup_env, &prev_output);
-		}
-		else if (pid[i] > 0)
-			main_process(tmp, &prev_output);
-		tmp = tmp->next;
-		i++;
-	}
+	fork_loop(msc, tmp, &prev_output, &pid);
 	wait_and_analyze(msc, pid);
 	free(pid);
 	return (0);
