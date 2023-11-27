@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:38:40 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 13:52:13 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:19:05 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_msc	*init_msc(char **env)
 	msc->cmd = NULL;
 	msc->loop = true;
 	msc->input = NULL;
+	msc->stop_file_error = 0;
+	msc->str_file_error = NULL;
 	dup_env_head(msc, env);
 	msc->env_home = getenv("HOME");
 	return (msc);
@@ -80,7 +82,7 @@ int	main(int argc, char **argv, char **env)
 		else
 			handle_input(msc);
 		add_history(msc->input);
-		free_structs_and_input(msc);
+		main_free(msc);
 	}
 	free_all(msc);
 	return (0);

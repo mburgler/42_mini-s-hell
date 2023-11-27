@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/27 15:36:39 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:21:39 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,17 @@ int	make_pipeline(t_msc *msc)
 	int		prev_output;
 	pid_t	*pid;
 	t_cmd	*tmp;
+	char	*buff;
 
 	if (!msc || !msc->cmd)
 		return (-1);
+	if (msc->stop_file_error != 0)
+	{
+		buff = ft_strdup(msc->input);
+		free_structs_and_input(msc);
+		msc->input = buff;
+		return (1);
+	}
 	tmp = msc->cmd;
 	if (tmp->prev == NULL && tmp->next == NULL && is_no_op_builtin(tmp->cmd))
 		return (exec_no_op_builtin(tmp));

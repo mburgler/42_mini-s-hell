@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 11:49:35 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:26:22 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,11 @@ void	ft_outfile(t_cmd *cmd, int i, int type)
 	if (cmd->fd_out == -1)
 	{
 		g_sig_status = 1;
-		free_msc_and_errno(cmd->msc, "Error in ft_outfile()");
+		if (cmd->msc->stop_file_error != 2)
+			cmd->msc->stop_file_error = 1;
+		if (cmd->msc->str_file_error)
+			free(cmd->msc->str_file_error);
+		cmd->msc->str_file_error = ft_strdup(cmd->full_cmd[i]);
 	}
 }
 
@@ -121,7 +125,11 @@ void	ft_infile(t_cmd *cmd, int i, int type)
 	if (cmd->fd_in == -1)
 	{
 		g_sig_status = 1;
-		free_msc_and_errno(cmd->msc, "Error in ft_infile()");
+		if (cmd->msc->stop_file_error != 2)
+			cmd->msc->stop_file_error = 1;
+		if (cmd->msc->str_file_error)
+			free(cmd->msc->str_file_error);
+		cmd->msc->str_file_error = ft_strdup(cmd->full_cmd[i]);
 	}
 }
 
@@ -139,17 +147,36 @@ int	handle_heredoc(t_cmd *cmd, int i)
 	cmd->fd_in_type = HEREDOC;
 	if (fd == -1)
 		return (fd);
+	g_sig_status = 0;
 	while (1)
 	{
 		buff = readline("minidoc> ");
 		buff = bootstrap_exp_heredoc(buff, cmd->msc);
-		if (!ft_strncmp(cmd->full_cmd[i], buff, ft_strlen(cmd->full_cmd[i])))
-		{
-			free(buff);
+		if (heredoc_break_loop(buff, cmd, i) == 1)
 			break ;
-		}
 		write(fd, buff, ft_strlen(buff));
 		free(buff);
 	}
 	return (fd);
+}
+
+int	heredoc_break_loop(char *buff, t_cmd *cmd, int i)
+{
+	if (g_sig_status == 130 && buff && cmd->msc)
+	{
+		free(buff);
+		cmd->msc->stop_file_error = 2;
+		if (cmd && cmd->msc && cmd->msc->str_file_error)
+		{
+			free(cmd->msc->str_file_error);
+			cmd->msc->str_file_error = NULL;
+		}
+		return (1);
+	}
+	if (!ft_strncmp(cmd->full_cmd[i], buff, ft_strlen(cmd->full_cmd[i])))
+	{
+		free(buff);
+		return (1);
+	}
+	return (0);
 }
