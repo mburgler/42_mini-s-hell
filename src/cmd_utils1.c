@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:25:32 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/25 18:12:10 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:46:19 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_cmd	*ft_cmdnew(t_msc *ms, int i)
 	ret->fd_out = 1;
 	ret->fd_in_type = 0;
 	ret->fd_out_type = 0;
+	ret->p_fds[0] = -1;
+	ret->p_fds[1] = -1;
 	ret->next = NULL;
 	ret->prev = NULL;
 	ret->msc = ms;
