@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 01:48:41 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/13 21:52:00 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/26 14:53:23 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	set_c_and_o(t_cmd *cmds)
 		{
 			cmds->cmd = ft_strdup(cmds->full_cmd[0]);
 			if (!cmds->cmd)
-				free_msc_and_errno(cmds->msc, "Error in set_c_and_o(): ");
+				free_msc_and_errno(cmds->msc, "Error in set_c_and_o()");
 		}
 		cmds = cmds->next;
 	}
@@ -56,6 +56,7 @@ void	isolate_cmd(t_cmd **cmd)
 	i = 0;
 	while ((*cmd)->cmd[j])
 		res[i++] = ((*cmd)->cmd[j++]);
+	res[i] = '\0';
 	free((*cmd)->cmd);
 	(*cmd)->cmd = res;
 }
