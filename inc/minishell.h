@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 11:50:24 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:51:25 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	quit_child(int sig);
 
 //exp_func.c
 void	exp_head(t_msc *msc);
-char 	*exp_logic_new(t_msc *msc, char *str, t_list *tmp);
+char	*exp_logic_new(t_msc *msc, char *str, t_list *tmp);
 char	*exp_sub(char *str, int i, int a0, t_msc *msc);
 char	*exp_dol_qmark(t_msc *msc, char *str, int i);
 void	exp_tilde(t_msc *msc, t_list *tmp);

@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 14:14:19 by mburgler          #+#    #+#             */
-/*   Updated: 2023/05/14 18:28:27 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:49:08 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_atoi(const char *nptr)
 	else if (sign < 0 && overflow_handler(nptr, i, sign))
 		return (0);
 	while ((nptr[i] >= '0') && (nptr[i] <= '9'))
-	{	
+	{
 		nb = (nb * 10) + (nptr[i] - 48);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:06:04 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 12:20:54 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:48:16 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ char	*kill_quote_heredoc(t_msc *msc, char *str)
 		malloc_error_free_exit(msc, NULL, NULL);
 	while (str[i] && i != (int)ft_strlen(str) - 1)
 	{
-			buff[j] = str[i];
-			i++;
-			j++;
+		buff[j] = str[i];
+		i++;
+		j++;
 	}
 	buff[j] = '\0';
 	free(str);

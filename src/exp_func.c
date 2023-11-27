@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 12:21:22 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:47:55 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ char	*exp_dol_qmark(t_msc *msc, char *str, int i)
 		malloc_error_free_exit(msc, to_free, NULL);
 	str = ft_strjoin_free(str, ph, str, ph);
 	free(to_free);
-	return(str);
+	return (str);
 }
 
 void	exp_tilde(t_msc *msc, t_list *tmp)

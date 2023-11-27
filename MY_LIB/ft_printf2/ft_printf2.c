@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:28:22 by mburgler          #+#    #+#             */
-/*   Updated: 2023/05/09 21:31:41 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:49:19 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	g_counter2;
 
 void	ft_putchar_2(char c)
-{	
+{
 	write (2, &c, 1);
 	g_counter2++;
 }

@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:08:48 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 13:56:24 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:48:44 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ int	sh_lvl_alph(t_msc *msc, t_env *tmp)
 	i = 0;
 	while (tmp->value[i])
 	{
-		while (tmp->value[i] && (ft_is_whitespace(tmp->value + i, 0) >= 0 || \
-			tmp->value[i] == '0' || tmp->value[i] == '+' || tmp->value[i] == '-'))
+		while (tmp->value[i] && (ft_is_whitespace(tmp->value + i, 0) >= 0 \
+			|| tmp->value[i] == '0' || tmp->value[i] == '+' \
+			|| tmp->value[i] == '-'))
 			i++;
 		if (!ft_isdigit(tmp->value[i]))
 		{
