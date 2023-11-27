@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 20:26:22 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:07:52 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	ft_infile(t_cmd *cmd, int i, int type)
 		cmd->fd_in = open(cmd->full_cmd[i], O_RDWR);
 		cmd->fd_in_type = IP_REDIR;
 	}
-	if (type == HEREDOC)
+	if (type == HEREDOC && cmd->msc->stop_file_error != 2)
 		cmd->fd_in = handle_heredoc(cmd, i);
 	if (cmd->fd_in == -1)
 	{

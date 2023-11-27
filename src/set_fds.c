@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_fds.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 22:09:10 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/27 21:56:02 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 22:41:01 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ void	close_all(t_cmd *cmds)
 		return ;
 	while (cmds)
 	{
-		close(cmds->p_fds[0]);
-		close(cmds->p_fds[1]);
+		if (cmds->p_fds[0] != -1)
+			close(cmds->p_fds[0]);
+		if (cmds->p_fds[1] != -1)
+			close(cmds->p_fds[1]);
 		cmds = cmds->next;
 	}
 }
