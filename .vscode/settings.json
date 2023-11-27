@@ -3,6 +3,14 @@
 		"minishell.h": "c",
 		"ioctl.h": "c",
 		"sstream": "c",
-		"old_expander": "c"
+		"old_expander": "c",
+		"array": "c",
+		"deque": "c",
+		"string": "c",
+		"unordered_map": "c",
+		"vector": "c",
+		"string_view": "c",
+		"initializer_list": "c",
+		"ranges": "c"
 	}
 }

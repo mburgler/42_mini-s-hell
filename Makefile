@@ -6,7 +6,7 @@
 #    By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/21 10:55:14 by mburgler          #+#    #+#              #
-#    Updated: 2023/11/27 15:22:55 by abektimi         ###   ########.fr        #
+#    Updated: 2023/11/27 15:56:59 by abektimi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,7 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
 					src/exp_func.c \
 					src/exp_utils1.c \
 					src/exp_utils2.c \
+                    src/exp_utils3.c \
 					src/op_func.c \
                     src/lex_funcs.c \
                     src/lex_split.c \

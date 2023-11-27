@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 14:53:26 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:47:51 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,42 +68,24 @@ char	*exp_logic_new(t_msc *msc, char *str, t_list *tmp)
 
 char	*exp_sub(char *str, int i, int a0, t_msc *msc)
 {
-	char	*env;
-	char	*beg;
-	char	*end;
-	char	*placeholder;
+	t_exp	*exp;
 
-	placeholder = str;
-	env = ft_substr(str, i + 1, a0);
-	if (!env)
-		malloc_error_free_exit(msc, NULL, NULL);
-	if (i > 0)
-		beg = ft_substr(str, 0, i);
+	exp = exp_sub_init(str, i, a0, msc);
+	exp->buff = ft_getenv(exp->env, msc);
+	if (!exp->buff)
+		exp->buff = ft_strdup("");
 	else
-		beg = ft_strdup("");
-	if (!beg)
-		malloc_error_free_exit(msc, env, NULL);
-	if (str[i + a0 + 1] == '\0')
-		end = ft_strdup("");
-	else
-		end = ft_substr(str, i + a0 + 1, ft_strlen(str) - a0 - i);
-	if (!end)
-		malloc_error_free_exit(msc, beg, env);
-	free(placeholder);
-	placeholder = ft_getenv(env, msc);
-	if (!placeholder)
-		placeholder = ft_strdup("");
-	else
-		placeholder = ft_strdup(placeholder);
-	if (!placeholder)
-		malloc_error_free_exit(msc, beg, end);
-	free(env);
-	str = ft_strjoin_free(beg, placeholder, beg, placeholder);
+		exp->buff = ft_strdup(exp->buff);
+	if (!exp->buff)
+		malloc_error_free_exp_exit(msc, exp, exp->beg, exp->end);
+	free(exp->env);
+	str = ft_strjoin_free(exp->beg, exp->buff, exp->beg, exp->buff);
 	if (!str)
-		malloc_error_free_exit(msc, end, NULL);
-	str = ft_strjoin_free(str, end, str, end);
+		malloc_error_free_exp_exit(msc, exp, exp->end, NULL);
+	str = ft_strjoin_free(str, exp->end, str, exp->end);
 	if (!str)
-		malloc_error_free_exit(msc, NULL, NULL);
+		malloc_error_free_exp_exit(msc, exp, NULL, NULL);
+	free(exp);
 	return (str);
 }
 
