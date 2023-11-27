@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:54:00 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 20:40:25 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 22:26:47 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	free_all(t_msc *msc)
 	}
 	if (msc->cmd)
 	{
+		close_all(msc->cmd);
 		ft_cmdclear(&(msc->cmd));
 		msc->cmd = NULL;
 	}

@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/27 20:40:07 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 22:21:31 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	executor(t_cmd *cmd, t_env *env, int cmd_type)
 			g_sig_status = 127;
 		free_exec_temps(path, NULL, NULL, cur_env);
 		perror_and_or_set_eacces();
-		close(cmd->p_fds[0]);
-		close(cmd->p_fds[1]);
 		free_all(cmd->msc);
 		exit(g_sig_status);
 	}
@@ -91,6 +89,8 @@ int	process_cmd(t_cmd *cmd, t_env *env, int *pr_op)
 			close(cmd->fd_in);
 		if (cmd->fd_out != STDOUT_FILENO)
 			close(cmd->fd_out);
+		if (cmd->prev)
+			close(*pr_op);
 		free_all(cmd->msc);
 		exit(0);
 	}
