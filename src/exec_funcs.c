@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/23 19:50:59 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:42:08 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,15 @@ int	main_process(t_cmd *cmd, int *pr_op)
 int	process_cmd(t_cmd *cmd, t_env *env, int *pr_op)
 {
 	if (!cmd->cmd)
+	{
+		close(cmd->p_fds[0]);
+		close(cmd->p_fds[1]);
+		if (cmd->fd_in > STDIN_FILENO)
+			close(cmd->fd_in);
+		if (cmd->fd_out > STDOUT_FILENO)
+			close(cmd->fd_out);
 		exit(0);
+	}
 	if (set_file_desc(cmd, cmd->p_fds, pr_op) == -1)
 		exit_child_and_errno("Child failed to set up fds");
 	return (executor(cmd, env, is_builtin(cmd->cmd)));

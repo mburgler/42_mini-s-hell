@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_func.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/25 19:16:39 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/26 14:57:28 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	exp_head(t_msc *msc)
 	}
 	exp_retokenize(msc);
 	reset_lex_index(msc->lex);
-	ft_printlist(msc->lex);
 }
 
 void	exp_logic_new(t_msc *msc, t_list *tmp)
