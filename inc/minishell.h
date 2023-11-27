@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 15:36:22 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:48:43 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,7 @@ int		ft_is_whitespace_str(char *str);
 void	exp_retokenize(t_msc *msc);
 void	exp_retokenize_inner(int i, t_list *tmp, t_msc *msc);
 t_exp	*exp_sub_init(char *str, int i, int a0, t_msc *msc);
-void	malloc_error_free_exp_exit(t_msc *msc, t_exp *exp,char *tf, char *tf2);
-
+void	malloc_error_free_exp_exit(t_msc *msc, t_exp *exp, char *tf, char *tf2);
 
 //op_func.c
 void	tokenize_op(t_msc *msc);

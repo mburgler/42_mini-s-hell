@@ -6,19 +6,19 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:34:39 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 15:36:17 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:47:26 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	malloc_error_free_exp_exit(t_msc *msc, t_exp *exp,char *tf, char *tf2)
+void	malloc_error_free_exp_exit(t_msc *msc, t_exp *exp, char *tf, char *tf2)
 {
 	if (tf)
 		free(tf);
 	if (tf2)
 		free(tf2);
-	if(exp)
+	if (exp)
 		free(exp);
 	perror("Memory allocation error: malloc\n");
 	if (msc)

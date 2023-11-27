@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:48:16 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 15:36:09 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:47:51 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,4 +140,3 @@ void	exp_tilde(t_msc *msc, t_list *tmp)
 	if (!tmp->str)
 		malloc_error_free_exit(msc, tf, NULL);
 }
-
