@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/28 19:42:55 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:19:14 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,5 +340,6 @@ void	exit_with_two_args(t_cmd *cmd);
 int		no_valid_path(t_msc *msc);
 int		is_empty_arg(const char *input);
 int		erroneous_input(void);
+void	kill_in_out_file_sub(t_cmd *cmd);
 
 #endif

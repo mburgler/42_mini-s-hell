@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_path_errors.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:06:38 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/28 19:45:04 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:19:05 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,10 @@ int	erroneous_input(void)
 	strerror(errno);
 	g_sig_status = 1;
 	return (1);
+}
+
+void	kill_in_out_file_sub(t_cmd *cmd)
+{
+	if (cmd->full_cmd == NULL)
+		free_msc_and_exit(cmd->msc, "Memory allocation error: malloc\n");
 }

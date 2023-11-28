@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:06:04 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 14:48:16 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:25:07 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,15 @@ char	*bootstrap_exp_heredoc(char *buff, t_msc *msc)
 	char	*str;
 
 	str = ft_strdup(buff);
+	if (!str)
+		malloc_error_free_exit(msc, buff, NULL);
 	free(buff);
 	str = ft_strjoin_free("\"", str, str, NULL);
+	if (!str)
+		malloc_error_free_exit(msc, NULL, NULL);
 	str = ft_strjoin_free(str, "\"", str, NULL);
+	if (!str)
+		malloc_error_free_exit(msc, NULL, NULL);
 	if (ft_strchr(str, '$'))
 	{
 		str = exp_logic_new(msc, str, NULL);
@@ -49,6 +55,8 @@ char	*bootstrap_exp_heredoc(char *buff, t_msc *msc)
 	}
 	str = kill_quote_heredoc(msc, str);
 	str = ft_strjoin_free(str, "\n", str, NULL);
+	if (!str)
+		malloc_error_free_exit(msc, NULL, NULL);
 	return (str);
 }
 
@@ -79,9 +87,9 @@ void	kill_in_out_file(t_cmd *cmd)
 	int		i;
 	t_list	*tmp;
 
-	i = 0;
+	i = -1;
 	tmp = shift_lex_for_cmd(cmd, cmd->msc->lex);
-	while (cmd->full_cmd[i])
+	while (cmd->full_cmd[++i])
 	{
 		if ((cmd->full_cmd[i][0] == '>' || cmd->full_cmd[i][0] == '<')
 			&& tmp->quote_status == 0 && tmp->exp == 0)
@@ -89,14 +97,16 @@ void	kill_in_out_file(t_cmd *cmd)
 			free(cmd->full_cmd[i]);
 			cmd->full_cmd[i] = NULL;
 			cmd->full_cmd[i] = ft_strdup("");
+			if (!cmd->full_cmd[i])
+				malloc_error_free_exit(cmd->msc, NULL, NULL);
 			free(cmd->full_cmd[i + 1]);
 			cmd->full_cmd[i + 1] = NULL;
 			cmd->full_cmd[i + 1] = ft_strdup("");
+			if (!cmd->full_cmd[i + 1])
+				malloc_error_free_exit(cmd->msc, NULL, NULL);
 		}
-		i++;
 		tmp = tmp->next;
 	}
 	cmd->full_cmd = shorten_arr(cmd->full_cmd, i);
-	if (cmd->full_cmd == NULL)
-		free_msc_and_exit(cmd->msc, "Memory allocation error: malloc\n");
+	kill_in_out_file_sub(cmd);
 }
