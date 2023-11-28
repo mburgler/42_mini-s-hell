@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_out_files.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/28 14:44:48 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:58:44 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ int	handle_heredoc(t_cmd *cmd, int i)
 	while (1)
 	{
 		buff = readline("minidoc> ");
+		if (buff == NULL)
+			break ;
 		buff = bootstrap_exp_heredoc(buff, cmd->msc);
 		if (heredoc_break_loop(buff, cmd, i) == 1)
 			break ;
