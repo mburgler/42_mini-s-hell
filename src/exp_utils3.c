@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:34:39 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 15:47:26 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:43:49 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_exp	*exp_sub_init(char *str, int i, int a0, t_msc *msc)
 	t_exp	*exp;
 
 	exp = malloc(sizeof(t_exp));
+	if (!exp)
+		malloc_error_free_exit(msc, NULL, NULL);
 	exp->buff = str;
 	exp->env = ft_substr(str, i + 1, a0);
 	if (!exp->env)

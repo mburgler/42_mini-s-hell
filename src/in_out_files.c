@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:11:06 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 23:07:52 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:44:48 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	set_in_out_file(t_cmd *cmd)
 
 	i = 0;
 	tmp = shift_lex_for_cmd(cmd, cmd->msc->lex);
+	if (!cmd->full_cmd)
+		malloc_error_free_exit(cmd->msc, NULL, NULL);
 	while (cmd->full_cmd[i])
 	{
 		if (tmp->quote_status == 0)

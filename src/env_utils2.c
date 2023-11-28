@@ -6,7 +6,7 @@
 /*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:08:48 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 14:48:44 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:43:59 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	sh_lvl(t_msc *msc)
 			to_free = tmp->value;
 			tmp->value = ft_itoa(ft_atoi(tmp->value) + 1);
 			if (!tmp->value)
-				malloc_error_free_exit(msc, NULL, NULL);
+				malloc_error_free_exit(msc, to_free, NULL);
 			free(to_free);
 			return ;
 		}
