@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/27 21:56:51 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:54:45 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ int		sh_lvl_overflow(const char *str);
 //signals.c
 //signal.c
 void	handle_sigint(int sig);
+void	handle_sigint_parent(int sig);
 void	quit_child(int sig);
 void	perror_and_or_set_eacces(void);
 

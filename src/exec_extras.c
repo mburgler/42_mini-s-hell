@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_extras.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:21:59 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/27 18:55:27 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:54:03 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	fork_loop(t_msc *msc, t_cmd *tmp, int *prev_output, pid_t **pid)
 	{
 		if (pipe(tmp->p_fds) == -1)
 			free_msc_and_errno(msc, "Error in make_pipeline()");
+		signal(SIGINT, handle_sigint_parent);
 		(*pid)[i] = fork();
 		if ((*pid)[i] == -1)
 			free_msc_and_errno(msc, "Error in make_pipeline()");

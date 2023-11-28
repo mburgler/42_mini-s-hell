@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/27 22:21:31 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:53:15 by mburgler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	wait_and_analyze(t_msc *msc, pid_t *pid)
 			g_sig_status = 128 + WSTOPSIG(status);
 		i++;
 	}
+	signal(SIGINT, handle_sigint);
 	return (0);
 }
 
