@@ -6,7 +6,7 @@
 /*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:22:50 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/27 20:25:24 by abektimi         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:11:30 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,13 @@ void	input_lexer(t_msc *msc)
 		return ;
 	msc->cmd = init_cmd(msc, nb_of_cmds(msc->lex));
 	set_c_and_o(msc->cmd);
-	make_pipeline(msc);
+	if (make_pipeline(msc) == 2)
+	{
+		errno = ENOENT;
+		perror("minishell");
+		strerror(errno);
+		g_sig_status = 127;
+	}
 }
 
 //ONLY INCLUDED FOR TESTING PURPOSES

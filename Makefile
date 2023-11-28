@@ -6,7 +6,7 @@
 #    By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/21 10:55:14 by mburgler          #+#    #+#              #
-#    Updated: 2023/11/27 15:56:59 by abektimi         ###   ########.fr        #
+#    Updated: 2023/11/28 18:09:33 by abektimi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,7 +109,8 @@ SRCS        :=      MY_LIB/ft_printf2/ft_printf2_helper.c \
 					src/builtin_unset.c \
                     src/builtin_exit.c \
                     src/set_fds.c \
-                    src/exec_extras.c
+                    src/exec_extras.c \
+                    src/check_path_errors.c
 
 OBJS        := $(SRCS:.c=.o)
 

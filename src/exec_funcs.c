@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:52 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/28 15:53:15 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:34:19 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ int	executor(t_cmd *cmd, t_env *env, int cmd_type)
 	signal(SIGQUIT, quit_child);
 	if (execve(path, cur_cmd, cur_env) == -1)
 	{
-		if (!path || !cur_cmd)
-			g_sig_status = 127;
+		g_sig_status = 127;
 		free_exec_temps(path, NULL, NULL, cur_env);
 		perror_and_or_set_eacces();
 		free_all(cmd->msc);
@@ -65,6 +64,7 @@ int	wait_and_analyze(t_msc *msc, pid_t *pid)
 		i++;
 	}
 	signal(SIGINT, handle_sigint);
+	free(pid);
 	return (0);
 }
 
@@ -112,7 +112,7 @@ int	make_pipeline(t_msc *msc)
 
 	if (!msc || !msc->cmd)
 		return (-1);
-	if (msc->stop_file_error != 0)
+	if (msc->stop_file_error != 0 || is_empty_arg(msc->input))
 	{
 		buff = ft_strdup(msc->input);
 		free_structs_and_input(msc);
@@ -120,14 +120,14 @@ int	make_pipeline(t_msc *msc)
 		return (1);
 	}
 	tmp = msc->cmd;
-	if (tmp->prev == NULL && tmp->next == NULL && is_no_op_builtin(tmp->cmd))
-		return (exec_no_op_builtin(tmp));
-	prev_output = 0;
+	if (tmp->prev == NULL && tmp->next == NULL && is_builtin(tmp->cmd))
+		return (exec_single_builtin(tmp));
+	if (no_valid_path(msc))
+		return (2);
 	pid = malloc(sizeof(pid_t) * nb_of_processes(tmp));
 	if (!pid)
 		return (-1);
-	fork_loop(msc, tmp, &prev_output, &pid);
-	wait_and_analyze(msc, pid);
-	free(pid);
+	prev_output = 0;
+	fork_and_wait(msc, tmp, &prev_output, &pid);
 	return (0);
 }

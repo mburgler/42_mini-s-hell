@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:39:55 by mburgler          #+#    #+#             */
-/*   Updated: 2023/11/28 15:54:45 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:42:55 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,6 +271,7 @@ int		make_pipeline(t_msc *msc);
 //exec_extras.c
 void	fork_loop(t_msc *msc, t_cmd *tmp, int *prev_output, pid_t **pid);
 char	**append_heredoc_name(t_cmd **cmd);
+void	fork_and_wait(t_msc *msc, t_cmd *tmp, int *pr_op, pid_t **pid);
 
 //exec_utils1.c
 int		is_builtin(const char *str);
@@ -333,5 +334,11 @@ char	*set_path(t_cmd *cmd);
 //builtin_exit.c
 int		num_only(const char *str);
 void	builtin_exit_head(t_cmd *cmd);
+void	exit_with_two_args(t_cmd *cmd);
+
+//check_path_errors.c
+int		no_valid_path(t_msc *msc);
+int		is_empty_arg(const char *input);
+int		erroneous_input(void);
 
 #endif

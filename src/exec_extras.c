@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_extras.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mburgler <mburgler@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abektimi <abektimi@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:21:59 by abektimi          #+#    #+#             */
-/*   Updated: 2023/11/28 15:54:03 by mburgler         ###   ########.fr       */
+/*   Updated: 2023/11/28 18:35:32 by abektimi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,10 @@ char	**append_heredoc_name(t_cmd **cmd)
 		return (del_split(ret, j));
 	ret[++j] = NULL;
 	return (ret);
+}
+
+void	fork_and_wait(t_msc *msc, t_cmd *tmp, int *pr_op, pid_t **pid)
+{
+	fork_loop(msc, tmp, pr_op, pid);
+	wait_and_analyze(msc, (*pid));
 }
